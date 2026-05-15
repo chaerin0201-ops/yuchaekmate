@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유책메이트 | 위자료 예측 시뮬레이션</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+:root{--beige:#F4EFEA;--beige-dark:#EAE3DB;--beige-mid:#DDD4C8;--charcoal:#2C2C2C;--charcoal-light:#4A4A4A;--charcoal-muted:#7A7A7A;--burgundy:#721B29;--burgundy-pale:#F0E4E6;--gold:#B8976A;--white:#FDFAF7;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--beige);color:var(--charcoal);overflow-x:hidden;word-break:keep-all;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 100px;height:88px;background:rgba(244,239,234,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(114,27,41,0.12);}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-logo-text{display:flex;flex-direction:column;gap:5px;}
+.nav-logo-main{font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;color:var(--charcoal);letter-spacing:-0.01em;line-height:1;}
+.nav-logo-sub{font-size:9px;font-weight:300;color:var(--burgundy);letter-spacing:0.22em;text-transform:uppercase;line-height:1;padding-left:6px;}
+.nav-logo-icon{width:52px;height:52px;flex-shrink:0;object-fit:contain;}
+.nav-links{display:flex;gap:0;list-style:none;height:72px;}
+.nav-item{position:relative;display:flex;align-items:center;}
+.nav-item>a{font-size:13px;font-weight:400;color:var(--charcoal-light);text-decoration:none;letter-spacing:0.04em;padding:0 20px;height:72px;display:flex;align-items:center;gap:5px;transition:color 0.2s;white-space:nowrap;}
+.nav-item>a:hover,.nav-item.active>a{color:var(--burgundy);}
+.nav-arrow{font-size:8px;opacity:0.5;transition:transform 0.2s;display:inline-block;}
+.nav-item:hover>a .nav-arrow{transform:rotate(180deg);}
+.nav-dropdown{position:absolute;top:72px;left:0;background:var(--white);border-top:2px solid var(--burgundy);border-bottom:1px solid rgba(114,27,41,0.1);box-shadow:0 8px 32px rgba(44,44,44,0.1);min-width:200px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:all 0.22s ease;z-index:200;}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0);}
+.nav-dropdown-section{border-bottom:1px solid rgba(114,27,41,0.07);}
+.nav-dropdown-section:last-child{border-bottom:none;}
+.nav-dropdown-label{font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--burgundy);padding:12px 20px 6px;display:block;}
+.nav-dropdown a{display:block;font-size:12.5px;font-weight:400;color:var(--charcoal-light);text-decoration:none;padding:8px 20px 8px 28px;transition:all 0.18s;white-space:nowrap;}
+.nav-dropdown a:hover,.nav-dropdown a.active{color:var(--burgundy);background:var(--burgundy-pale);padding-left:32px;}
+.nav-sub-group{position:relative;}
+.nav-sub-label{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:400;color:var(--charcoal-light);padding:8px 20px 8px 28px;cursor:default;white-space:nowrap;}
+.nav-sub-dropdown{position:absolute;left:100%;top:-2px;background:var(--white);border-top:2px solid var(--burgundy);box-shadow:8px 8px 32px rgba(44,44,44,0.1);min-width:190px;opacity:0;visibility:hidden;transform:translateX(-6px);transition:all 0.2s ease;z-index:300;}
+.nav-sub-group:hover .nav-sub-dropdown{opacity:1;visibility:visible;transform:translateX(0);}
+.nav-sub-dropdown a{padding:9px 20px;font-size:12.5px;color:var(--charcoal-light);text-decoration:none;display:block;transition:all 0.18s;white-space:nowrap;}
+.nav-sub-dropdown a:hover{color:var(--burgundy);background:var(--burgundy-pale);padding-left:24px;}
+.nav-cta-btn{background:var(--burgundy);color:var(--white)!important;padding:10px 22px;border-radius:2px;font-size:12px;font-weight:500;letter-spacing:0.08em;text-decoration:none;white-space:nowrap;transition:background 0.2s;margin-left:16px;}
+.nav-cta-btn:hover{background:var(--charcoal);}
+.mob-btn{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:301;margin-left:auto;}
+.mob-btn span{display:block;width:22px;height:2px;background:var(--charcoal);border-radius:1px;transition:all 0.25s;}
+.mob-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.mob-btn.open span:nth-child(2){opacity:0;transform:translateX(-8px);}
+.mob-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:300;padding:72px 0 32px;overflow-y:auto;flex-direction:column;}
+.mob-menu.open{display:flex;}
+.mob-menu-section{border-bottom:1px solid rgba(255,255,255,0.07);}
+.mob-menu-link{display:block;font-size:15px;font-weight:400;color:rgba(255,255,255,0.8);padding:15px 24px;text-decoration:none;letter-spacing:0.02em;}
+.mob-menu-link:hover{color:var(--gold);}
+.mob-menu-sub{padding:0 0 10px 36px;}
+.mob-menu-sub a{display:block;font-size:13px;color:rgba(255,255,255,0.45);padding:7px 0;text-decoration:none;}
+.mob-menu-sub a:hover{color:rgba(255,255,255,0.8);}
+.mob-menu-cta{display:block;background:var(--burgundy);color:#fff;text-align:center;padding:15px 24px;font-size:14px;font-weight:500;text-decoration:none;margin:20px 24px 0;letter-spacing:0.06em;}
+  .mob-menu-home{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.5);text-decoration:none;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.07);letter-spacing:0.04em;}
+
+/* HERO */
+.calc-hero{padding:160px 80px 100px;background:var(--charcoal);text-align:center;position:relative;overflow:hidden;}
+.calc-hero::before{content:'CALCULATOR';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Cormorant Garamond',serif;font-size:clamp(50px,10vw,140px);font-weight:300;color:rgba(244,239,234,0.03);pointer-events:none;letter-spacing:-0.04em;white-space:nowrap;}
+.hero-ey{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:24px;position:relative;z-index:2;}
+.hero-ey-ln{width:32px;height:1px;background:var(--gold);}
+.hero-ey-tx{font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.calc-hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(26px,3.5vw,44px);font-weight:400;color:var(--white);line-height:1.5;letter-spacing:-0.02em;margin-bottom:14px;position:relative;z-index:2;}
+.calc-hero h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1em;font-weight:300;color:var(--gold);}
+.hero-desc{font-size:14px;font-weight:300;color:rgba(244,239,234,0.55);line-height:2;position:relative;z-index:2;margin-bottom:40px;text-align:center;}
+.hero-stats{display:flex;justify-content:center;gap:60px;margin-bottom:52px;position:relative;z-index:2;}
+.hs-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:var(--gold);line-height:1;}
+.hs-lbl{font-size:10px;font-weight:300;color:rgba(244,239,234,0.4);letter-spacing:0.1em;margin-top:4px;}
+.start-btn{background:var(--burgundy);color:var(--white);border:none;padding:18px 56px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.1em;transition:background 0.2s;position:relative;z-index:2;}
+.start-btn:hover{background:#5a1520;}
+.start-note{font-size:11px;color:rgba(244,239,234,0.25);margin-top:14px;letter-spacing:0.08em;position:relative;z-index:2;}
+
+/* CALCULATOR */
+#calc-area{display:none;}
+#calc-area.show{display:block;}
+.topbar{background:var(--white);border-bottom:1px solid var(--beige-mid);padding:0 80px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:72px;z-index:50;}
+.topbar-back{background:none;border:1px solid var(--beige-mid);padding:7px 16px;font-size:12px;color:var(--charcoal-light);cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.2s;}
+.topbar-back:hover{border-color:var(--charcoal);color:var(--charcoal);}
+.topbar-title{font-size:13px;font-weight:500;color:var(--charcoal);letter-spacing:0.04em;}
+.topbar-sub{font-size:11px;color:var(--charcoal-muted);}
+.calc-main{background:var(--beige);padding:60px 80px 100px;}
+.calc-inner{max-width:800px;margin:0 auto;}
+
+/* Steps */
+.steps{display:flex;align-items:center;margin-bottom:44px;}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.sdot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;transition:all 0.3s;}
+.sdot.active{background:var(--burgundy);color:var(--white);}
+.sdot.done{background:var(--burgundy);color:var(--white);opacity:0.6;}
+.sdot.off{background:var(--white);color:var(--charcoal-muted);border:1px solid var(--beige-mid);}
+.slbl{font-size:10px;font-weight:500;letter-spacing:0.06em;white-space:nowrap;}
+.slbl.on{color:var(--burgundy);}
+.slbl.off{color:var(--charcoal-muted);}
+.sline{flex:1;height:1px;margin:0 14px;margin-bottom:20px;}
+.sline.done{background:var(--burgundy);opacity:0.4;}
+.sline.off{background:var(--beige-mid);}
+
+/* Form */
+.sec-title{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:500;color:var(--charcoal);margin-bottom:6px;letter-spacing:-0.01em;}
+.sec-sub{font-size:13px;font-weight:300;color:var(--charcoal-muted);margin-bottom:32px;}
+.fcard{background:var(--white);padding:40px 48px;margin-bottom:2px;}
+.flbl{font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--charcoal-light);display:block;margin-bottom:10px;}
+.freq{color:var(--burgundy);}
+.dur-row{display:flex;gap:12px;margin-bottom:28px;}
+.dur-w{flex:1;position:relative;}
+.dur-in{width:100%;height:52px;border:1px solid var(--beige-mid);background:var(--white);color:var(--charcoal);padding:0 44px 0 18px;font-size:16px;font-weight:500;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color 0.2s;appearance:textfield;}
+.dur-in::-webkit-inner-spin-button,.dur-in::-webkit-outer-spin-button{-webkit-appearance:none;}
+.dur-in:focus{border-color:var(--burgundy);}
+.dur-sel{width:100%;height:52px;border:1px solid var(--beigemid);background:var(--white);color:var(--charcoal);padding:0 14px;font-size:15px;font-weight:500;font-family:'Noto Sans KR',sans-serif;outline:none;cursor:pointer;appearance:auto;transition:border-color 0.2s;}
+.dur-sel:focus{border-color:var(--burgundy);}
+.dur-u{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--charcoal-muted);font-weight:500;pointer-events:none;}
+.opts{display:flex;flex-direction:column;gap:6px;margin-bottom:28px;}
+.opt{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 20px;border:1px solid var(--beige-mid);background:var(--white);cursor:pointer;text-align:left;transition:all 0.18s;gap:14px;width:100%;font-family:'Noto Sans KR',sans-serif;}
+.opt:hover{border-color:rgba(114,27,41,0.3);background:var(--burgundy-pale);}
+.opt.sel{border-color:var(--burgundy);background:var(--burgundy-pale);}
+.opt-txt{display:flex;flex-direction:column;gap:3px;}
+.opt-main{font-size:14px;font-weight:500;color:var(--charcoal);line-height:1.4;}
+.opt.sel .opt-main{color:var(--burgundy);}
+.opt-desc{font-size:12px;font-weight:300;color:var(--charcoal-muted);line-height:1.5;}
+.opt-ck{width:22px;height:22px;border-radius:50%;border:1px solid var(--beige-mid);background:var(--beige);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;transition:all 0.2s;}
+.opt.sel .opt-ck{background:var(--burgundy);border-color:var(--burgundy);color:var(--white);}
+.ctarea{width:100%;min-height:96px;border:1px solid var(--beige-mid);background:var(--white);color:var(--charcoal);padding:16px 18px;font-size:13px;font-weight:300;font-family:'Noto Sans KR',sans-serif;outline:none;resize:none;line-height:1.8;transition:border-color 0.2s;}
+.ctarea:focus{border-color:var(--burgundy);}
+.calc-nav{display:flex;gap:10px;margin-top:8px;}
+.btn-p{flex:1;height:52px;border:1px solid var(--beige-mid);background:var(--white);color:var(--charcoal-light);font-size:14px;font-weight:400;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all 0.2s;}
+.btn-p:hover{border-color:var(--charcoal);color:var(--charcoal);}
+.btn-n{flex:2;height:52px;border:none;background:var(--burgundy);color:var(--white);font-size:14px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.06em;transition:background 0.2s;}
+.btn-n:hover{background:#5a1520;}
+.btn-n:disabled{background:var(--beige-mid);color:var(--charcoal-muted);cursor:not-allowed;}
+
+/* RESULT */
+#result-area{display:none;}
+#result-area.show{display:block;}
+.rhero{background:var(--charcoal);padding:60px 80px;position:relative;overflow:hidden;}
+.rhero::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(114,27,41,0.35) 0%,transparent 70%);}
+.rinner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+.rlbl{font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.rrange{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.ramt{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4.5vw,50px);font-weight:300;color:var(--white);letter-spacing:-0.02em;}
+.rsep{color:rgba(244,239,234,0.2);font-size:28px;font-weight:200;}
+.rcbox{display:inline-flex;flex-direction:column;gap:4px;background:rgba(114,27,41,0.3);border:1px solid rgba(114,27,41,0.5);padding:12px 24px;margin-bottom:28px;}
+.rcbox-l{font-size:10px;color:rgba(244,239,234,0.5);letter-spacing:0.1em;}
+.rcbox-v{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--white);}
+.rstats{display:flex;gap:2px;}
+.rst{flex:1;background:rgba(244,239,234,0.05);padding:18px 22px;}
+.rst-l{font-size:10px;color:rgba(244,239,234,0.4);letter-spacing:0.1em;margin-bottom:8px;}
+.rst-v{font-size:18px;font-weight:500;color:var(--white);margin-bottom:6px;}
+.rst-bar{height:2px;background:rgba(244,239,234,0.08);}
+.rst-bf{height:100%;transition:width 1s;}
+.rbody{max-width:800px;margin:0 auto;padding:0 80px 80px;}
+.rsec{background:var(--white);padding:36px 40px;margin-bottom:2px;}
+.rsec-title{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:500;color:var(--charcoal);margin-bottom:18px;padding-left:14px;border-left:3px solid currentColor;}
+.sumgrid{display:grid;grid-template-columns:1fr 1fr;}
+.sumrow{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--beige-mid);}
+.sumrow:last-child{border-bottom:none;}
+.sk{font-size:12px;color:var(--charcoal-muted);}
+.sv{font-size:12px;font-weight:500;color:var(--charcoal);}
+.fac{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;margin-bottom:6px;font-size:13px;font-weight:300;line-height:1.7;color:var(--charcoal);}
+.fac.pro{background:rgba(22,163,74,0.05);border-left:2px solid #16a34a;}
+.fac.con{background:rgba(220,38,38,0.04);border-left:2px solid #dc2626;}
+.fac.evid{background:var(--burgundy-pale);border-left:2px solid var(--burgundy);}
+.fi{flex-shrink:0;font-size:14px;margin-top:1px;}
+.ccase{padding:16px 20px;margin-bottom:6px;border:1px solid var(--beige-mid);}
+.ccase.top{border-color:rgba(114,27,41,0.3);background:var(--burgundy-pale);}
+.crow{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.camt{font-size:14px;font-weight:500;color:var(--charcoal);}
+.csim{font-size:11px;color:var(--charcoal-muted);}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;}
+.ctag{font-size:10px;color:var(--charcoal-muted);background:var(--beige);padding:3px 10px;border:1px solid var(--beige-mid);}
+.cbadge{font-size:9px;background:var(--burgundy);color:var(--white);padding:2px 8px;font-weight:500;letter-spacing:0.04em;margin-right:4px;}
+.rcta{background:var(--burgundy);padding:48px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;margin-bottom:2px;}
+.rcta::before{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;border:1px solid rgba(244,239,234,0.08);border-radius:50%;}
+.rcta h3{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:400;color:var(--white);margin-bottom:8px;}
+.rcta p{font-size:12px;font-weight:300;color:rgba(244,239,234,0.6);line-height:1.9;text-align:left;word-break:keep-all;}
+.rcta-btn{background:var(--white);color:var(--burgundy);padding:14px 32px;font-size:13px;font-weight:500;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;flex-shrink:0;position:relative;z-index:1;transition:all 0.2s;text-decoration:none;display:inline-block;letter-spacing:0.04em;}
+.rcta-btn:hover{background:var(--charcoal);color:var(--white);}
+footer{background:var(--charcoal);padding:60px 80px 40px;border-top:1px solid rgba(244,239,234,0.06);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:52px;}
+.footer-brand-name{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:500;color:var(--white);margin-bottom:6px;}
+.footer-brand-sub{font-size:10px;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+.footer-brand-desc{font-size:12.5px;font-weight:300;color:rgba(244,239,234,0.4);line-height:1.9;}
+.footer-col h5{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(244,239,234,0.4);margin-bottom:20px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.footer-col ul a{font-size:13px;font-weight:300;color:rgba(244,239,234,0.6);text-decoration:none;transition:color 0.2s;}
+.footer-col ul a:hover{color:var(--white);}
+.footer-bottom{border-top:1px solid rgba(244,239,234,0.06);padding-top:28px;}
+.footer-bottom-left{font-size:11.5px;font-weight:300;color:rgba(244,239,234,0.3);}
+
+/* ══════════════════════════════
+   모바일 반응형
+══════════════════════════════ */
+
+/* 태블릿 (max-width: 1024px) */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px !important; }
+  .hero-left { padding: 100px 32px 60px !important; }
+  .why-us { padding: 80px 32px !important; }
+  .why-unified-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .services { padding: 80px 32px !important; }
+  .service-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-right { grid-template-columns: 1fr 1fr !important; padding: 32px !important; }
+  .calc-teaser { grid-template-columns: 1fr !important; padding: 60px 32px !important; gap: 40px !important; }
+  .cta-banner { padding: 80px 32px !important; }
+  .section { padding: 80px 32px !important; }
+  footer { padding: 48px 32px 32px !important; }
+  .footer-top { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .for-whom-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .process-steps, .process-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .apply-inner { grid-template-columns: 1fr !important; }
+  .channel-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .values-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* 모바일 (max-width: 768px) */
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    padding: 0 16px !important;
+    height: 56px !important;
+    justify-content: center !important;
+    position: fixed !important;
+  }
+  .mob-btn { position: absolute !important; right: 16px !important; top: 50% !important; transform: translateY(-50%) !important; margin-left: 0 !important; }
+  .nav-links { display: none !important; }
+  .nav-cta-btn { display: none !important; }
+  .nav-dropdown { display: none !important; }
+  .mob-btn { display: flex !important; }
+  .nav-logo { position: absolute !important; left: 16px !important; right: 52px !important; justify-content: center !important; gap: 8px !important; flex-direction: row !important; align-items: center !important; }
+  .nav-logo-text { text-align: center !important; }
+  .nav-logo-sub { padding-left: 0 !important; }
+  .nav-logo-main { font-size: 22px !important; }
+  .nav-logo-icon { width: 42px !important; height: 42px !important; object-fit: contain !important; }
+  .nav-logo-sub { font-size: 7px !important; letter-spacing: 0.1em !important; }
+
+  /* HERO */
+  .hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .hero-right { display: none !important; }
+  .hero-left {
+    padding: 80px 20px 48px !important;
+  }
+  .hero-title {
+    font-size: 38px !important;
+    line-height: 1.35 !important;
+  }
+  .hero-title em { font-size: 44px !important; }
+  .hero-subtitle { font-size: 13px !important; line-height: 1.9 !important; margin-bottom: 32px !important; }
+  .hero-cta-group { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+  .btn-primary { text-align: center !important; padding: 14px 24px !important; font-size: 13px !important; }
+  .btn-secondary { justify-content: center !important; }
+  .hero-points { margin-top: 28px !important; }
+  .hero-point { padding: 14px 0 !important; }
+  .hero-point-num { font-size: 18px !important; }
+  .hero-point-title { font-size: 13px !important; }
+  .hero-point-desc { font-size: 11px !important; }
+  .hero-eyebrow { margin-bottom: 24px !important; }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    padding: 20px 16px !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+  .intro-strip-items { flex-wrap: wrap !important; gap: 6px !important; justify-content: center !important; }
+  .intro-strip-item { font-size: 11px !important; }
+
+  /* WHY US */
+  .why-us { padding: 56px 20px !important; }
+  .why-unified-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .why-card { padding: 28px 24px !important; }
+  .section-title { font-size: 26px !important; line-height: 1.4 !important; }
+  .section-sub { font-size: 13px !important; }
+
+  /* SERVICES */
+  .services { padding: 56px 20px !important; }
+  .services-header { flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; margin-bottom: 32px !important; }
+  .services-header-right { font-size: 13px !important; }
+  .service-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .service-card { padding: 28px 24px !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-left { padding: 32px 24px !important; }
+  .service-featured-right { grid-template-columns: 1fr !important; padding: 24px !important; gap: 20px !important; }
+
+  /* CALC TEASER */
+  .calc-teaser {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 32px !important;
+  }
+  .calc-mock { max-width: 100% !important; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 24px !important;
+    text-align: center !important;
+  }
+  .cta-banner-text h2 { font-size: 24px !important; }
+  .cta-banner-actions { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
+  .btn-white { text-align: center !important; padding: 14px 32px !important; font-size: 13px !important; }
+  .cta-note { font-size: 11px !important; }
+
+  /* FOOTER */
+  footer { padding: 40px 20px 28px !important; }
+  .footer-top { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-brand-name { font-size: 20px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 8px !important; align-items: flex-start !important; }
+  .footer-bottom-left { font-size: 10px !important; line-height: 1.8 !important; }
+  .f-biz-desktop { display: none !important; }
+  .f-biz-mobile { display: inline !important; }
+
+  /* 하단 상담바 */
+  .consult-bar {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    padding: 10px 16px !important;
+    gap: 0 !important;
+  }
+  .consult-bar-phone {
+    display: none !important;
+    width: 100% !important;
+    font-size: 17px !important;
+    border-right: none !important;
+    padding-right: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .consult-bar-form {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    padding: 0 0 8px !important;
+    gap: 6px !important;
+  }
+  .consult-bar-input.name { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-input.phone { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-agree { font-size: 10px !important; width: 100% !important; }
+  .consult-bar-btn {
+    width: calc(100% + 32px) !important;
+    margin: 8px -16px -10px !important;
+    height: 44px !important;
+    font-size: 14px !important;
+  }
+  body { padding-bottom: 160px !important; }
+
+  /* 상세 페이지 HERO */
+  .page-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-top: 56px !important;
+  }
+  .page-hero .hero-left {
+    padding: 56px 20px 40px !important;
+  }
+  .hero-title { font-size: 32px !important; }
+  .hero-desc { font-size: 13px !important; }
+  .hero-btns { flex-direction: column !important; gap: 10px !important; }
+  .hero-card { display: none !important; }
+
+  /* 서비스 상세 공통 */
+  .section { padding: 56px 20px !important; }
+  .for-whom-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .process-steps, .process-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .faq-section { padding: 56px 20px !important; }
+  .faq-list { margin-top: 28px !important; }
+  .faq-q { font-size: 13px !important; padding: 18px 0 !important; }
+
+  /* 브랜드/전문가 */
+  .mission { padding: 56px 20px !important; }
+  .mission-left, .mission-right { padding: 0 !important; }
+  .values { padding: 56px 20px !important; }
+  .values-grid { grid-template-columns: 1fr !important; }
+  .story { padding: 56px 20px !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .promise { padding: 56px 20px !important; }
+
+  /* 위자료 계산기 */
+  .calc-hero { padding: 80px 20px 40px !important; }
+  .topbar { padding: 0 8px !important; top: 56px !important; }
+  .topbar-sub { display: none !important; }
+  .calc-main { padding: 40px 8px 80px !important; }
+  .calc-inner { max-width: 100% !important; }
+  .fcard { padding: 24px 16px !important; }
+  .opts { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .opt-label { padding: 10px 8px !important; font-size: 11px !important; }
+  .dur-row { gap: 8px !important; }
+  .nav-btns { flex-direction: column !important; gap: 8px !important; }
+  .btn-next, .btn-back { width: 100% !important; }
+
+  /* FAQ 페이지 */
+  .faq-page-hero { padding: 80px 20px 40px !important; }
+  .faq-page-hero h1 { font-size: 28px !important; }
+  .faq-page-tabs { padding: 0 16px !important; flex-wrap: wrap !important; gap: 6px !important; overflow-x: auto !important; }
+  .faq-page-tab { font-size: 11px !important; padding: 6px 12px !important; white-space: nowrap !important; }
+  .faq-page-body { padding: 28px 16px !important; }
+  .faq-page-question { padding: 16px 0 !important; font-size: 13px !important; }
+  .faq-page-answer { padding: 0 0 20px 32px !important; }
+
+  /* 신청 페이지 */
+  .apply-hero { padding: 80px 20px 40px !important; }
+  .apply-hero h1 { font-size: 28px !important; }
+  .apply-body { padding: 32px 16px 56px !important; }
+  .apply-inner { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .apply-form-card { padding: 24px 16px !important; }
+  .fr2 { grid-template-columns: 1fr !important; }
+  .fin-a, .fsel-a, .fta-a { font-size: 13px !important; }
+
+  /* 상담 페이지 */
+  .page-header { padding: 80px 20px 40px !important; }
+  .page-header h1 { font-size: 26px !important; }
+  .consult-main { padding: 32px 16px !important; }
+  .channel-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .phone-box { flex-direction: column !important; gap: 8px !important; padding: 20px 16px !important; }
+  .phone-box-number { font-size: 24px !important; }
+
+  /* 성공사례/칼럼 */
+  .cards-grid { grid-template-columns: 1fr !important; }
+  .reviews-grid { grid-template-columns: 1fr !important; }
+  .featured-article { grid-template-columns: 1fr !important; }
+  .filter-bar { padding: 16px !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .filter-btn { font-size: 11px !important; padding: 6px 12px !important; }
+
+  /* 모달 */
+  .ov { padding: 12px !important; }
+  .md { padding: 20px 16px !important; }
+  .md h3 { font-size: 16px !important; }
+
+  /* 성공사례 */
+  .stats-strip { grid-template-columns: repeat(2,1fr) !important; }
+
+  /* 원고/피고 맞춤형 */
+  .hero-card-list { font-size: 12px !important; }
+
+  .calc-layout { grid-template-columns: 1fr !important; }
+  .calc-panel { padding: 24px 16px !important; }
+  .calc-result { padding: 24px 16px !important; }
+  .calc-title { font-size: 20px !important; }
+  .result-num { font-size: 36px !important; }
+  .section { padding: 48px 20px !important; }
+
+  /* 분석결과 영역 */
+  .rhero { padding: 40px 20px 40px !important; }
+  #result-area .topbar { position: relative !important; top: auto !important; }
+  .rinner { padding: 0 !important; }
+  .rbody { padding: 0 0 60px !important; }
+  .rsec { padding: 24px 16px !important; margin-bottom: 2px !important; }
+  .rrange { flex-wrap: nowrap !important; gap: 10px !important; }
+  .ramt { font-size: clamp(22px, 6vw, 36px) !important; }
+  .sumgrid { grid-template-columns: 1fr !important; }
+  .rstats { flex-direction: column !important; }
+  .rcbox { display: block !important; padding: 14px 16px !important; }
+  .rcta { flex-direction: column !important; align-items: flex-start !important; padding: 28px 16px !important; gap: 20px !important; }
+  .rcta-btn { width: 100% !important; text-align: center !important; }
+}
+}</style>
+</style>
+</head>
+<body>
+<nav>
+  <a href="yuchaekmate_landing.html" class="nav-logo">
+    <img class="nav-logo-icon" src="logo-icon.png" alt="유책메이트 로고">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">유책메이트</div>
+      <div class="nav-logo-sub">상간소송의 정석</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-item"><a href="#">유책메이트 소개 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown"><div class="nav-dropdown-section">
+        <a href="yuchaekmate_brand.html">브랜드 소개</a>
+        <a href="yuchaekmate_expert.html">전문가 소개</a>
+      </div></div>
+    </li>
+    <li class="nav-item"><a href="yuchaekmate_landing.html#services">서비스 분야 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section"><a href="yuchaekmate_report.html">상간소송 전략 진단 리포트</a></div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">맞춤형 솔루션 서비스</span>
+          <div class="nav-sub-group"><div class="nav-sub-label">맞춤형 솔루션 서비스 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a>
+              <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+              <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+              <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+              <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+              <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">올인원 풀케어 패키지</span>
+          <div class="nav-sub-group"><div class="nav-sub-label">올인원 풀케어 패키지 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+              <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item"><a href="#">상간소송 전략 가이드 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown"><div class="nav-dropdown-section">
+        <a href="yuchaekmate_column.html">칼럼</a>
+        <a href="yuchaekmate_faq.html">자주 하는 질문</a>
+      </div></div>
+    </li>
+    <li class="nav-item"><a href="yuchaekmate_success.html">성공사례&amp;고객후기</a></li>
+    <li class="nav-item active"><a href="yuchaekmate_calculator.html">위자료 계산기</a></li>
+  </ul>
+  <a href="yuchaekmate_consult.html" class="nav-cta-btn">상담 신청</a>
+  <button class="mob-btn" id="mob-btn" onclick="toggleMobMenu()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="yuchaekmate_landing.html" class="mob-menu-link">유책메이트</a>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_brand.html" class="mob-menu-link">브랜드 소개</a>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_brand.html">브랜드 소개</a>
+      <a href="yuchaekmate_expert.html">전문가 소개</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <span class="mob-menu-link" style="cursor:default;">서비스 분야</span>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_report.html">전략 진단 리포트</a>
+      <a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a>
+      <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+      <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+      <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+      <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+      <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+      <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+      <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_column.html" class="mob-menu-link">칼럼</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_faq.html" class="mob-menu-link">자주 하는 질문</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_success.html" class="mob-menu-link">성공사례 &amp; 고객후기</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_calculator.html" class="mob-menu-link">위자료 계산기</a>
+  </div>
+  <a href="yuchaekmate_consult.html" class="mob-menu-cta">온라인 상담 신청</a>
+</div>
+<!-- HERO -->
+<div class="calc-hero" id="hero-section">
+  <h1>상간소송 위자료<br><em>예측 계산기</em></h1>
+  <p class="hero-desc">500개 이상의 실제 판례 데이터를 분석하여<br>승소 가능성 · 예상 위자료 범위 · 필요 증거를 예측해드립니다</p>
+  <button class="start-btn" onclick="startCalc()">위자료 예측 시작하기</button>
+  <div class="start-note">무료 제공 · 개인정보 미수집 · 약 3분 소요</div>
+</div>
+
+<!-- CALCULATOR -->
+<div id="calc-area">
+  <div class="topbar">
+    <button class="topbar-back" onclick="resetCalc()">← 처음으로</button>
+    <span class="topbar-title">위자료 예측 시뮬레이션</span>
+    <span class="topbar-sub">500개+ 판례 기반</span>
+  </div>
+  <div class="calc-main">
+    <div class="calc-inner">
+      <div id="steps-wrap"></div>
+      <div id="form-wrap"></div>
+      <div class="calc-nav" id="nav-wrap"></div>
+      <div style="text-align:center;font-size:11px;color:var(--charcoal-muted);margin-top:16px;line-height:1.7;">본 서비스는 500개 이상의 실제 상간소송 판례 기반 통계적 예측치입니다. 실제 소송 결과는 개별 사건에 따라 다를 수 있습니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="result-area">
+  <div class="topbar">
+    <button class="topbar-back" onclick="backToForm()">← 수정하기</button>
+    <span class="topbar-title">분석 결과</span>
+    <button class="topbar-back" onclick="resetCalc()">새로 시작</button>
+  </div>
+  <div class="rhero">
+    <div class="rinner" id="result-main"></div>
+  </div>
+  <div class="rbody" id="result-sections"></div>
+</div>
+
+<script>
+const CASES=[{a:15000000,mm:144,am:-1,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:66,am:19,sv:"sexual",ev:"confess",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:31,am:15,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:122,am:38,sv:"dates",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:111,am:13,sv:"cohab",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:17000000,mm:192,am:31,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:7000000,mm:106,am:5,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:10000000,mm:73,am:10,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:96,am:11,sv:"dates",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:15,am:44,sv:"cohab",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:30000000,mm:47,am:14,sv:"sexual",ev:"weak",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:293,am:31,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:96,am:2,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:118,am:2,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:25000000,mm:216,am:132,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:10000000,mm:195,am:36,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:58,am:7,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:89,am:8,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:15000000,mm:164,am:1,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:10000000,mm:138,am:-1,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:15000000,mm:55,am:3,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:295,am:14,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:278,am:21,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:307,am:56,sv:"dates",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:12,am:5,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:12000000,mm:165,am:2,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:13000000,mm:142,am:4,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:133,am:72,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:147,am:9,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:30000000,mm:-1,am:-1,sv:"sexual",ev:"none",bd:"partial",ch:"none",aw:"unclear"},{a:10000000,mm:73,am:-1,sv:"sexual",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:138,am:4,sv:"dates",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:122,am:6,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:12000000,mm:62,am:8,sv:"sexual",ev:"confess",bd:"full",ch:"none",aw:"yes"},{a:12000000,mm:276,am:7,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:16000000,mm:-1,am:4,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:182,am:12,sv:"dates",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:72,am:3,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:15000000,mm:256,am:120,sv:"dates",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:169,am:15,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:49,am:52,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:183,am:2,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:147,am:17,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:281,am:72,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:96,am:2,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:7000000,mm:166,am:60,sv:"dates",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:31,am:12,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:12000000,mm:54,am:1,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:25000000,mm:191,am:3,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:7000000,mm:287,am:8,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:15000000,mm:122,am:32,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:101,am:18,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:31000000,mm:192,am:16,sv:"cohab",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:30000000,mm:102,am:20,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:151,am:24,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:10000000,mm:234,am:4,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:204,am:19,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:15000000,mm:151,am:36,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:383,am:10,sv:"dates",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:112,am:4,sv:"dates",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:268,am:96,sv:"cohab",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:14,am:1,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:18000000,mm:155,am:2,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:450,am:26,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:22000000,mm:171,am:60,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:182,am:4,sv:"sexual",ev:"none",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:152,am:15,sv:"dates",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:189,am:84,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:5000000,mm:-1,am:11,sv:"sexual",ev:"confess",bd:"maintained",ch:"none",aw:"no"},{a:10000000,mm:86,am:1,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:320,am:51,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:164,am:2,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:222,am:30,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:15000000,mm:91,am:15,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:82,am:6,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:251,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:80,am:6,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:73,am:11,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:15000000,mm:68,am:1,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:30000000,mm:142,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:249,am:4,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:10000000,mm:77,am:21,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:297,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:37500000,mm:161,am:7,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:236,am:6,sv:"dates",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:145,am:24,sv:"cohab",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:34,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:142,am:13,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:20000000,mm:170,am:87,sv:"cohab",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:8000000,mm:56,am:-1,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:133,am:5,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:158,am:32,sv:"dates",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:10000000,mm:178,am:-1,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:300,am:84,sv:"dates",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:35000000,mm:113,am:66,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:215,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:10000000,mm:178,am:1,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:14000000,mm:205,am:77,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:324,am:180,sv:"cohab",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:8000000,mm:28,am:8,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:8000000,mm:319,am:29,sv:"contact",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:25000000,mm:277,am:31,sv:"cohab",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:26000000,mm:32,am:9,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:12000000,mm:103,am:22,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:51,am:5,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:12000000,mm:87,am:13,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:15000000,mm:115,am:3,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:32,am:3,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:192,am:18,sv:"sexual",ev:"weak",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:129,am:16,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:18000000,mm:240,am:4,sv:"sexual",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:10000000,mm:108,am:7,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:72,am:18,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:120,am:9,sv:"sexual",ev:"confess",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:372,am:36,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:240,am:72,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:360,am:48,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:15000000,mm:192,am:6,sv:"sexual",ev:"none",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:31,am:4,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:43,am:3,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:8000000,mm:240,am:2,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:188,am:6,sv:"dates",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:23000000,mm:96,am:18,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:12000000,mm:288,am:7,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:15,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:8000000,mm:72,am:2,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:10000000,mm:36,am:8,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:300,am:18,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:22000000,mm:360,am:39,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:380,am:24,sv:"dates",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:10000000,mm:50,am:3,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:10000000,mm:228,am:24,sv:"dates",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:25000000,mm:420,am:60,sv:"dates",ev:"weak",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:204,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:313,am:192,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:25000000,mm:108,am:32,sv:"cohab",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:397,am:12,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:144,am:72,sv:"dates",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:173,am:5,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:26,am:15,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:17000000,mm:116,am:18,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:169,am:2,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:30000000,mm:84,am:4,sv:"cohab",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:41,am:41,sv:"cohab",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:106,am:28,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:176,am:6,sv:"dates",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:10000000,mm:22,am:-1,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:17000000,mm:189,am:4,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:14000000,mm:391,am:60,sv:"sexual",ev:"weak",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:40,am:16,sv:"sexual",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:160,am:-1,sv:"sexual",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:10000000,mm:261,am:1,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:129,am:24,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:10000000,mm:185,am:1,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:22000000,mm:343,am:36,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:25000000,mm:187,am:9,sv:"dates",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:10000000,mm:420,am:108,sv:"dates",ev:"confess",bd:"partial",ch:"multi",aw:"yes"},{a:45000000,mm:464,am:138,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:333,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:18000000,mm:223,am:1,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:414,am:2,sv:"sexual",ev:"weak",bd:"maintained",ch:"one",aw:"yes"},{a:20000000,mm:71,am:24,sv:"sexual",ev:"confess",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:88,am:34,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:35000000,mm:149,am:60,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:18000000,mm:216,am:22,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:13000000,mm:160,am:20,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:161,am:14,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:22000000,mm:247,am:48,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:5000000,mm:88,am:5,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:10000000,mm:41,am:23,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:25000000,mm:290,am:1,sv:"sexual",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:208,am:4,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:18000000,mm:120,am:3,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:88,am:60,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:112,am:28,sv:"dates",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:30000000,mm:117,am:8,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:20000000,mm:362,am:13,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:211,am:36,sv:"dates",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:25000000,mm:156,am:13,sv:"dates",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:32,am:5,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:127,am:96,sv:"sexual",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:17000000,mm:129,am:24,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:198,am:9,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:36,am:2,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:69,am:54,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:7000000,mm:194,am:24,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:384,am:17,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:170,am:36,sv:"sexual",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:68,am:4,sv:"sexual",ev:"none",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:107,am:43,sv:"cohab",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:329,am:1,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:20000000,mm:109,am:12,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:20000000,mm:372,am:36,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:451,am:252,sv:"cohab",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:25000000,mm:94,am:3,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:406,am:12,sv:"dates",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:256,am:15,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:25000000,mm:212,am:6,sv:"dates",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:300,am:41,sv:"sexual",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:54,am:3,sv:"cohab",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:30000000,mm:406,am:17,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:344,am:-1,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:195,am:9,sv:"sexual",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:127,am:36,sv:"sexual",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:149,am:18,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:8000000,mm:631,am:576,sv:"cohab",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:157,am:10,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:8000000,mm:43,am:16,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:42,am:10,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:424,am:10,sv:"cohab",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:149,am:4,sv:"sexual",ev:"direct",bd:"maintained",ch:"one",aw:"yes"},{a:40000000,mm:101,am:13,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:30000000,mm:106,am:-1,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:15000000,mm:259,am:3,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:25000000,mm:184,am:8,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:35000000,mm:136,am:108,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:25000000,mm:225,am:84,sv:"cohab",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:234,am:20,sv:"sexual",ev:"weak",bd:"maintained",ch:"none",aw:"yes"},{a:30000000,mm:259,am:48,sv:"cohab",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:163,am:4,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:100,am:60,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:301,am:5,sv:"sexual",ev:"confess",bd:"maintained",ch:"one",aw:"yes"},{a:15000000,mm:149,am:3,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:172,am:18,sv:"sexual",ev:"direct",bd:"maintained",ch:"multi",aw:"yes"},{a:7000000,mm:128,am:6,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:40000000,mm:84,am:3,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:40000000,mm:240,am:12,sv:"sexual",ev:"confess",bd:"full",ch:"one",aw:"yes"},{a:30000000,mm:36,am:3,sv:"sexual",ev:"confess",bd:"partial",ch:"none",aw:"yes"},{a:40000000,mm:408,am:-1,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:50000000,mm:-1,am:11,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:12000000,mm:228,am:24,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:40000000,mm:432,am:18,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:288,am:24,sv:"sexual",ev:"direct",bd:"maintained",ch:"none",aw:"yes"},{a:10000000,mm:60,am:37,sv:"sexual",ev:"confess",bd:"partial",ch:"none",aw:"yes"},{a:30000000,mm:180,am:24,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:336,am:44,sv:"sexual",ev:"confess",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:228,am:4,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:40000000,mm:84,am:3,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:40000000,mm:240,am:12,sv:"sexual",ev:"confess",bd:"full",ch:"none",aw:"yes"},{a:40000000,mm:432,am:6,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:144,am:6,sv:"sexual",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:168,am:6,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:396,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:312,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:168,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:120,am:6,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:204,am:36,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:15000000,mm:288,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:288,am:2,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:12,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:10000000,mm:120,am:21,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:18000000,mm:132,am:2,sv:"dates",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:156,am:36,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:24,am:9,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:30000000,mm:204,am:-1,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:13000000,mm:156,am:19,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:96,am:2,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:132,am:72,sv:"cohab",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:288,am:30,sv:"sexual",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:25000000,mm:96,am:46,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:84,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:90000000,mm:276,am:12,sv:"sexual",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:30000000,mm:420,am:8,sv:"dates",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:108,am:9,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:288,am:1,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:50000000,mm:432,am:168,sv:"cohab",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:132,am:3,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:96,am:24,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:50000000,mm:264,am:132,sv:"cohab",ev:"weak",bd:"full",ch:"none",aw:"yes"},{a:12000000,mm:33,am:18,sv:"dates",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:15000000,mm:96,am:8,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:36,am:10,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:10000000,mm:72,am:1,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:25000000,mm:264,am:60,sv:"cohab",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:180,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:13000000,mm:84,am:1,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:40000000,mm:180,am:84,sv:"sexual",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:108,am:48,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:15000000,mm:240,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:204,am:84,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:25000000,mm:372,am:8,sv:"cohab",ev:"confess",bd:"full",ch:"multi",aw:"yes"},{a:50000000,mm:72,am:5,sv:"sexual",ev:"confess",bd:"full",ch:"none",aw:"yes"},{a:20000000,mm:312,am:18,sv:"sexual",ev:"weak",bd:"partial",ch:"none",aw:"yes"},{a:20000000,mm:144,am:18,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:288,am:17,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:30000000,mm:132,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:40000000,mm:528,am:180,sv:"cohab",ev:"weak",bd:"full",ch:"one",aw:"yes"},{a:15000000,mm:240,am:31,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:15000000,mm:240,am:12,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:180,am:10,sv:"sexual",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:240,am:24,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:252,am:48,sv:"cohab",ev:"direct",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:180,am:3,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:54,am:24,sv:"sexual",ev:"direct",bd:"partial",ch:"none",aw:"yes"},{a:15000000,mm:312,am:60,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:20000000,mm:204,am:24,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:120,am:12,sv:"sexual",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:264,am:72,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:18000000,mm:216,am:7,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:30000000,mm:33,am:18,sv:"dates",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:40000000,mm:372,am:12,sv:"cohab",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:50000000,mm:239,am:133,sv:"sexual",ev:"direct",bd:"full",ch:"none",aw:"yes"},{a:40000000,mm:94,am:8,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:50000000,mm:131,am:6,sv:"sexual",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:144,am:4,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:184,am:120,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"},{a:40000000,mm:197,am:34,sv:"sexual",ev:"direct",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:24,am:1,sv:"cohab",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:50000000,mm:322,am:117,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:70000000,mm:127,am:6,sv:"contact",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:25000000,mm:185,am:11,sv:"cohab",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:103,am:8,sv:"sexual",ev:"weak",bd:"full",ch:"multi",aw:"yes"},{a:20000000,mm:272,am:34,sv:"cohab",ev:"direct",bd:"full",ch:"multi",aw:"yes"},{a:30000000,mm:348,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"one",aw:"yes"},{a:20000000,mm:216,am:15,sv:"cohab",ev:"direct",bd:"full",ch:"one",aw:"yes"},{a:20000000,mm:288,am:12,sv:"sexual",ev:"weak",bd:"partial",ch:"multi",aw:"yes"}];
+
+// ── Similarity & Predict ──────────────────────────────────────────
+function sim(c,q){
+  let s=0;
+  if(c.mm>0&&q.mm>0){const d=Math.abs(c.mm-q.mm)/Math.max(c.mm,q.mm);s+=(1-d)*2.5;}else if(c.mm===q.mm)s+=1.5;
+  if(c.am>0&&q.am>0){const d=Math.abs(c.am-q.am)/Math.max(c.am,q.am);s+=(1-d)*2;}else if(c.am===q.am)s+=1;
+  if(c.sv===q.sv)s+=3;if(c.ev===q.ev)s+=2.5;if(c.bd===q.bd)s+=3.5;if(c.ch===q.ch)s+=1.5;if(c.aw===q.aw)s+=1.5;
+  return s;
+}
+
+function predict(q){
+  const sc=CASES.map(c=>({...c,sim:sim(c,q)})).sort((a,b)=>b.sim-a.sim).slice(0,20);
+  const am=sc.map(c=>c.a).sort((a,b)=>a-b);
+  const med=am[Math.floor(am.length/2)];
+  const p25=am[Math.floor(am.length*0.25)];
+  const p75=am[Math.floor(am.length*0.75)];
+  const wp=Math.min(95,Math.round((sc.filter(c=>c.a>0).length/sc.length)*100));
+  return{
+    low:Math.max(Math.round(Math.min(p25,med*0.7)/500000)*500000,3000000),
+    center:Math.max(Math.round(med/500000)*500000,5000000),
+    high:Math.min(Math.round(Math.max(p75,med*1.3)/500000)*500000,100000000),
+    winProb:wp,topCases:sc.slice(0,3)
+  };
+}
+
+const fmt=n=>`${Math.round(n/10000).toLocaleString('ko-KR')}만원`;
+
+// ── State ────────────────────────────────────────────────────────
+const initForm={mY:'',mM:'0',ch:'',childCount:'',childMinor:'',sv:'',aY:'',aM:'0',aw:'',bd:'',impact:'',ev:'',after:'',memo:''};
+let step=1, form={...initForm}, result=null;
+
+function startCalc(){
+  document.getElementById('hero-section').style.display='none';
+  document.getElementById('calc-area').classList.add('show');
+  render();
+  window.scrollTo(0,0);
+}
+
+function resetCalc(){
+  step=1;form={...initForm};result=null;
+  document.getElementById('hero-section').style.display='';
+  document.getElementById('calc-area').classList.remove('show');
+  document.getElementById('result-area').classList.remove('show');
+  window.scrollTo(0,0);
+}
+
+function backToForm(){
+  step=3;result=null;
+  document.getElementById('result-area').classList.remove('show');
+  document.getElementById('calc-area').classList.add('show');
+  render();
+  window.scrollTo(0,0);
+}
+
+// ── Helpers ──────────────────────────────────────────────────────
+function setForm(k,v){form[k]=v;render();}
+
+function opt(val,field,label,desc){
+  const sel=form[field]===val;
+  return`<button class="opt ${sel?'sel':''}" onclick="setForm('${field}','${val}')" type="button">
+    <div class="opt-txt"><div class="opt-main">${label}</div><div class="opt-desc">${desc}</div></div>
+    <div class="opt-ck">${sel?'✓':''}</div>
+  </button>`;
+}
+
+function durRow(yKey,mKey,maxY=40){
+  const yOpts = Array.from({length:maxY+1},(_,i)=>`<option value="${i}" ${parseInt(form[yKey]||0)===i?'selected':''}>${i}년</option>`).join('');
+  const mOpts = Array.from({length:12},(_,i)=>`<option value="${i}" ${parseInt(form[mKey]||0)===i?'selected':''}>${i}개월</option>`).join('');
+  return`<div class="dur-row">
+    <div class="dur-w">
+      <select class="dur-sel" onchange="setForm('${yKey}',this.value)">${yOpts}</select>
+    </div>
+    <div class="dur-w">
+      <select class="dur-sel" onchange="setForm('${mKey}',this.value)">${mOpts}</select>
+    </div>
+  </div>`;
+}
+
+function canNext(){
+  if(step===1)return !!(form.childCount && (form.mY !== '' || form.mM !== '0' || true));
+  if(step===2)return !!(form.sv && (parseInt(form.aY)>0||parseInt(form.aM)>0) && form.aw && form.bd);
+  if(step===3)return !!(form.impact && form.ev && form.after);
+  return false;
+}
+
+// ── Steps UI ────────────────────────────────────────────────────
+function renderSteps(){
+  const labels=['기초 정보','부정행위','영향 및 증거'];
+  let h='<div class="steps">';
+  for(let i=1;i<=3;i++){
+    const cls=step>i?'done':step===i?'active':'off';
+    const lcls=step>=i?'on':'off';
+    h+=`<div class="step-item"><div class="sdot ${cls}">${step>i?'✓':i}</div><div class="slbl ${lcls}">${labels[i-1]}</div></div>`;
+    if(i<3)h+=`<div class="sline ${step>i?'done':'off'}"></div>`;
+  }
+  document.getElementById('steps-wrap').innerHTML=h+'</div>';
+}
+
+// ── Step 1 ───────────────────────────────────────────────────────
+function renderStep1(){
+  const mY = parseInt(form.mY)||0;
+  const mM = parseInt(form.mM)||0;
+  return`<div class="fcard">
+    <div class="sec-title">기초 정보</div>
+    <div class="sec-sub">혼인기간과 자녀 관계를 입력해주세요</div>
+    <label class="flbl">혼인 기간 <span class="freq">*</span></label>
+    ${durRow('mY','mM')}
+    <label class="flbl">자녀 수 <span class="freq">*</span></label>
+    <div class="opts" style="margin-bottom:16px;">
+      ${opt('none','childCount','자녀 없음','자녀가 없는 경우')}
+      ${opt('one','childCount','1명','자녀 1명인 경우')}
+      ${opt('two','childCount','2명','자녀 2명인 경우')}
+      ${opt('multi','childCount','3명 이상','자녀 3명 이상인 경우')}
+    </div>
+    ${form.childCount && form.childCount !== 'none' ? `
+    <label class="flbl">미성년 자녀 여부</label>
+    <div class="opts">
+      ${opt('yes','childMinor','미성년 자녀 있음','만 19세 미만 자녀가 1명 이상인 경우')}
+      ${opt('no','childMinor','성년 자녀만 있음','모든 자녀가 만 19세 이상인 경우')}
+    </div>` : ''}
+  </div>`;
+}
+
+// ── Step 2 ───────────────────────────────────────────────────────
+function renderStep2(){
+  return`<div class="fcard">
+    <div class="sec-title">부정행위 정보</div>
+    <div class="sec-sub">부정행위의 정도와 기간, 피고의 기혼 인식 여부를 입력해주세요</div>
+    <label class="flbl">부정행위의 정도 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('contact','sv','단순 연락 / 감정교류','성적 접촉 없이 정서적 교류만 있는 경우')}
+      ${opt('dates','sv','지속적 만남 / 데이트','주기적 만남과 연인 관계를 유지한 경우')}
+      ${opt('sexual','sv','성관계 (추단 포함)','성관계가 있었거나 숙박업소 출입 등 정황이 명확한 경우')}
+      ${opt('cohab','sv','동거 / 사실혼 수준','살림을 차리거나 중혼적 사실혼 관계인 경우')}
+    </div>
+    <label class="flbl">부정행위 기간 <span class="freq">*</span></label>
+    ${durRow('aY','aM')}
+    <label class="flbl">상대방의 기혼 인식 여부 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('yes','aw','기혼 사실 명확히 인지','상대방이 기혼자임을 확실히 알고 있었던 경우')}
+      ${opt('likely','aw','인식 추정 가능','정황상 기혼임을 알 수 있었으나 명시적 증거 부족')}
+      ${opt('no','aw','몰랐음 / 속았음','미혼으로 속았거나 기혼임을 알기 어려웠던 경우')}
+      ${opt('unclear','aw','불분명','기혼 인식 여부를 판단하기 어려운 경우')}
+    </div>
+    <label class="flbl">사전 혼인 파탄 여부 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('no','bd','혼인 정상 유지','부정행위 전까지 정상적인 혼인 생활이 유지된 경우')}
+      ${opt('partial','bd','일부 파탄 / 갈등 중','갈등이 있었으나 완전한 파탄은 아닌 경우')}
+      ${opt('yes','bd','이미 별거 / 이혼 진행','부정행위 전 이미 별거 중이거나 이혼 절차 진행 중인 경우')}
+      ${opt('unclear','bd','불분명','파탄 시점이 모호한 경우')}
+    </div>
+  </div>`;
+}
+
+// ── Step 3 ───────────────────────────────────────────────────────
+function renderStep3(){
+  return`<div class="fcard">
+    <div class="sec-title">영향 및 증거</div>
+    <div class="sec-sub">보유한 증거와 가정에 미친 영향을 입력해주세요</div>
+    <label class="flbl">현재 보유한 증거 수준 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('none','ev','증거 없음','주장만 있고 입증할 증거가 전혀 없는 경우')}
+      ${opt('weak','ev','간접증거 (카톡 · 카드내역 등)','정황 증거 위주인 경우')}
+      ${opt('direct','ev','직접증거 (영상 · 숙박 CCTV 등)','숙박업소 CCTV, 성관계 사진/영상 등 명확한 증거')}
+      ${opt('confess','ev','자백 / 녹취 확보','상대방이 부정행위를 인정한 자백이나 녹취 보유')}
+      ${opt('mixed','ev','복합 증거 완비','직접증거 + 자백 등 모두 갖춰진 완벽한 상태')}
+    </div>
+    <label class="flbl">가정에 미친 영향 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('light','impact','경미 (혼인 유지 중)','충격은 있으나 혼인 관계를 유지하기로 한 경우')}
+      ${opt('moderate','impact','중간 (갈등 심화)','정신과 치료, 상담 등을 받으며 심각한 갈등을 겪는 경우')}
+      ${opt('severe','impact','중대 (별거 중)','별거에 이르렀으나 아직 이혼하지 않은 경우')}
+      ${opt('full','impact','가정 파탄 (이혼)','부정행위로 인해 결국 이혼하거나 이혼 소송 중인 경우')}
+    </div>
+    <label class="flbl">발각 후 상대방 태도 <span class="freq">*</span></label>
+    <div class="opts">
+      ${opt('apologize','after','즉시 사과 및 관계 단절','발각 후 즉시 관계를 끊고 진심으로 사과한 경우')}
+      ${opt('deny','after','부인 / 책임 회피','사실을 부인하거나 책임 없다는 태도')}
+      ${opt('continue','after','발각 후에도 관계 지속','원고가 알고 있음에도 부정행위를 이어간 경우')}
+      ${opt('secondary','after','2차 가해 / 협박 / 조롱','배우자를 조롱하거나 협박, 소송 방해 등 악의적 행위')}
+    </div>
+    <label class="flbl" style="margin-top:4px;">기타 참고 사항 <span style="color:var(--charcoal-muted);font-weight:300;letter-spacing:0;">(선택)</span></label>
+    <textarea class="ctarea" placeholder="판결에 영향을 줄 수 있는 특이사항이 있다면 적어주세요" oninput="setForm('memo',this.value)">${form.memo}</textarea>
+  </div>`;
+}
+
+// ── Form render ──────────────────────────────────────────────────
+function render(){
+  renderSteps();
+  const fw=document.getElementById('form-wrap');
+  fw.innerHTML=step===1?renderStep1():step===2?renderStep2():renderStep3();
+  const ok=canNext();
+  const nw=document.getElementById('nav-wrap');
+  const prev=step>1?`<button class="btn-p" onclick="goStep(${step-1})">← 이전</button>`:'';
+  const next=step<3
+    ?`<button class="btn-n" ${ok?'':'disabled'} onclick="tryNext()">다음 단계 →</button>`
+    :`<button class="btn-n" ${ok?'':'disabled'} onclick="tryPredict()">최종 분석 결과 보기</button>`;
+  nw.innerHTML=prev+next;
+}
+
+function tryNext(){if(canNext())goStep(step+1);}
+function tryPredict(){if(canNext())doPredict();}
+function goStep(n){step=n;render();window.scrollTo(0,72);}
+
+// ── Factor analysis ──────────────────────────────────────────────
+function analyzeFactors(){
+  const mm=(parseInt(form.mY)||0)*12+(parseInt(form.mM)||0);
+  const am=(parseInt(form.aY)||0)*12+(parseInt(form.aM)||0);
+  const pros=[],cons=[],evid=[];
+  if(mm>=240)pros.push('혼인 기간 20년 이상 — 정신적 고통이 매우 크다고 인정됩니다');
+  else if(mm>=120)pros.push('혼인 기간 10년 이상 — 위자료 산정 시 유리합니다');
+  else if(mm>=60)pros.push('혼인 기간 5년 이상 — 안정적 혼인관계 침해가 인정됩니다');
+  else if(mm>0&&mm<24)cons.push('혼인 기간 2년 미만 — 위자료 감액 사유가 될 수 있습니다');
+    const hasChild = form.childCount && form.childCount !== 'none';
+  const isMinor = form.childMinor === 'yes';
+  if(hasChild && isMinor)pros.push('미성년 자녀 존재 — 가정 파탄 피해가 가중 인정됩니다');
+  else if(hasChild && (form.childCount==='two'||form.childCount==='multi'))pros.push('복수 자녀 존재 — 가정에 미친 영향이 크게 평가됩니다');
+  else if(hasChild)pros.push('자녀 있음 — 가정 파탄 피해가 인정됩니다');
+  else cons.push('자녀 없음 — 가정에 미친 영향이 상대적으로 작게 평가될 수 있습니다');
+  if(form.sv==='cohab')pros.push('동거 수준 부정행위 — 혼인관계 침해 정도가 매우 중대합니다');
+  else if(form.sv==='sexual')pros.push('성관계(추단 포함) — 불법행위 성립이 용이합니다');
+  else if(form.sv==='contact')cons.push('단순 감정교류 — 성적 부정행위 입증이 어려울 수 있습니다');
+  if(am>=24)pros.push(`부정행위 기간 ${am}개월 이상 (2년+) — 장기간 지속으로 위자료 가중 사유입니다`);
+  else if(am>=12)pros.push(`부정행위 기간 ${am}개월 이상 — 위자료 증액 요소입니다`);
+  else if(am>0&&am<3)cons.push('부정행위 기간 3개월 미만 — 비교적 짧아 감액될 수 있습니다');
+  if(form.aw==='no')cons.push('피고가 기혼 사실을 몰랐다면 불법행위 성립 자체가 어렵습니다 (중요 불리 요소)');
+  else if(form.aw==='yes')pros.push('피고가 기혼 사실 명확히 인지 — 불법행위 성립이 용이합니다');
+  if(form.bd==='yes')cons.push('부정행위 이전 이미 혼인 파탄 — 손해배상책임 불인정 가능성 있습니다');
+  else if(form.bd==='no')pros.push('부정행위 전까지 정상 혼인 유지 — 인과관계 입증이 명확합니다');
+  if(form.impact==='full')pros.push('이혼에 이름 — 혼인파탄이 명백히 인정됩니다');
+  else if(form.impact==='severe')pros.push('별거 상태 — 심각한 혼인 파탄 상황입니다');
+  if(form.ev==='mixed')pros.push('영상·자백 등 복합증거 완비 — 불법행위 입증이 확실합니다');
+  else if(form.ev==='direct')pros.push('숙박업소 CCTV, 영상 등 직접증거 — 입증이 용이합니다');
+  else if(form.ev==='confess')pros.push('자백·녹취 확보 — 부정행위 사실의 다툼이 없습니다');
+  else if(form.ev==='none')cons.push('증거 없음 — 소 제기 전 반드시 증거 확보가 필요합니다');
+  else if(form.ev==='weak')cons.push('간접증거 위주 — 성적 부정행위 입증에 어려움이 있을 수 있습니다');
+  if(form.after==='secondary')pros.push('발각 후 2차 가해·협박 — 위자료 가중 사유입니다');
+  else if(form.after==='continue')pros.push('발각 후에도 관계 지속 — 고의성이 명백합니다');
+  else if(form.after==='apologize')cons.push('즉시 사과 및 단절 — 위자료 감액 사유가 될 수 있습니다');
+  if(form.ev==='none'||form.ev==='weak'){
+    if(form.sv==='sexual'||form.sv==='cohab')evid.push('숙박업소 투숙 기록 또는 CCTV 영상 (사설탐정 활용 가능)');
+    evid.push('카카오톡 / 문자 메시지 (애정표현, 만남 약속 내용)');
+    evid.push('신용카드 사용내역 (함께 식사, 숙박, 쇼핑 등)');
+    evid.push('위치정보 또는 이동 동선 (동행 사실 입증)');
+    evid.push('SNS 메시지, 이메일, 사진 등 디지털 증거');
+    evid.push('배우자의 자백 녹취 또는 각서');
+  }
+  return{pros,cons,evid};
+}
+
+// ── Predict & Result ─────────────────────────────────────────────
+function buildQuery(){
+  return{
+    mm:(parseInt(form.mY)||0)*12+(parseInt(form.mM)||0),
+    am:(parseInt(form.aY)||0)*12+(parseInt(form.aM)||0),
+    sv:form.sv||'sexual',ev:form.ev||'weak',
+    bd:form.bd==='yes'?'maintained':form.bd==='partial'?'partial':'full',
+    ch:form.childCount==='none'?'none':form.childCount==='one'?'one':'multi',
+    aw:form.aw==='no'?'no':form.aw==='unclear'?'unclear':'yes'
+  };
+}
+
+function doPredict(){
+  result=predict(buildQuery());
+  document.getElementById('calc-area').classList.remove('show');
+  document.getElementById('result-area').classList.add('show');
+  renderResult();
+  window.scrollTo(0,0);
+}
+
+function renderResult(){
+  const r=result;
+  const wc=r.winProb>=80?'#16a34a':r.winProb>=60?'#B8976A':'#dc2626';
+  const wl=r.winProb>=80?'높음':r.winProb>=60?'보통':'낮음';
+  const {pros,cons,evid}=analyzeFactors();
+  const mm=(parseInt(form.mY)||0)*12+(parseInt(form.mM)||0);
+  const am=(parseInt(form.aY)||0)*12+(parseInt(form.aM)||0);
+  const svL={contact:'감정교류',dates:'연인관계',sexual:'성관계',cohab:'동거'}[form.sv]||'-';
+  const evL={none:'없음',weak:'간접증거',direct:'직접증거',confess:'자백',mixed:'복합완비'}[form.ev]||'-';
+  const bdL={no:'정상혼인',partial:'일부갈등',yes:'파탄선행',unclear:'불분명'}[form.bd]||'-';
+  const impL={light:'경미',moderate:'갈등심화',severe:'별거',full:'이혼'}[form.impact]||'-';
+  const chCountL={none:'없음',one:'1명',two:'2명',multi:'3명이상'}[form.childCount]||'-';
+  const chMinorL=form.childCount&&form.childCount!=='none'?(form.childMinor==='yes'?'(미성년 포함)':'(성년)'):''
+  const chL=chCountL+(chMinorL?' '+chMinorL:'');
+  const awL={yes:'인지함',likely:'추정가능',no:'몰랐음',unclear:'불분명'}[form.aw]||'-';
+
+  // Main hero
+  document.getElementById('result-main').innerHTML=`
+    <div class="rrange">
+      <span class="ramt">${fmt(r.low)}</span>
+      <span class="rsep">—</span>
+      <span class="ramt">${fmt(r.high)}</span>
+    </div>
+    <div class="rcbox">
+      <div class="rcbox-l">중앙 예측치</div>
+      <div class="rcbox-v">${fmt(r.center)}</div>
+    </div>
+    <div class="rstats">
+      <div class="rst">
+        <div class="rst-l">승소 가능성</div>
+        <div class="rst-v" style="color:${wc}">${wl}</div>
+        <div class="rst-bar"><div class="rst-bf" style="width:${r.winProb}%;background:${wc}"></div></div>
+      </div>
+    </div>`;
+
+  // Sections
+  function caseTagsHTML(c){
+    const tags=[];
+    if(c.mm>0)tags.push(`혼인 ${Math.round(c.mm/12)}년`);
+    if(c.am>0)tags.push(`부정행위 ${c.am>=12?Math.round(c.am/12)+'년':c.am+'개월'}`);
+    tags.push({sexual:'성관계',cohab:'동거',dates:'연인관계',contact:'감정교류'}[c.sv]||c.sv);
+    tags.push({direct:'직접증거',confess:'자백',mixed:'복합증거',weak:'간접증거',none:'증거없음'}[c.ev]||c.ev);
+    tags.push({full:'이혼완료',partial:'부분파탄',maintained:'혼인유지'}[c.bd]||c.bd);
+    return`<div class="ctags">${tags.map(t=>`<span class="ctag">${t}</span>`).join('')}</div>`;
+  }
+
+  let secs='';
+
+  // Summary
+  secs+=`<div class="rsec">
+    <div class="rsec-title" style="color:var(--charcoal);">입력 정보 요약</div>
+    <div class="sumgrid">
+      ${[['혼인 기간',mm>0?`${form.mY||0}년 ${parseInt(form.mM)||0}개월`:'미입력'],['부정행위 기간',am>0?`${form.aY||0}년 ${parseInt(form.aM)||0}개월`:'미입력'],['자녀',chL],['부정행위 정도',svL],['기혼 인식',awL],['사전 파탄',bdL],['가정 영향',impL],['증거 수준',evL]].map(([k,v])=>`<div class="sumrow"><span class="sk">${k}</span><span class="sv">${v}</span></div>`).join('')}
+    </div>
+  </div>`;
+
+  // Pros
+  if(pros.length)secs+=`<div class="rsec">
+    <div class="rsec-title" style="color:#16a34a;">유리한 사정</div>
+    ${pros.map(p=>`<div class="fac pro"><span class="fi" style="color:#16a34a">✓</span><span>${p}</span></div>`).join('')}
+  </div>`;
+
+  // Cons
+  if(cons.length)secs+=`<div class="rsec">
+    <div class="rsec-title" style="color:#dc2626;">불리한 사정</div>
+    ${cons.map(c=>`<div class="fac con"><span class="fi" style="color:#dc2626">!</span><span>${c}</span></div>`).join('')}
+  </div>`;
+
+  // Evidence
+  if(evid.length)secs+=`<div class="rsec">
+    <div class="rsec-title" style="color:var(--burgundy);">추가 확보가 필요한 증거</div>
+    <div style="font-size:12px;font-weight:300;color:var(--charcoal-muted);margin-bottom:16px;line-height:1.8;">소 제기 전 아래 증거를 확보하면 승소 가능성이 높아집니다.</div>
+    ${evid.map(e=>`<div class="fac evid"><span class="fi" style="color:var(--burgundy)">→</span><span>${e}</span></div>`).join('')}
+  </div>`;
+
+  // Similar cases
+  secs+=`<div class="rsec">
+    <div class="rsec-title" style="color:var(--charcoal);">유사 판례 (상위 5건)</div>
+    <div style="font-size:12px;font-weight:300;color:var(--charcoal-muted);margin-bottom:16px;">귀하의 사건과 유사도가 높은 실제 법원 판결입니다</div>
+    ${r.topCases.map((c,i)=>`<div class="ccase ${i===0?'top':''}">
+      <div class="crow">
+        <div style="display:flex;align-items:center;gap:8px;">${i===0?`<span class="cbadge">최유사</span>`:''}
+          <span class="camt">위자료 ${fmt(c.a)}</span>
+        </div>
+        <span class="csim">유사도 ${Math.round(c.sim*5.5)}점</span>
+      </div>
+      ${caseTagsHTML(c)}
+    </div>`).join('')}
+  </div>`;
+
+  // CTA
+  secs+=`<div class="rcta" style="margin-bottom:2px;">
+    <div>
+      <h3>내 사건, 정말 소송이 가능한지<br>먼저 진단받아보세요.</h3>
+      <p>상간소송, 감정적으로 시작하기 전에 법적으로 이길 수 있는 구조인지부터 확인해야 합니다.<br>유책메이트의 전략 진단 리포트가 첫 번째 단추를 정확하게 끼워드립니다.</p>
+    </div>
+    <a href="yuchaekmate_report.html" class="rcta-btn">리포트 신청하기</a>
+  </div>
+  <div class="rcta">
+    <div>
+      <h3>정확한 사건 분석이 필요하신가요?</h3>
+      <p>본 결과는 500개 이상의 실제 판례 기반 통계적 예측치입니다.<br>정확한 소송 전략 수립을 위해서는, 전문 변호사 상담을 권해드립니다.</p>
+    </div>
+    <a href="yuchaekmate_consult.html" class="rcta-btn">상담 신청하기</a>
+  </div>`;
+
+  document.getElementById('result-sections').innerHTML=secs;
+
+  // Animate bar
+  setTimeout(()=>{
+    document.querySelectorAll('.rst-bf').forEach(el=>{
+      const w=el.style.width;el.style.width='0';
+      setTimeout(()=>el.style.width=w,50);
+    });
+  },100);
+}
+function toggleMobMenu() {
+  var btn = document.getElementById('mob-btn');
+  var menu = document.getElementById('mob-menu');
+  if (!btn || !menu) return;
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+</script>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">유책메이트</div>
+      <div class="footer-brand-sub">상간소송의 정석</div>
+      <p class="footer-brand-desc">대형로펌 가사전담팀 출신 전문 변호사가<br>사건의 처음부터 끝까지 직접 수행하는<br>상간소송 전문 법률 브랜드입니다.</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스 분야</h5>
+      <ul>
+        <li><a href="yuchaekmate_report.html">전략 진단 리포트</a></li>
+        <li><a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a></li>
+        <li><a href="yuchaekmate_court.html">재판 출석 솔루션</a></li>
+        <li><a href="yuchaekmate_settle.html">합의 대행 솔루션</a></li>
+        <li><a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a></li>
+        <li><a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a></li>
+        <li><a href="yuchaekmate_plaintiff.html">올인원 풀케어 패키지</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>소개</h5>
+      <ul>
+        <li><a href="yuchaekmate_brand.html">브랜드 소개</a></li>
+        <li><a href="yuchaekmate_expert.html">전문가 소개</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>상간 전략 가이드</h5>
+      <ul>
+        <li><a href="yuchaekmate_column.html">칼럼</a></li>
+        <li><a href="yuchaekmate_success.html">성공사례&amp;고객후기</a></li>
+        <li><a href="yuchaekmate_consult.html">상담 신청</a></li>
+        <li><a href="yuchaekmate_calculator.html">위자료 계산기</a></li>
+      </ul>
+    </div>
+  </div>
+<div class="footer-bottom" style="flex-direction:column;gap:16px;align-items:flex-start;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:11px;font-weight:300;color:rgba(244,239,234,0.25);cursor:pointer;" onclick="document.getElementById('privacy-modal').style.display='flex'">개인정보처리방침</span>
+    </div>
+    <div class="footer-bottom-left" style="line-height:2;">
+      대표자 김채린 &nbsp;|&nbsp; 주소 서울 서초구 서초중앙로 18길 23, 2층 (서초동, 효암빌딩) 법률사무소 리그<br>
+      <span class="f-biz-desktop" style="display:inline;">사업자등록번호 761-50-01093 &nbsp;|&nbsp; 대표번호 050-6780-6393<br></span><span class="f-biz-mobile" style="display:none;">사업자등록번호 761-50-01093 (변호사 김채린 법률사무소)<br>      대표번호 050-6780-6393<br></span>광고책임변호사 김채린
+    </div>
+  </div>
+</footer>
+
+<!-- 개인정보처리방침 모달 -->
+<div id="privacy-modal" style="display:none;position:fixed;inset:0;background:rgba(44,44,44,0.6);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;padding:40px;position:relative;">
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#777;">✕</button>
+    <h3 style="font-family:'Noto Serif KR',serif;font-size:18px;margin-bottom:20px;">개인정보처리방침</h3>
+        <div style="font-size:13px;font-weight:300;color:#4A4A4A;line-height:2;">
+      <p><strong>개인정보처리방침</strong></p>
+      <p style="margin-top:12px;">유책메이트(이하 '회사')는 개인정보보호법 제30조에 따라 회사가 제공하고자 하는 서비스(이하 '서비스')를 이용하는 고객(이하 '이용자' 또는 '개인')의 정보(이하 '개인정보')를 보호하기 위해, 개인정보보호법 등 관련 법령을 준수하고, 서비스 이용자의 개인정보 보호와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보처리방침(이하 '본 방침')을 수립·공개합니다.</p>
+      <p style="margin-top:16px;"><strong>제1조(개인정보의 처리목적)</strong></p>
+      <p>회사는 개인정보보호법 제32조에 따라 다음과 같이 개인정보를 처리합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보: 인적사항</li>
+        <li>처리목적: 법률서비스 제공</li>
+        <li>수집방법: 생성정보 수집 툴을 통한 수집, 전화/팩스, 서면양식, 홈페이지</li>
+        <li>보유근거: 통신비밀보호법 등</li>
+        <li>보유기간: 준영구</li>
+        <li>관련법령: 표시/광고에 관한 기록 6개월 / 계약 또는 청약철회 등에 관한 기록 5년 / 대금결제 및 재화 등의 공급에 관한 기록 5년 / 소비자의 불만 또는 분쟁처리에 관한 기록 3년 / 신용정보의 수집/처리 및 이용 등에 관한 기록 3년</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제2조(처리하는 개인정보의 항목)</strong></p>
+      <p>인적사항</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>필수항목: 이름, 휴대전화번호, 이메일, 접속 로그, 상담신청 절차에서 발생된 기타 정보</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제3조(개인정보의 파기절차 및 파기방법)</strong></p>
+      <p>회사는 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>파기절차: 파기 사유가 발생한 개인정보를 선정하고, 개인정보 보호책임자의 승인을 받아 파기합니다.</li>
+        <li>파기방법: 종이에 출력된 개인정보는 분쇄기로 분쇄하거나 소각을 통하여 파기합니다.</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제4조(개인정보주체의 권리·의무 및 그 행사방법)</strong></p>
+      <p>(1) 정보주체는 관계 법령이 정하는 바에 따라 개인정보의 열람, 정정·삭제, 처리정지 및 동의 철회 등 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
+      <p>(2) 권리행사는 회사에 대하여 개인정보 보호법 시행규칙 별지 제8호 서식에 따라 서면, 전자우편, 모사전송(FAX) 등을 통하여 하실 수 있습니다.</p>
+      <p>(3) 권리행사는 정보주체의 법정대리인을 통해서도 행사할 수 있으며, 이 경우에는 개인정보 보호법 시행규칙 별지 제11호 서식에 따른 위임장을 회사에 제출해야 합니다.</p>
+      <p style="margin-top:16px;"><strong>제5조(개인정보의 파기)</strong></p>
+      <p>(1) 회사는 보유기간이 경과된 경우 보유기간 종료일로부터 5일 이내에, 처리목적 달성 등 불필요하게 되었을 때에는 처리가 필요한 것으로 인정되는 날로부터 5일 이내에 개인정보를 파기합니다.</p>
+      <p>(2) 관계법령에 의하여 보존할 필요가 있는 경우 해당 개인정보를 다른 개인정보와 분리해서 저장·관리합니다.</p>
+      <p>(3) 전자파일 형태의 개인정보는 복원이 불가능한 방법으로 영구 삭제하는 방법으로 파기합니다.</p>
+      <p style="margin-top:16px;"><strong>제6조(개인정보의 안전성 확보 조치)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>물리적 보호조치: 전산실, 자료실 등 개인정보 보관 장소에 대한 접근통제</li>
+        <li>관리적 보호조치: 내부관리계획의 수립 및 시행, 정기적인 개인정보 보호 교육</li>
+        <li>기술적 보호조치: 개인정보처리시스템에 대한 접근통제, 접근권한 관리, 보안 프로그램의 설치 및 암호화</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제7조(개인정보 관리 책임자)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보관리책임자: 김채린</li>
+        <li>직위: 대표자</li>
+        <li>전화번호: 050-6780-6393</li>
+        <li>이메일: lawleague175@naver.com</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제8조(권익침해에 대한 구제방법)</strong></p>
+      <p>개인정보 보호 관련 문의, 불만처리, 피해구제 등은 개인정보 보호책임자에게 문의하실 수 있습니다. 기타 개인정보침해에 대한 신고나 상담이 필요하신 경우 아래 기관에 문의하시기 바랍니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보분쟁조정위원회 (www.kopico.go.kr / 1833-6972)</li>
+        <li>개인정보 침해신고센터 (privacy.kisa.or.kr / 118)</li>
+        <li>대검찰청 인터넷범죄수사센터 (www.spo.go.kr / 02-3480-2000)</li>
+        <li>경찰청 사이버안전국 (cyberbureau.police.go.kr / 182)</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제9조(고지의 의무)</strong></p>
+      <p>본 방침은 2026. 4. 7. 제정되었으며, 법령, 정책 또는 보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 시에는 변경되는 개인정보처리방침을 홈페이지에 공지하도록 하겠습니다.</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+</body>
+</html>

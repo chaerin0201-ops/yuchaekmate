@@ -1,0 +1,61 @@
+/* ══════════════════════════════
+   global.css — 전역 타이포그래피
+   ══════════════════════════════ */
+
+/* 1. 단어 중간 줄바꿈 방지 — 전체 적용 */
+* {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* 2. 본문 단락 — 양쪽 정렬 + 줄간격 + 자간 */
+p {
+  text-align: justify;
+  text-justify: inter-character;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+
+/* 3. 목록 항목 */
+li {
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  word-break: keep-all;
+}
+
+/* 4. 제목 — 줄간격 · 자간 정비 */
+h1, h2, h3, h4, h5, h6 {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+}
+
+/* 5. 버튼·네비·입력 요소는 inherit 유지 */
+button, input, select, textarea, label {
+  word-break: keep-all;
+  letter-spacing: inherit;
+}
+
+/* 6. 모바일 추가 조정 */
+@media (max-width: 768px) {
+  p {
+    text-align: justify;
+    text-justify: inter-character;
+    line-height: 1.85;
+  }
+
+  h1, h2 {
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  h3, h4 {
+    line-height: 1.45;
+  }
+
+  li {
+    line-height: 1.8;
+  }
+}

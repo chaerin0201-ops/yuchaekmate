@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유책메이트 | 맞춤형 서면 솔루션</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+  :root {
+    --beige: #F4EFEA;
+    --beige-dark: #EAE3DB;
+    --beige-mid: #DDD4C8;
+    --charcoal: #2C2C2C;
+    --charcoal-light: #4A4A4A;
+    --charcoal-muted: #7A7A7A;
+    --burgundy: #721B29;
+    --burgundy-light: #9B2537;
+    --burgundy-pale: #F0E4E6;
+    --gold: #B8976A;
+    --white: #FDFAF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--beige); color: var(--charcoal); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 100px; height: 88px; background: rgba(244,239,234,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(114,27,41,0.12); }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-emblem { width: 34px; height: 34px; background: var(--burgundy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-logo-emblem svg { width: 16px; height: 16px; fill: none; stroke: rgba(244,239,234,0.9); stroke-width: 1.4; }
+    .nav-logo-icon { width: 52px; height: 52px; flex-shrink: 0; object-fit: contain; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 5px; }
+  .nav-logo-main { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 600; color: var(--charcoal); letter-spacing: -0.01em; line-height: 1; }
+  .nav-logo-sub { font-size: 9px; font-weight: 300; color: var(--burgundy); letter-spacing: 0.22em; text-transform: uppercase; line-height: 1; padding-left: 6px; }
+  .nav-links { display: flex; gap: 0; list-style: none; height: 72px; }
+  .nav-item { position: relative; display: flex; align-items: center; }
+  .nav-item > a { font-size: 13px; font-weight: 400; color: var(--charcoal-light); text-decoration: none; letter-spacing: 0.04em; padding: 0 20px; height: 72px; display: flex; align-items: center; gap: 5px; transition: color 0.2s; white-space: nowrap; }
+  .nav-item > a:hover, .nav-item.active > a { color: var(--burgundy); }
+  .nav-arrow { font-size: 8px; opacity: 0.5; transition: transform 0.2s; display: inline-block; }
+  .nav-item:hover > a .nav-arrow { transform: rotate(180deg); }
+  .nav-dropdown { position: absolute; top: 72px; left: 0; background: var(--white); border-top: 2px solid var(--burgundy); border-bottom: 1px solid rgba(114,27,41,0.1); box-shadow: 0 8px 32px rgba(44,44,44,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: all 0.22s ease; z-index: 200; }
+  .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-section { border-bottom: 1px solid rgba(114,27,41,0.07); }
+  .nav-dropdown-section:last-child { border-bottom: none; }
+  .nav-dropdown-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--burgundy); padding: 12px 20px 6px; display: block; }
+  .nav-dropdown a { display: block; font-size: 12.5px; font-weight: 400; color: var(--charcoal-light); text-decoration: none; padding: 8px 20px 8px 28px; transition: all 0.18s; white-space: nowrap; }
+  .nav-dropdown a:hover, .nav-dropdown a.active { color: var(--burgundy); background: var(--burgundy-pale); padding-left: 32px; }
+  .nav-sub-group { position: relative; }
+  .nav-sub-label { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; font-weight: 400; color: var(--charcoal-light); padding: 8px 20px 8px 28px; cursor: default; white-space: nowrap; }
+  .nav-sub-dropdown { position: absolute; left: 100%; top: -2px; background: var(--white); border-top: 2px solid var(--burgundy); box-shadow: 8px 8px 32px rgba(44,44,44,0.1); min-width: 190px; opacity: 0; visibility: hidden; transform: translateX(-6px); transition: all 0.2s ease; z-index: 300; }
+  .nav-sub-group:hover .nav-sub-dropdown { opacity: 1; visibility: visible; transform: translateX(0); }
+  .nav-sub-dropdown a { padding: 9px 20px; font-size: 12.5px; color: var(--charcoal-light); text-decoration: none; display: block; transition: all 0.18s; white-space: nowrap; }
+  .nav-sub-dropdown a:hover { color: var(--burgundy); background: var(--burgundy-pale); padding-left: 24px; }
+  .nav-cta-btn { background: var(--burgundy); color: var(--white) !important; padding: 10px 22px; border-radius: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; white-space: nowrap; transition: background 0.2s; margin-left: 16px; }
+  .nav-cta-btn:hover { background: var(--charcoal); }
+.mob-btn{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:301;margin-left:auto;}
+.mob-btn span{display:block;width:22px;height:2px;background:var(--charcoal);border-radius:1px;transition:all 0.25s;}
+.mob-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.mob-btn.open span:nth-child(2){opacity:0;transform:translateX(-8px);}
+.mob-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:300;padding:72px 0 32px;overflow-y:auto;flex-direction:column;}
+.mob-menu.open{display:flex;}
+.mob-menu-section{border-bottom:1px solid rgba(255,255,255,0.07);}
+.mob-menu-link{display:block;font-size:15px;font-weight:400;color:rgba(255,255,255,0.8);padding:15px 24px;text-decoration:none;letter-spacing:0.02em;}
+.mob-menu-link:hover{color:var(--gold);}
+.mob-menu-sub{padding:0 0 10px 36px;}
+.mob-menu-sub a{display:block;font-size:13px;color:rgba(255,255,255,0.45);padding:7px 0;text-decoration:none;}
+.mob-menu-sub a:hover{color:rgba(255,255,255,0.8);}
+.mob-menu-cta{display:block;background:var(--burgundy);color:#fff;text-align:center;padding:15px 24px;font-size:14px;font-weight:500;text-decoration:none;margin:20px 24px 0;letter-spacing:0.06em;}
+  .mob-menu-home{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.5);text-decoration:none;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.07);letter-spacing:0.04em;}
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    min-height: 100vh;
+    background: linear-gradient(120deg, rgba(30,22,25,0.88) 0%, rgba(60,37,42,0.72) 45%, rgba(114,27,41,0.45) 100%), linear-gradient(135deg, #2C2C2C 0%, #3e2d31 50%, #5a3a3f 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: 'WRITING';
+    position: absolute;
+    right: -2%;
+    top: 10%;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(100px, 16vw, 230px);
+    font-weight: 300;
+    color: rgba(244,239,234,0.03);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute;
+    left: -100px; bottom: -100px;
+    width: 400px; height: 400px;
+    border: 1px solid rgba(114,27,41,0.15);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: 80px 72px 80px 120px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border: 1px solid rgba(244,239,234,0.15);
+    background: rgba(244,239,234,0.06);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244,239,234,0.8);
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(34px, 3.8vw, 54px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.42;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.12em;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 14.5px;
+    font-weight: 300;
+    color: rgba(244,239,234,0.65);
+    line-height: 2;
+    margin: 28px 0 44px;
+    max-width: 500px;
+  }
+
+  .hero-desc strong { color: rgba(244,239,234,0.9); font-weight: 500; }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary { background: var(--burgundy); color: var(--white); padding: 15px 32px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; display: inline-block; transition: all 0.25s; border-radius: 2px; }
+  .btn-primary:hover { background: var(--charcoal); transform: translateY(-1px); }
+
+  .btn-ghost { background: rgba(244,239,234,0.08); color: rgba(244,239,234,0.85); padding: 15px 32px; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-decoration: none; display: inline-block; transition: all 0.25s; border: 1px solid rgba(244,239,234,0.16); border-radius: 2px; }
+  .btn-ghost:hover { background: rgba(244,239,234,0.14); transform: translateY(-1px); }
+
+  .hero-right {
+    padding: 80px 80px 80px 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-card {
+    background: rgba(244,239,234,0.07);
+    border: 1px solid rgba(244,239,234,0.12);
+    backdrop-filter: blur(12px);
+    padding: 36px 36px;
+  }
+
+  .hero-card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-card-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+
+  .hero-card h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .hero-card-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+
+  .hero-card-list li {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(244,239,234,0.72);
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(244,239,234,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.6;
+  }
+
+  .hero-card-list li:last-child { border-bottom: none; }
+  .hero-card-list li::before { content: ''; width: 4px; height: 4px; background: var(--burgundy); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SECTION COMMON ── */
+  .section { padding: 100px 120px; }
+
+  .section-label { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .section-label-line { width: 32px; height: 1px; background: var(--burgundy); }
+  .section-label-text { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--burgundy); }
+
+  .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(26px, 2.6vw, 38px); font-weight: 400; color: var(--charcoal); line-height: 1.5; letter-spacing: -0.02em; }
+  .section-title em { font-style: italic; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.12em; color: var(--burgundy); }
+
+  .section-sub { font-size: 14px; font-weight: 300; color: var(--charcoal-muted); line-height: 2; margin-top: 14px; max-width: 680px; }
+
+  /* ── FOR WHOM ── */
+  .for-whom { background: var(--white); }
+
+  .for-whom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+
+  .for-whom-card { background: var(--beige); padding: 40px 32px; border-bottom: 3px solid transparent; transition: all 0.25s; position: relative; overflow: hidden; }
+  .for-whom-card:hover { border-bottom-color: var(--burgundy); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(44,44,44,0.08); background: var(--white); }
+
+  .for-whom-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: rgba(44,44,44,0.05); line-height: 1; position: absolute; top: 16px; right: 20px; }
+
+  .for-whom-card h3 { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 500; color: var(--charcoal); margin-bottom: 14px; line-height: 1.5; }
+  .for-whom-card p { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.9; }
+
+  /* ── SERVICE CONTENT ── */
+  .service-content { background: var(--beige); }
+
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 52px; }
+
+  .service-item {
+    background: var(--white);
+    padding: 36px 36px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    transition: background 0.2s;
+  }
+
+  .service-item:hover { background: var(--burgundy-pale); }
+
+  .service-item-icon { width: 44px; height: 44px; background: var(--burgundy-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .service-item-icon svg { width: 16px; height: 16px; stroke: var(--burgundy); fill: none; stroke-width: 1.5; }
+
+  .service-item h4 { font-family: 'Noto Serif KR', serif; font-size: 16px; font-weight: 500; color: var(--charcoal); margin-bottom: 10px; line-height: 1.4; }
+  .service-item p { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.9; }
+
+  /* ── PROCESS ── */
+  .process-section { background: var(--charcoal); }
+  .process-section .section-label-line { background: var(--gold); }
+  .process-section .section-label-text { color: var(--gold); }
+  .process-section .section-title { color: var(--white); }
+  .process-section .section-title em { color: var(--gold); }
+  .process-section .section-sub { color: rgba(244,239,234,0.5); }
+
+  .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-top: 52px; }
+
+  .process-step { background: rgba(244,239,234,0.04); padding: 36px 24px; position: relative; transition: background 0.25s; }
+  .process-step:hover { background: rgba(244,239,234,0.08); }
+
+  .process-step-num { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; color: var(--gold); margin-bottom: 20px; display: block; }
+
+  .process-step h4 { font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 12px; line-height: 1.5; }
+  .process-step p { font-size: 12.5px; font-weight: 300; color: rgba(244,239,234,0.5); line-height: 1.85; }
+
+  /* ── DIFFERENTIATOR ── */
+  .diff-section { background: var(--white); }
+
+  .diff-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 52px; }
+
+  .diff-card { padding: 40px 28px; background: var(--beige); border-top: 2px solid transparent; transition: all 0.25s; }
+  .diff-card:hover { border-top-color: var(--burgundy); background: var(--white); }
+
+  .diff-card h4 { font-family: 'Noto Serif KR', serif; font-size: 16px; font-weight: 500; color: var(--charcoal); margin-bottom: 12px; line-height: 1.5; }
+  .diff-card p { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.9; }
+
+  /* ── RELATED ── */
+  .related-section { background: var(--beige); }
+
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+
+  .related-card { background: var(--white); padding: 36px 32px; text-decoration: none; color: var(--charcoal); display: block; border-bottom: 3px solid transparent; transition: all 0.25s; }
+  .related-card:hover { border-bottom-color: var(--burgundy); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(44,44,44,0.08); }
+
+  .related-card h4 { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 500; color: var(--charcoal); margin-bottom: 10px; line-height: 1.4; }
+  .related-card p { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.8; margin-bottom: 20px; }
+  .related-card-link { font-size: 12px; font-weight: 500; color: var(--burgundy); letter-spacing: 0.05em; }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--white); }
+
+  .faq-list { margin-top: 52px; border-top: 1px solid var(--beige-mid); }
+
+  .faq-item { border-bottom: 1px solid var(--beige-mid); }
+
+  .faq-q { width: 100%; background: transparent; border: none; padding: 24px 0; text-align: left; font-size: 15px; font-weight: 500; color: var(--charcoal); display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; gap: 20px; }
+  .faq-q:hover { color: var(--burgundy); }
+
+  .faq-toggle { width: 24px; height: 24px; border: 1px solid var(--beige-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--charcoal-muted); flex-shrink: 0; transition: all 0.2s; }
+  .faq-item.open .faq-toggle { background: var(--burgundy); border-color: var(--burgundy); color: var(--white); }
+
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 0 24px; font-size: 13.5px; font-weight: 300; color: var(--charcoal-muted); line-height: 2; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--burgundy);
+    padding: 100px 120px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before { content: ''; position: absolute; right: -80px; top: -80px; width: 360px; height: 360px; border: 1px solid rgba(244,239,234,0.08); border-radius: 50%; }
+
+  .cta-text h2 { font-family: 'Noto Serif KR', serif; font-size: clamp(22px, 2.2vw, 34px); font-weight: 400; color: var(--white); line-height: 1.6; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .cta-text p { font-size: 14px; font-weight: 300; color: rgba(244,239,234,0.7); line-height: 1.8; }
+
+  .cta-btns { display: flex; flex-direction: column; gap: 12px; align-items: center; flex-shrink: 0; position: relative; z-index: 2; }
+
+  .btn-white { background: var(--white); color: var(--burgundy); padding: 15px 36px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; display: inline-block; transition: all 0.25s; white-space: nowrap; }
+  .btn-white:hover { background: var(--charcoal); color: var(--white); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); padding: 60px 120px 40px; border-top: 1px solid rgba(244,239,234,0.06); }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 52px; }
+  .footer-brand-name { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 500; color: var(--white); margin-bottom: 6px; }
+  .footer-brand-sub { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .footer-brand-desc { font-size: 12.5px; font-weight: 300; color: rgba(244,239,234,0.4); line-height: 1.9; }
+  .footer-col h5 { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,239,234,0.4); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul a { font-size: 13px; font-weight: 300; color: rgba(244,239,234,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(244,239,234,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom-left { font-size: 11.5px; font-weight: 300; color: rgba(244,239,234,0.3); line-height: 1.8; }
+  .footer-disclaimer { font-size: 10.5px; font-weight: 300; color: rgba(244,239,234,0.2); max-width: 480px; text-align: right; line-height: 1.7; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── SERVICE DETAIL ── */
+  .service-detail { background: var(--beige-dark); }
+  .service-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+  .service-detail-item { background: var(--white); padding: 40px 32px; position: relative; transition: all 0.25s; border-bottom: 3px solid transparent; }
+  .service-detail-item:hover { border-bottom-color: var(--burgundy); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(44,44,44,0.08); }
+  .service-detail-num { font-family: "Cormorant Garamond", serif; font-size: 40px; font-weight: 300; color: rgba(44,44,44,0.07); line-height: 1; margin-bottom: 16px; }
+  .service-detail-item h4 { font-family: "Noto Serif KR", serif; font-size: 16px; font-weight: 500; color: var(--charcoal); margin-bottom: 12px; line-height: 1.5; }
+  .service-detail-item p { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.9; }
+
+
+/* ══════════════════════════════
+   모바일 반응형
+══════════════════════════════ */
+
+/* 태블릿 (max-width: 1024px) */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px !important; }
+  .hero-left { padding: 100px 32px 60px !important; }
+  .why-us { padding: 80px 32px !important; }
+  .why-unified-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .services { padding: 80px 32px !important; }
+  .service-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-right { grid-template-columns: 1fr 1fr !important; padding: 32px !important; }
+  .calc-teaser { grid-template-columns: 1fr !important; padding: 60px 32px !important; gap: 40px !important; }
+  .cta-banner { padding: 80px 32px !important; }
+  .section { padding: 80px 32px !important; }
+  footer { padding: 48px 32px 32px !important; }
+  .footer-top { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .for-whom-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .process-steps, .process-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .apply-inner { grid-template-columns: 1fr !important; }
+  .channel-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .values-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* 모바일 (max-width: 768px) */
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    padding: 0 16px !important;
+    height: 56px !important;
+    justify-content: center !important;
+    position: fixed !important;
+  }
+  .mob-btn { position: absolute !important; right: 16px !important; top: 50% !important; transform: translateY(-50%) !important; margin-left: 0 !important; }
+  .nav-links { display: none !important; }
+  .nav-cta-btn { display: none !important; }
+  .nav-dropdown { display: none !important; }
+  .mob-btn { display: flex !important; }
+  .process-steps { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .diff-grid { grid-template-columns: 1fr 1fr !important; gap: 2px !important; }
+  .related-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .section { padding: 48px 20px !important; }
+  .section-title { font-size: 22px !important; line-height: 1.4 !important; }
+  .cta-banner { grid-template-columns: 1fr !important; padding: 40px 20px !important; gap: 20px !important; text-align: center !important; }
+  .cta-banner h2 { font-size: 20px !important; }
+  .cta-btn { width: 100% !important; text-align: center !important; padding: 14px !important; }
+  .nav-logo { position: absolute !important; left: 16px !important; right: 52px !important; justify-content: center !important; gap: 8px !important; flex-direction: row !important; align-items: center !important; }
+  .nav-logo-text { text-align: center !important; }
+  .nav-logo-main { font-size: 22px !important; }
+  .nav-logo-sub { font-size: 7px !important; letter-spacing: 0.1em !important; padding-left: 0 !important; }
+  .nav-logo-icon { width: 42px !important; height: 42px !important; object-fit: contain !important; }
+
+  /* HERO */
+  .hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .hero-right { display: none !important; }
+  .hero-left {
+    padding: 80px 20px 48px !important;
+  }
+  .hero-title {
+    font-size: 38px !important;
+    line-height: 1.35 !important;
+  }
+  .hero-title em { font-size: 44px !important; }
+  .hero-subtitle { font-size: 13px !important; line-height: 1.9 !important; margin-bottom: 32px !important; }
+  .hero-cta-group { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+  .btn-primary { text-align: center !important; padding: 14px 24px !important; font-size: 13px !important; }
+  .btn-secondary { justify-content: center !important; }
+  .hero-points { margin-top: 28px !important; }
+  .hero-point { padding: 14px 0 !important; }
+  .hero-point-num { font-size: 18px !important; }
+  .hero-point-title { font-size: 13px !important; }
+  .hero-point-desc { font-size: 11px !important; }
+  .hero-eyebrow { margin-bottom: 24px !important; }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    padding: 20px 16px !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+  .intro-strip-items { flex-wrap: wrap !important; gap: 6px !important; justify-content: center !important; }
+  .intro-strip-item { font-size: 11px !important; }
+
+  /* WHY US */
+  .why-us { padding: 56px 20px !important; }
+  .why-unified-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .why-card { padding: 28px 24px !important; }
+  .section-title { font-size: 26px !important; line-height: 1.4 !important; }
+  .section-sub { font-size: 13px !important; }
+
+  /* SERVICES */
+  .services { padding: 56px 20px !important; }
+  .services-header { flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; margin-bottom: 32px !important; }
+  .services-header-right { font-size: 13px !important; }
+  .service-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .service-card { padding: 28px 24px !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-left { padding: 32px 24px !important; }
+  .service-featured-right { grid-template-columns: 1fr !important; padding: 24px !important; gap: 20px !important; }
+
+  /* CALC TEASER */
+  .calc-teaser {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 32px !important;
+  }
+  .calc-mock { max-width: 100% !important; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 24px !important;
+    text-align: center !important;
+  }
+  .cta-banner-text h2 { font-size: 24px !important; }
+  .cta-banner-actions { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
+  .btn-white { text-align: center !important; padding: 14px 32px !important; font-size: 13px !important; }
+  .cta-note { font-size: 11px !important; }
+
+  /* FOOTER */
+  footer { padding: 40px 20px 28px !important; }
+  .footer-top { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-brand-name { font-size: 20px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 8px !important; align-items: flex-start !important; }
+  .footer-bottom-left { font-size: 10px !important; line-height: 1.8 !important; }
+  .f-biz-desktop { display: none !important; }
+  .f-biz-mobile { display: inline !important; }
+
+  /* 하단 상담바 */
+  .consult-bar {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    padding: 10px 16px !important;
+    gap: 0 !important;
+  }
+  .consult-bar-phone {
+    display: none !important;
+    width: 100% !important;
+    font-size: 17px !important;
+    border-right: none !important;
+    padding-right: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .consult-bar-form {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    padding: 0 0 8px !important;
+    gap: 6px !important;
+  }
+  .consult-bar-input.name { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-input.phone { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-agree { font-size: 10px !important; width: 100% !important; }
+  .consult-bar-btn {
+    width: calc(100% + 32px) !important;
+    margin: 8px -16px -10px !important;
+    height: 44px !important;
+    font-size: 14px !important;
+  }
+  body { padding-bottom: 160px !important; }
+
+  /* 상세 페이지 HERO */
+  .page-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-top: 56px !important;
+  }
+  .page-hero .hero-left {
+    padding: 56px 20px 40px !important;
+  }
+  .hero-title { font-size: 32px !important; }
+  .hero-desc { font-size: 13px !important; }
+  .hero-btns { flex-direction: column !important; gap: 10px !important; }
+  .btn-ghost { text-align: center !important; }
+  .hero-card { display: none !important; }
+
+  /* 서비스 상세 공통 */
+  .section { padding: 56px 20px !important; }
+  .for-whom-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .process-steps, .process-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .faq-section { padding: 56px 20px !important; }
+  .faq-list { margin-top: 28px !important; }
+  .faq-q { font-size: 13px !important; padding: 18px 0 !important; }
+
+  /* 브랜드/전문가 */
+  .mission { padding: 56px 20px !important; }
+  .mission-left, .mission-right { padding: 0 !important; }
+  .values { padding: 56px 20px !important; }
+  .values-grid { grid-template-columns: 1fr !important; }
+  .story { padding: 56px 20px !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .promise { padding: 56px 20px !important; }
+
+  /* 위자료 계산기 */
+  .calc-hero { padding: 80px 20px 40px !important; }
+  .calc-topbar { padding: 0 16px !important; font-size: 11px !important; }
+  .fcard { padding: 24px 16px !important; }
+  .opts { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .opt-label { padding: 10px 8px !important; font-size: 11px !important; }
+  .dur-row { gap: 8px !important; }
+  .nav-btns { flex-direction: column !important; gap: 8px !important; }
+  .btn-next, .btn-back { width: 100% !important; }
+
+  /* FAQ 페이지 */
+  .faq-page-hero { padding: 80px 20px 40px !important; }
+  .faq-page-hero h1 { font-size: 28px !important; }
+  .faq-page-tabs { padding: 0 16px !important; flex-wrap: wrap !important; gap: 6px !important; overflow-x: auto !important; }
+  .faq-page-tab { font-size: 11px !important; padding: 6px 12px !important; white-space: nowrap !important; }
+  .faq-page-body { padding: 28px 16px !important; }
+  .faq-page-question { padding: 16px 0 !important; font-size: 13px !important; }
+  .faq-page-answer { padding: 0 0 20px 32px !important; }
+
+  /* 신청 페이지 */
+  .apply-hero { padding: 80px 20px 40px !important; }
+  .apply-hero h1 { font-size: 28px !important; }
+  .apply-body { padding: 32px 16px 56px !important; }
+  .apply-inner { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .apply-form-card { padding: 24px 16px !important; }
+  .fr2 { grid-template-columns: 1fr !important; }
+  .fin-a, .fsel-a, .fta-a { font-size: 13px !important; }
+
+  /* 상담 페이지 */
+  .page-header { padding: 80px 20px 40px !important; }
+  .page-header h1 { font-size: 26px !important; }
+  .consult-main { padding: 32px 16px !important; }
+  .channel-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .phone-box { flex-direction: column !important; gap: 8px !important; padding: 20px 16px !important; }
+  .phone-box-number { font-size: 24px !important; }
+
+  /* 성공사례/칼럼 */
+  .cards-grid { grid-template-columns: 1fr !important; }
+  .reviews-grid { grid-template-columns: 1fr !important; }
+  .featured-article { grid-template-columns: 1fr !important; }
+  .filter-bar { padding: 16px !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .filter-btn { font-size: 11px !important; padding: 6px 12px !important; }
+
+  /* 모달 */
+  .ov { padding: 12px !important; }
+  .md { padding: 20px 16px !important; }
+  .md h3 { font-size: 16px !important; }
+
+  /* 성공사례 */
+  .stats-strip { grid-template-columns: repeat(2,1fr) !important; }
+
+  /* 원고/피고 맞춤형 */
+  .hero-card-list { font-size: 12px !important; }
+}
+}</style>
+</style>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="yuchaekmate_landing.html" class="nav-logo">
+    <img class="nav-logo-icon" src="logo-icon.png" alt="유책메이트 로고">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">유책메이트</div>
+      <div class="nav-logo-sub">상간소송의 정석</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="yuchaekmate_brand.html">유책메이트 소개 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_brand.html">브랜드 소개</a>
+          <a href="yuchaekmate_expert.html">전문가 소개</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item active">
+      <a href="yuchaekmate_landing.html#services">서비스 분야 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_report.html">상간소송 전략 진단 리포트</a>
+        </div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">맞춤형 솔루션 서비스</span>
+          <div class="nav-sub-group">
+            <div class="nav-sub-label">맞춤형 솔루션 서비스 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_writing.html" class="active">맞춤형 서면 솔루션</a>
+              <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+              <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+              <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+              <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+              <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">올인원 풀케어 패키지</span>
+          <div class="nav-sub-group">
+            <div class="nav-sub-label">올인원 풀케어 패키지 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+              <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_consult.html">상간소송 전략 가이드 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_column.html">칼럼</a>
+          <a href="yuchaekmate_faq.html">자주 하는 질문</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_success.html">성공사례&amp;고객후기</a>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_calculator.html">위자료 계산기</a>
+    </li>
+  </ul>
+  <a href="yuchaekmate_consult.html" class="nav-cta-btn">상담 신청</a>
+  <button class="mob-btn" id="mob-btn" onclick="toggleMobMenu()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-menu" id="mob-menu">
+  <a href="yuchaekmate_landing.html" class="mob-menu-link">유책메이트</a>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_brand.html" class="mob-menu-link">브랜드 소개</a>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_brand.html">브랜드 소개</a>
+      <a href="yuchaekmate_expert.html">전문가 소개</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <span class="mob-menu-link" style="cursor:default;">서비스 분야</span>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_report.html">전략 진단 리포트</a>
+      <a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a>
+      <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+      <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+      <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+      <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+      <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+      <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+      <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_column.html" class="mob-menu-link">칼럼</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_faq.html" class="mob-menu-link">자주 하는 질문</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_success.html" class="mob-menu-link">성공사례 &amp; 고객후기</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_calculator.html" class="mob-menu-link">위자료 계산기</a>
+  </div>
+  <a href="yuchaekmate_consult.html" class="mob-menu-cta">온라인 상담 신청</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-left">
+    <h1 class="hero-title">
+      맞춤형 서면 작성 솔루션
+    </h1>
+    <p class="hero-desc">
+      상간소송의 승패는 서면의 완성도에서 갈립니다. 재판부가 이해할 수 있는 구조로 상간소송 핵심 요건에 맞추어 사실관계를 정리하고, 증거와 법리를 설계해 설득력 있는 서면을 제출하여야 할 필요가 있습니다.
+    </p>
+    <div class="hero-btns">
+      <a href="yuchaekmate_apply_consult.html" class="btn-primary">서면 작성 의뢰하기</a>
+      <a href="#service" class="btn-ghost">서비스 자세히 보기</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-label">핵심 제공 내용</div>
+      <h3>맞춤형 서면 작성 솔루션</h3>
+      <ul class="hero-card-list">
+        <li>소장 · 답변서 · 준비서면 작성</li>
+        <li>사건별 주장 구조 설계</li>
+        <li>증거목록 정리 및 반영</li>
+        <li>위자료 증액 또는 감액 논리 구성</li>
+        <li>사실조회신청서 · 증거보전신청서 작성</li>
+        <li>법원 제출용 형식에 맞춘 완성본 제공</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="for-whom section" id="service">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">이런 분에게 필요합니다</div>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">서면 하나가<br><em>재판의 흐름</em>을 바꿉니다</h2>
+  <p class="section-sub reveal reveal-delay-2"></p>
+
+  <div class="for-whom-grid">
+    <div class="for-whom-card reveal">
+      <div class="for-whom-num">01</div>
+      <h3>소송은 직접 진행하지만 서면 작성이 부담스러운 경우</h3>
+      <p>나홀로 소송을 진행 중이지만, 핵심 서면만큼은 전문가에게 맡기고 싶은 분.</p>
+    </div>
+    <div class="for-whom-card reveal reveal-delay-1">
+      <div class="for-whom-num">02</div>
+      <h3>내 주장과 감정을 법적으로 정리하기 어려운 경우</h3>
+      <p>억울함은 크지만, 재판부가 받아들일 수 있는 구조로 정리하기 어려운 분.</p>
+    </div>
+    <div class="for-whom-card reveal reveal-delay-2">
+      <div class="for-whom-num">03</div>
+      <h3>선임비용은 부담되지만 서면의 질은 포기하고 싶지 않은 경우</h3>
+      <p>전면 선임은 부담스럽지만, 소송의 핵심인 서면의 완성도는 높이고 싶은 분.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE CONTENT -->
+<section class="service-content section">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">서비스 제공 내용</div>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">맞춤형 서면 솔루션에<br><em>포함되는 내용</em></h2>
+  <p class="section-sub reveal reveal-delay-2">서면 하나가 소송의 흐름을 바꿉니다. 사건의 구조와 목표를 반영한 전략적 서면을 작성합니다.</p>
+
+  <div class="service-grid">
+    <div class="service-item reveal">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      </div>
+      <div>
+        <h4>사건 구조 및 주장 방향 설계</h4>
+        <p>서면 작성 전 사건 전체를 분석하여 어떤 주장을 어떤 순서로 전개할지 먼저 설계합니다.</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+      </div>
+      <div>
+        <h4>소장 및 준비서면 작성</h4>
+        <p>초기 소장부터 각 기일별 준비서면까지, 재판부를 설득하는 논리적 서면을 작성합니다.</p>
+      </div>
+    </div>
+    <div class="service-item reveal">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      </div>
+      <div>
+        <h4>각종 신청서 작성</h4>
+        <p>증거보전 신청, 사실조회 신청, 문서제출명령 신청 등 절차상 필요한 신청서를 작성합니다.</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <h4>증거 목록 및 증거 설명서 작성</h4>
+        <p>보유 증거의 목록을 정리하고, 각 증거가 주장을 어떻게 뒷받침하는지 설명하는 서면을 작성합니다.</p>
+      </div>
+    </div>
+    <div class="service-item reveal">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      </div>
+      <div>
+        <h4>답변서 및 반론서 작성</h4>
+        <p>상대방의 주장을 면밀히 분석하여 허점을 공략하고, 우리 측 입장을 명확히 반박하는 서면을 작성합니다.</p>
+      </div>
+    </div>
+    <div class="service-item reveal reveal-delay-1">
+      <div class="service-item-icon">
+        <svg viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+      </div>
+      <div>
+        <h4>제출 전 법적 검토 및 최종 수정</h4>
+        <p>완성된 서면을 제출 전 최종 검토하여 논리적 완결성과 법적 정확성을 확인합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PROCESS -->
+<section class="process-section section">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">진행 절차</div>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">사건 구조를 먼저 설계한 뒤<br><em>서면을 완성</em>합니다</h2>
+
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <span class="process-step-num">STEP 01</span>
+      <h4>사건 자료 및 기존 문서 검토</h4>
+      <p>사실관계, 증거, 상대방 서면, 기존 진행 경과를 확인합니다.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <span class="process-step-num">STEP 02</span>
+      <h4>주장 방향 및 핵심 쟁점 정리</h4>
+      <p>무엇을 강조하고, 무엇을 방어할지 사건별 핵심 논점을 정리합니다.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <span class="process-step-num">STEP 03</span>
+      <h4>맞춤형 서면 작성</h4>
+      <p>사실관계와 법리를 구조화하여 설득력 있는 문서 초안을 작성합니다.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <span class="process-step-num">STEP 04</span>
+      <h4>수정 · 보완 후 완성본 제공</h4>
+      <p>필요한 부분을 정리하고 제출용 완성본 형태로 제공합니다.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <span class="process-step-num">STEP 05</span>
+      <h4>제출 전 유의사항 안내</h4>
+      <p>제출 순서, 첨부자료 정리, 이후 대응 포인트까지 함께 안내합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section section">
+  <div class="section-label reveal">
+    <div class="section-label-line"></div>
+    <div class="section-label-text">자주 하는 질문</div>
+  </div>
+  <h2 class="section-title reveal reveal-delay-1">맞춤형 서면 솔루션에 대한<br><em>궁금증</em></h2>
+
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q">소장만 따로 의뢰할 수도 있나요? <div class="faq-toggle">＋</div></button>
+      <div class="faq-a"><div class="faq-a-inner">네, 가능합니다. 소장, 답변서, 준비서면 등 필요한 서면만 개별적으로 의뢰하실 수 있습니다. 현재 진행 단계에 맞는 서면만 선별하여 의뢰하시면 됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">나홀로 소송 중인데 준비서면만 맡길 수 있나요? <div class="faq-toggle">＋</div></button>
+      <div class="faq-a"><div class="faq-a-inner">그렇습니다. 이미 진행 중인 사건이라도 현재 단계에 필요한 핵심 서면만 별도로 작성할 수 있습니다. 진행 경과와 기존 서면을 검토한 뒤 이어서 작성합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">원고와 피고 모두 이용할 수 있나요? <div class="faq-toggle">＋</div></button>
+      <div class="faq-a"><div class="faq-a-inner">네. 원고의 위자료 증액 논리 설계뿐 아니라, 피고의 감액·기각을 위한 방어 서면 작성도 가능합니다. 원고와 피고 각각의 전략적 포인트를 반영하여 작성합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">서면 작성 후 추가 서비스 선임이 의무인가요? <div class="faq-toggle">＋</div></button>
+      <div class="faq-a"><div class="faq-a-inner">아닙니다. 맞춤형 서면 솔루션은 독립적인 서비스입니다. 서면을 받은 이후 직접 제출하여 소송을 진행하셔도 되고, 필요한 경우 추가 서비스를 선택하셔도 됩니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="cta-text reveal">
+    <h2>핵심 서면 하나가<br>사건의 흐름을 바꿉니다</h2>
+    <p>재판부가 사건을 바라보는 프레임을 만드는 핵심 전략 문서.<br>감정이 아니라, 설득력 있는 구조로 대응하십시오.</p>
+  </div>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="yuchaekmate_apply_consult.html" class="btn-white">서면 작성 의뢰하기</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">유책메이트</div>
+      <div class="footer-brand-sub">상간소송의 정석</div>
+      <p class="footer-brand-desc">대형로펌 가사전담팀 출신 전문 변호사가<br>사건의 처음부터 끝까지 직접 수행하는<br>상간소송 전문 법률 브랜드입니다.</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스 분야</h5>
+      <ul>
+        <li><a href="yuchaekmate_report.html">전략 진단 리포트</a></li>
+        <li><a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a></li>
+        <li><a href="yuchaekmate_court.html">재판 출석 솔루션</a></li>
+        <li><a href="yuchaekmate_settle.html">합의 대행 솔루션</a></li>
+        <li><a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a></li>
+        <li><a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a></li>
+        <li><a href="yuchaekmate_plaintiff.html">올인원 풀케어 패키지</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>소개</h5>
+      <ul>
+        <li><a href="yuchaekmate_brand.html">브랜드 소개</a></li>
+        <li><a href="yuchaekmate_expert.html">전문가 소개</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>상간 전략 가이드</h5>
+      <ul>
+        <li><a href="yuchaekmate_column.html">칼럼</a></li>
+        <li><a href="yuchaekmate_success.html">성공사례&amp;고객후기</a></li>
+        <li><a href="yuchaekmate_consult.html">상담 신청</a></li>
+        <li><a href="yuchaekmate_calculator.html">위자료 계산기</a></li>
+      </ul>
+    </div>
+  </div>
+<div class="footer-bottom" style="flex-direction:column;gap:16px;align-items:flex-start;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:11px;font-weight:300;color:rgba(244,239,234,0.25);cursor:pointer;" onclick="document.getElementById('privacy-modal').style.display='flex'">개인정보처리방침</span>
+    </div>
+    <div class="footer-bottom-left" style="line-height:2;">
+      대표자 김채린 &nbsp;|&nbsp; 주소 서울 서초구 서초중앙로 18길 23, 2층 (서초동, 효암빌딩) 법률사무소 리그<br>
+      <span class="f-biz-desktop" style="display:inline;">사업자등록번호 761-50-01093 &nbsp;|&nbsp; 대표번호 050-6780-6393<br></span><span class="f-biz-mobile" style="display:none;">사업자등록번호 761-50-01093 (변호사 김채린 법률사무소)<br>      대표번호 050-6780-6393<br></span>광고책임변호사 김채린
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    const toggle = item.querySelector('.faq-toggle');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+        other.querySelector('.faq-toggle').textContent = '＋';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+        toggle.textContent = '－';
+      }
+    });
+  });
+</script>
+
+<script>
+function toggleMobMenu() {
+  var btn = document.getElementById('mob-btn');
+  var menu = document.getElementById('mob-menu');
+  if (!btn || !menu) return;
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+</script>
+
+<!-- 개인정보처리방침 모달 -->
+<div id="privacy-modal" style="display:none;position:fixed;inset:0;background:rgba(44,44,44,0.6);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;padding:40px;position:relative;">
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#777;">✕</button>
+    <h3 style="font-family:'Noto Serif KR',serif;font-size:18px;margin-bottom:20px;">개인정보처리방침</h3>
+        <div style="font-size:13px;font-weight:300;color:#4A4A4A;line-height:2;">
+      <p><strong>개인정보처리방침</strong></p>
+      <p style="margin-top:12px;">유책메이트(이하 '회사')는 개인정보보호법 제30조에 따라 회사가 제공하고자 하는 서비스(이하 '서비스')를 이용하는 고객(이하 '이용자' 또는 '개인')의 정보(이하 '개인정보')를 보호하기 위해, 개인정보보호법 등 관련 법령을 준수하고, 서비스 이용자의 개인정보 보호와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보처리방침(이하 '본 방침')을 수립·공개합니다.</p>
+      <p style="margin-top:16px;"><strong>제1조(개인정보의 처리목적)</strong></p>
+      <p>회사는 개인정보보호법 제32조에 따라 다음과 같이 개인정보를 처리합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보: 인적사항</li>
+        <li>처리목적: 법률서비스 제공</li>
+        <li>수집방법: 생성정보 수집 툴을 통한 수집, 전화/팩스, 서면양식, 홈페이지</li>
+        <li>보유근거: 통신비밀보호법 등</li>
+        <li>보유기간: 준영구</li>
+        <li>관련법령: 표시/광고에 관한 기록 6개월 / 계약 또는 청약철회 등에 관한 기록 5년 / 대금결제 및 재화 등의 공급에 관한 기록 5년 / 소비자의 불만 또는 분쟁처리에 관한 기록 3년 / 신용정보의 수집/처리 및 이용 등에 관한 기록 3년</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제2조(처리하는 개인정보의 항목)</strong></p>
+      <p>인적사항</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>필수항목: 이름, 휴대전화번호, 이메일, 접속 로그, 상담신청 절차에서 발생된 기타 정보</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제3조(개인정보의 파기절차 및 파기방법)</strong></p>
+      <p>회사는 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>파기절차: 파기 사유가 발생한 개인정보를 선정하고, 개인정보 보호책임자의 승인을 받아 파기합니다.</li>
+        <li>파기방법: 종이에 출력된 개인정보는 분쇄기로 분쇄하거나 소각을 통하여 파기합니다.</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제4조(개인정보주체의 권리·의무 및 그 행사방법)</strong></p>
+      <p>(1) 정보주체는 관계 법령이 정하는 바에 따라 개인정보의 열람, 정정·삭제, 처리정지 및 동의 철회 등 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
+      <p>(2) 권리행사는 회사에 대하여 개인정보 보호법 시행규칙 별지 제8호 서식에 따라 서면, 전자우편, 모사전송(FAX) 등을 통하여 하실 수 있습니다.</p>
+      <p>(3) 권리행사는 정보주체의 법정대리인을 통해서도 행사할 수 있으며, 이 경우에는 개인정보 보호법 시행규칙 별지 제11호 서식에 따른 위임장을 회사에 제출해야 합니다.</p>
+      <p style="margin-top:16px;"><strong>제5조(개인정보의 파기)</strong></p>
+      <p>(1) 회사는 보유기간이 경과된 경우 보유기간 종료일로부터 5일 이내에, 처리목적 달성 등 불필요하게 되었을 때에는 처리가 필요한 것으로 인정되는 날로부터 5일 이내에 개인정보를 파기합니다.</p>
+      <p>(2) 관계법령에 의하여 보존할 필요가 있는 경우 해당 개인정보를 다른 개인정보와 분리해서 저장·관리합니다.</p>
+      <p>(3) 전자파일 형태의 개인정보는 복원이 불가능한 방법으로 영구 삭제하는 방법으로 파기합니다.</p>
+      <p style="margin-top:16px;"><strong>제6조(개인정보의 안전성 확보 조치)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>물리적 보호조치: 전산실, 자료실 등 개인정보 보관 장소에 대한 접근통제</li>
+        <li>관리적 보호조치: 내부관리계획의 수립 및 시행, 정기적인 개인정보 보호 교육</li>
+        <li>기술적 보호조치: 개인정보처리시스템에 대한 접근통제, 접근권한 관리, 보안 프로그램의 설치 및 암호화</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제7조(개인정보 관리 책임자)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보관리책임자: 김채린</li>
+        <li>직위: 대표자</li>
+        <li>전화번호: 050-6780-6393</li>
+        <li>이메일: lawleague175@naver.com</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제8조(권익침해에 대한 구제방법)</strong></p>
+      <p>개인정보 보호 관련 문의, 불만처리, 피해구제 등은 개인정보 보호책임자에게 문의하실 수 있습니다. 기타 개인정보침해에 대한 신고나 상담이 필요하신 경우 아래 기관에 문의하시기 바랍니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보분쟁조정위원회 (www.kopico.go.kr / 1833-6972)</li>
+        <li>개인정보 침해신고센터 (privacy.kisa.or.kr / 118)</li>
+        <li>대검찰청 인터넷범죄수사센터 (www.spo.go.kr / 02-3480-2000)</li>
+        <li>경찰청 사이버안전국 (cyberbureau.police.go.kr / 182)</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제9조(고지의 의무)</strong></p>
+      <p>본 방침은 2026. 4. 7. 제정되었으며, 법령, 정책 또는 보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 시에는 변경되는 개인정보처리방침을 홈페이지에 공지하도록 하겠습니다.</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+</body>
+</html>

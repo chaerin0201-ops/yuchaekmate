@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유책메이트 | 관리자</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global.css">
+<style>
+:root{--bg:#F0EDE9;--wh:#FDFAF7;--bm:#DDD4C8;--ch:#2C2C2C;--cm:#7A7A7A;--bur:#721B29;--bp:#F0E4E6;--gold:#B8976A;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ch);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;background:rgba(244,239,234,.97);border-bottom:1px solid rgba(114,27,41,.12);display:flex;align-items:center;padding:0 28px;gap:16px;}
+.n-brand{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:600;color:var(--ch);text-decoration:none;}
+.n-badge{font-size:10px;letter-spacing:.1em;color:var(--bur);background:var(--bp);padding:3px 9px;}
+.n-site{font-size:12px;color:var(--cm);text-decoration:none;margin-left:auto;}
+.wrap{display:flex;min-height:100vh;padding-top:60px;}
+.side{width:220px;background:var(--ch);flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;}
+.sg{padding:18px 0 6px;}
+.sl{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:0 18px 7px;}
+.sb{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;border-left:2px solid transparent;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.55);cursor:pointer;font-family:inherit;text-align:left;transition:all 0.15s;}
+.sb:hover{color:#fff;background:rgba(255,255,255,.06);}
+.sb.on{color:#fff;background:rgba(114,27,41,.3);border-left-color:var(--bur);}
+.sd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);flex-shrink:0;}
+.sb.on .sd{background:var(--gold);}
+.shr{height:1px;background:rgba(255,255,255,.07);margin:8px 18px;}
+.sl-link{display:block;margin:0 14px 5px;padding:7px 11px;font-size:11px;color:rgba(255,255,255,.5);text-decoration:none;border:1px solid rgba(255,255,255,.07);}
+.sl-link:hover{color:#fff;}
+.sb-count{margin-left:auto;background:var(--bur);color:#fff;font-size:10px;font-weight:600;padding:1px 7px;border-radius:10px;}
+.main{flex:1;padding:28px 36px;}
+.sec{display:none;}.sec.on{display:block;}
+.tb{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:14px;flex-wrap:wrap;}
+.tb h2{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:500;margin-bottom:3px;}
+.tb p{font-size:12px;color:var(--cm);}
+.btn-p{background:var(--bur);color:#fff;border:none;padding:9px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;}
+.btn-p:hover{background:#5a1520;}
+.btn-g{background:var(--ch);color:#fff;border:none;padding:9px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;}
+.empty{text-align:center;padding:48px;font-size:13px;color:var(--cm);}
+.loading{text-align:center;padding:48px;font-size:13px;color:var(--gold);}
+/* 신청카드 */
+.ac{background:var(--wh);padding:16px 20px;margin-bottom:2px;border-left:3px solid var(--bp);}
+.ac.new{border-left-color:var(--bur);}
+.ac-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.astatus{font-size:10px;font-weight:600;padding:3px 9px;}
+.aname{font-size:13px;font-weight:500;}
+.adate{font-size:11px;color:var(--cm);margin-left:auto;}
+.ameta{font-size:12px;color:var(--cm);margin-bottom:6px;line-height:1.7;}
+.adesc{font-size:12px;background:var(--bg);padding:10px 13px;line-height:1.8;white-space:pre-wrap;margin-bottom:8px;}
+.aacts{display:flex;gap:6px;margin-top:8px;}
+.asel{border:1px solid var(--bm);padding:4px 8px;font-size:11px;font-family:inherit;cursor:pointer;}
+.act{background:none;border:1px solid var(--bm);padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;color:var(--cm);}
+.act:hover{border-color:#dc2626;color:#dc2626;}
+/* 콘텐츠 */
+.lst{display:flex;flex-direction:column;gap:2px;}
+.row{background:var(--wh);padding:13px 16px;display:flex;align-items:center;gap:10px;}
+.rbadge{font-size:10px;font-weight:600;background:var(--bp);color:var(--bur);padding:3px 8px;white-space:nowrap;}
+.rinfo{flex:1;min-width:0;}
+.rtitle{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:2px;}
+.rsub{font-size:11px;color:var(--cm);}
+.acts{display:flex;gap:4px;}
+.a{background:none;border:1px solid var(--bm);padding:4px 9px;font-size:11px;cursor:pointer;font-family:inherit;color:var(--cm);}
+.a.f{border-color:var(--gold);color:var(--gold);}
+.a.f.on{background:var(--gold);color:#fff;}
+/* 설정 */
+.sc{background:var(--wh);padding:26px 28px;}
+.sc label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cm);display:block;margin-bottom:7px;}
+.sc-in{width:100%;border:1px solid var(--bm);padding:10px 13px;font-size:13px;font-family:inherit;outline:none;}
+.sc-in:focus{border-color:var(--bur);}
+.sc-hint{font-size:11px;color:var(--cm);margin-top:5px;}
+.sc-save{background:var(--bur);color:#fff;border:none;padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:14px;}
+/* 모달 */
+.ov{position:fixed;inset:0;background:rgba(44,44,44,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:16px;}
+.ov.show{display:flex;}
+.md{background:var(--wh);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:32px;}
+.md h3{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:500;margin-bottom:20px;}
+.fr{margin-bottom:14px;}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.flbl{display:block;font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#555;margin-bottom:6px;}
+.req{color:var(--bur);}
+.fin,.fsel,.fta{width:100%;border:1px solid var(--bm);padding:9px 12px;font-size:13px;font-family:inherit;color:var(--ch);background:var(--wh);outline:none;}
+.fin:focus,.fsel:focus,.fta:focus{border-color:var(--bur);}
+.fta{min-height:76px;resize:vertical;line-height:1.7;}
+.mbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:14px;border-top:1px solid var(--bm);}
+.mbtn-c{background:none;border:1px solid var(--bm);padding:8px 16px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--cm);}
+.mbtn-s{background:var(--bur);color:#fff;border:none;padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--ch);color:#fff;padding:11px 18px;font-size:13px;opacity:0;transform:translateY(6px);transition:all .25s;pointer-events:none;z-index:999;}
+.toast.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="n-brand">유책메이트</a>
+  <span class="n-badge">관리자</span>
+  <a href="index.html" target="_blank" class="n-site">↗ 사이트 보기</a>
+</nav>
+
+<div class="wrap">
+  <div class="side" id="sidebar">
+    <div class="sg">
+      <div class="sl">신청 관리</div>
+      <button class="sb on" id="sb-aconsult">
+        <span class="sd"></span>상담 신청
+        <span class="sb-count" id="cnt-consult">0</span>
+      </button>
+      <button class="sb" id="sb-areport">
+        <span class="sd"></span>리포트 신청
+        <span class="sb-count" id="cnt-report">0</span>
+      </button>
+    </div>
+    <div class="shr"></div>
+    <div class="sg">
+      <div class="sl">콘텐츠 관리</div>
+      <button class="sb" id="sb-success"><span class="sd"></span>성공사례</button>
+      <button class="sb" id="sb-review"><span class="sd"></span>고객후기</button>
+      <button class="sb" id="sb-column"><span class="sd"></span>칼럼</button>
+    </div>
+    <div class="shr"></div>
+    <div class="sg">
+      <div class="sl">설정</div>
+      <button class="sb" id="sb-setting"><span class="sd"></span>카카오 링크</button>
+    </div>
+    <div class="shr"></div>
+    <div class="sg">
+      <div class="sl">미리보기</div>
+      <a href="index.html" target="_blank" class="sl-link">↗ 랜딩페이지</a>
+      <a href="yuchaekmate_success.html" target="_blank" class="sl-link">↗ 성공사례</a>
+      <a href="yuchaekmate_column.html" target="_blank" class="sl-link">↗ 칼럼</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sec on" id="sec-aconsult">
+      <div class="tb">
+        <div><h2>상담 신청 관리</h2><p>방문자 상담 신청 내역 · 실시간 업데이트</p></div>
+        <button class="btn-g" id="btn-clear-consult">전체 삭제</button>
+      </div>
+      <div id="lst-consult"><div class="loading">Firebase 연결 중...</div></div>
+    </div>
+
+    <div class="sec" id="sec-areport">
+      <div class="tb">
+        <div><h2>리포트 신청 관리</h2><p>전략 진단 리포트 신청 내역 · 실시간 업데이트</p></div>
+        <button class="btn-g" id="btn-clear-report">전체 삭제</button>
+      </div>
+      <div id="lst-report"><div class="loading">Firebase 연결 중...</div></div>
+    </div>
+
+    <div class="sec" id="sec-success">
+      <div class="tb">
+        <div><h2>성공사례 관리</h2><p>추가·수정 시 사이트에 즉시 반영</p></div>
+        <button class="btn-p" id="btn-add-success">+ 새 사례 추가</button>
+      </div>
+      <div class="lst" id="lst-success"><div class="loading">Firebase 연결 중...</div></div>
+    </div>
+
+    <div class="sec" id="sec-review">
+      <div class="tb">
+        <div><h2>고객후기 관리</h2><p>추가·수정 시 사이트에 즉시 반영</p></div>
+        <button class="btn-p" id="btn-add-review">+ 새 후기 추가</button>
+      </div>
+      <div class="lst" id="lst-review"><div class="loading">Firebase 연결 중...</div></div>
+    </div>
+
+    <div class="sec" id="sec-column">
+      <div class="tb">
+        <div><h2>칼럼 관리</h2><p>추가·수정 시 사이트에 즉시 반영</p></div>
+        <button class="btn-p" id="btn-add-column">+ 새 칼럼 추가</button>
+      </div>
+      <div class="lst" id="lst-column"><div class="loading">Firebase 연결 중...</div></div>
+    </div>
+
+    <div class="sec" id="sec-setting">
+      <div class="tb"><div><h2>카카오톡 링크 설정</h2><p>상담 페이지 카카오 버튼 URL</p></div></div>
+      <div class="sc">
+        <label>카카오톡 채널 / 오픈채팅 URL</label>
+        <input class="sc-in" type="text" id="kakao-url" placeholder="https://pf.kakao.com/...">
+        <div class="sc-hint">저장 후 상담 페이지에 반영됩니다.</div>
+        <button class="sc-save" id="btn-save-kakao">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달 -->
+<div class="ov" id="ov">
+  <div class="md">
+    <h3 id="md-title"></h3>
+    <div id="md-body"></div>
+    <div class="mbtns">
+      <button class="mbtn-c" id="btn-modal-cancel">취소</button>
+      <button class="mbtn-s" id="btn-modal-save">저장</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 상태 ─────────────────────────────────────────────
+var curMode = '', curEditId = null;
+var SECTIONS = ['aconsult','areport','success','review','column','setting'];
+
+// ── 섹션 전환 ─────────────────────────────────────────
+function showSec(name) {
+  SECTIONS.forEach(function(n) {
+    var s = document.getElementById('sec-' + n);
+    var b = document.getElementById('sb-' + n);
+    if (s) s.classList.toggle('on', n === name);
+    if (b) b.classList.toggle('on', n === name);
+  });
+}
+
+// ── 사이드바 버튼 이벤트 ─────────────────────────────
+SECTIONS.forEach(function(name) {
+  var btn = document.getElementById('sb-' + name);
+  if (btn) btn.addEventListener('click', function() { showSec(name); });
+});
+
+// ── 기타 버튼 이벤트 ─────────────────────────────────
+document.getElementById('btn-clear-consult').addEventListener('click', function() { clearApps('consult'); });
+document.getElementById('btn-clear-report').addEventListener('click', function() { clearApps('report'); });
+document.getElementById('btn-add-success').addEventListener('click', function() { openAdd('success'); });
+document.getElementById('btn-add-review').addEventListener('click', function() { openAdd('review'); });
+document.getElementById('btn-add-column').addEventListener('click', function() { openAdd('column'); });
+document.getElementById('btn-save-kakao').addEventListener('click', saveKakao);
+document.getElementById('btn-modal-cancel').addEventListener('click', closeModal);
+document.getElementById('btn-modal-save').addEventListener('click', saveItem);
+document.getElementById('ov').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── 토스트 ────────────────────────────────────────────
+function toast(msg) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 2400);
+}
+
+// ── 카카오 설정 ───────────────────────────────────────
+function saveKakao() {
+  var url = document.getElementById('kakao-url').value.trim();
+  localStorage.setItem('ycm_kakao_url', url);
+  toast('카카오톡 링크가 저장되었습니다');
+}
+var ku = localStorage.getItem('ycm_kakao_url') || '';
+document.getElementById('kakao-url').value = ku;
+
+// ── 신청 렌더 ─────────────────────────────────────────
+function renderApps(type, items) {
+  var el = document.getElementById('lst-' + type);
+  var cnt = document.getElementById('cnt-' + type);
+  if (!el) return;
+  if (cnt) cnt.textContent = items.length;
+
+  if (!items.length) {
+    el.innerHTML = '<div class="empty">신청 내역이 없습니다.</div>';
+    return;
+  }
+
+  var statuses = type === 'consult'
+    ? ['신규','처리중','완료','취소']
+    : ['신규 (입금 대기)','입금 확인','작성중','전송 완료','취소'];
+  var colors = {'신규':'#721B29','신규 (입금 대기)':'#B8976A','처리중':'#2563eb','입금 확인':'#d97706','작성중':'#7c3aed','전송 완료':'#16a34a','완료':'#16a34a','취소':'#9ca3af'};
+
+  var sorted = items.slice().sort(function(a, b) {
+    return (b.createdAt || '') > (a.createdAt || '') ? 1 : -1;
+  });
+
+  var html = '';
+  sorted.forEach(function(item) {
+    var color = colors[item.status] || '#721B29';
+    var isNew = item.status === '신규' || item.status === '신규 (입금 대기)';
+    var opts = statuses.map(function(s) {
+      return '<option value="' + s + '"' + (item.status === s ? ' selected' : '') + '>' + s + '</option>';
+    }).join('');
+    var meta = type === 'consult'
+      ? [item.type, item.time, item.email].filter(Boolean).join(' | ')
+      : [item.type, item.email, item.payMethod ? '결제: ' + item.payMethod : ''].filter(Boolean).join(' | ');
+
+    html += '<div class="ac' + (isNew ? ' new' : '') + '">'
+      + '<div class="ac-top">'
+      + '<span class="astatus" style="background:' + color + ';color:#fff">' + (item.status||'신규') + '</span>'
+      + '<span class="aname">' + (item.name||'') + '</span>'
+      + '<span style="font-size:12px;color:var(--cm)">' + (item.phone||'') + '</span>'
+      + '<span class="adate">' + (item.createdAt||'') + '</span>'
+      + '</div>'
+      + (meta ? '<div class="ameta">' + meta + '</div>' : '')
+      + (item.desc ? '<div class="adesc">' + item.desc + '</div>' : '')
+      + (item.evidence ? '<div class="ameta">📎 ' + item.evidence + '</div>' : '')
+      + '<div class="aacts">'
+      + '<select class="asel" data-id="' + item._id + '" data-type="' + type + '">' + opts + '</select>'
+      + '<button class="act" data-del="' + item._id + '" data-type="' + type + '">삭제</button>'
+      + '</div></div>';
+  });
+  el.innerHTML = html;
+
+  // 이벤트 위임으로 select/delete 처리
+  el.querySelectorAll('.asel').forEach(function(sel) {
+    sel.addEventListener('change', function() {
+      updateStatus(this.dataset.type, this.dataset.id, this.value);
+    });
+  });
+  el.querySelectorAll('[data-del]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      deleteApp(this.dataset.type, this.dataset.del);
+    });
+  });
+}
+
+// ── 콘텐츠 렌더 ──────────────────────────────────────
+function renderContent(type, items) {
+  var el = document.getElementById('lst-' + type);
+  if (!el) return;
+  if (!items.length) {
+    el.innerHTML = '<div class="empty">항목이 없습니다. 추가 버튼을 눌러 등록하세요.</div>';
+    return;
+  }
+  var html = '';
+  items.forEach(function(item) {
+    var badge = type === 'success' ? item.badge : type === 'review' ? stars(item.stars||5) : item.category;
+    var title = type === 'review' ? item.quote : item.title;
+    var featBtn = (type === 'success' || type === 'column')
+      ? '<button class="a f' + (item.featured ? ' on' : '') + '" data-feat="' + item._id + '" data-type="' + type + '">' + (item.featured ? '★대표' : '☆대표') + '</button>' : '';
+    html += '<div class="row">'
+      + '<div class="rbadge">' + (badge||'-') + '</div>'
+      + '<div class="rinfo"><div class="rtitle">' + (title||'-') + '</div>'
+      + '<div class="rsub">' + (item.url && item.url !== '#' ? '<a href="' + item.url + '" target="_blank" style="color:var(--bur)">링크↗</a>' : '링크없음') + '</div></div>'
+      + '<div class="acts">' + featBtn
+      + '<button class="a" data-edit="' + item._id + '" data-type="' + type + '">수정</button>'
+      + '<button class="a" data-delc="' + item._id + '" data-type="' + type + '" style="color:#dc2626">삭제</button>'
+      + '</div></div>';
+  });
+  el.innerHTML = html;
+
+  el.querySelectorAll('[data-feat]').forEach(function(btn) {
+    btn.addEventListener('click', function() { setFeat(this.dataset.type, this.dataset.feat); });
+  });
+  el.querySelectorAll('[data-edit]').forEach(function(btn) {
+    btn.addEventListener('click', function() { openEdit(this.dataset.type, this.dataset.edit); });
+  });
+  el.querySelectorAll('[data-delc]').forEach(function(btn) {
+    btn.addEventListener('click', function() { delContent(this.dataset.type, this.dataset.delc); });
+  });
+}
+
+function stars(n) { var s=''; for(var i=0;i<n;i++) s+='★'; return s; }
+
+// ── Firebase 작업 ────────────────────────────────────
+function updateStatus(type, id, status) {
+  if (!window.FB) return;
+  window.FB.upd(type, id, {status: status})
+    .then(function() { toast('상태 변경됨'); })
+    .catch(function(e) { console.error(e); });
+}
+
+function deleteApp(type, id) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  if (!window.FB) return;
+  window.FB.del(type, id).then(function() { toast('삭제됨'); });
+}
+
+function clearApps(type) {
+  if (!confirm('전체를 삭제하시겠습니까?')) return;
+  if (!window.FB) return;
+  window.FB.listen(type, function(items) {
+    items.forEach(function(item) { window.FB.del(type, item._id); });
+    toast('전체 삭제됨');
+  });
+}
+
+function setFeat(type, id) {
+  if (!window.FB) return;
+  window.FB.listen(type, function(items) {
+    items.forEach(function(item) {
+      window.FB.upd(type, item._id, {featured: item._id === id});
+    });
+    toast('대표 변경됨');
+  });
+}
+
+function delContent(type, id) {
+  if (!confirm('삭제하시겠습니까?')) return;
+  if (!window.FB) return;
+  window.FB.del(type, id).then(function() { toast('삭제됨'); });
+}
+
+// ── 모달 ─────────────────────────────────────────────
+var editItem = null;
+
+function openAdd(type) { curMode = type; curEditId = null; editItem = null; buildModal(type, null); }
+function openEdit(type, id) {
+  curMode = type; curEditId = id;
+  if (!window.FB) return;
+  window.FB.listen(type, function(items) {
+    var found = items.find(function(i) { return i._id === id; });
+    if (found) { editItem = found; buildModal(type, found); }
+  });
+}
+
+function buildModal(type, item) {
+  var titles = {success: item ? '성공사례 수정' : '새 성공사례 추가', review: item ? '고객후기 수정' : '새 고객후기 추가', column: item ? '칼럼 수정' : '새 칼럼 추가'};
+  document.getElementById('md-title').textContent = titles[type];
+  var b = '';
+  if (type === 'success') {
+    var v = item || {badge:'',result:'',unit:'만원 인용',title:'',desc:'',tags:'',url:''};
+    b = frow2(fin('배지','f-badge',v.badge,'위자료 전액 인용',true), fin('결과숫자','f-result',v.result,'5,000',false))
+      + fin('결과단위','f-unit',v.unit,'만원 인용 / 방어 성공',false)
+      + fin('제목','f-title',v.title,'사건 제목',true)
+      + fta('설명','f-desc',v.desc,'사건 내용')
+      + fin('태그 (쉼표구분)','f-tags',Array.isArray(v.tags)?v.tags.join(', '):v.tags,'혼인 15년, 자녀 2명',false)
+      + fin('블로그 링크','f-url',v.url||'','https://blog.naver.com/...',false);
+  } else if (type === 'review') {
+    var v = item || {stars:5,quote:'',body:'',author:'',type:'',url:''};
+    var sopts = [5,4,3,2,1].map(function(n) { return '<option value="'+n+'"'+(parseInt(v.stars)===n?' selected':'')+'>'+stars(n)+' ('+n+'점)</option>'; }).join('');
+    b = '<div class="fr"><label class="flbl">별점</label><select class="fsel" id="f-stars">'+sopts+'</select></div>'
+      + fin('한줄 인용문','f-quote',v.quote,'"가장 인상 깊은 한 줄"',true)
+      + fta('후기 본문','f-body',v.body,'후기 내용')
+      + frow2(fin('작성자','f-author',v.author,'30대 여성 의뢰인',false), fin('사건유형','f-type',v.type,'원고 · 일부승소',false))
+      + fin('블로그 링크','f-url',v.url||'','https://blog.naver.com/...',false);
+  } else {
+    var CATS = ['위자료 산정','증거 전략','피고 방어','합의 전략','소송 절차','판례 해설'];
+    var v = item || {category:'위자료 산정',title:'',desc:'',date:'',url:''};
+    var copts = CATS.map(function(c) { return '<option value="'+c+'"'+(v.category===c?' selected':'')+'>'+c+'</option>'; }).join('');
+    b = '<div class="fr"><label class="flbl">카테고리 <span class="req">*</span></label><select class="fsel" id="f-cat">'+copts+'</select></div>'
+      + fin('칼럼 제목','f-title',v.title,'칼럼 제목',true)
+      + fta('요약','f-desc',v.desc,'칼럼 요약')
+      + fin('발행일','f-date',v.date||'','2024.12.10',false)
+      + fin('블로그 링크','f-url',v.url||'','https://blog.naver.com/...',false);
+  }
+  document.getElementById('md-body').innerHTML = b;
+  document.getElementById('ov').classList.add('show');
+}
+
+function fin(lbl, id, val, ph, req) {
+  var v = String(val||'').replace(/"/g,'&quot;');
+  return '<div class="fr"><label class="flbl">'+lbl+(req?' <span class="req">*</span>':'')+'</label><input class="fin" type="text" id="'+id+'" placeholder="'+ph+'" value="'+v+'"></div>';
+}
+function fta(lbl, id, val, ph) {
+  return '<div class="fr"><label class="flbl">'+lbl+'</label><textarea class="fta" id="'+id+'" placeholder="'+ph+'">'+String(val||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</textarea></div>';
+}
+function frow2(a, b) {
+  return '<div class="fr2"><div>'+a.replace('<div class="fr">','').replace(/<\/div>$/,'')+'</div><div>'+b.replace('<div class="fr">','').replace(/<\/div>$/,'')+'</div></div>';
+}
+function gv(id) { var el=document.getElementById(id); return el?el.value.trim():''; }
+
+function closeModal() { document.getElementById('ov').classList.remove('show'); curMode=''; curEditId=null; editItem=null; }
+
+function saveItem() {
+  var type = curMode;
+  var data = null;
+  if (type === 'success') {
+    var badge=gv('f-badge'), title=gv('f-title');
+    if (!badge||!title) { alert('배지와 제목은 필수입니다.'); return; }
+    data = {featured:editItem?!!editItem.featured:false, badge, result:gv('f-result'), unit:gv('f-unit'), title, desc:gv('f-desc'), tags:gv('f-tags'), url:gv('f-url')};
+  } else if (type === 'review') {
+    var quote=gv('f-quote');
+    if (!quote) { alert('인용문은 필수입니다.'); return; }
+    var sel=document.getElementById('f-stars');
+    data = {stars:sel?parseInt(sel.value):5, quote, body:gv('f-body'), author:gv('f-author'), type:gv('f-type'), url:gv('f-url')};
+  } else if (type === 'column') {
+    var title=gv('f-title');
+    if (!title) { alert('제목은 필수입니다.'); return; }
+    var cat=document.getElementById('f-cat');
+    data = {featured:editItem?!!editItem.featured:false, category:cat?cat.value:'위자료 산정', title, desc:gv('f-desc'), date:gv('f-date'), url:gv('f-url')};
+  }
+  if (!data || !window.FB) return;
+  data.updatedAt = new Date().toLocaleString('ko-KR');
+  var promise;
+  if (curEditId) {
+    promise = window.FB.set(type, curEditId, data);
+  } else {
+    data.createdAt = new Date().toLocaleString('ko-KR');
+    promise = window.FB.add(window.FB.col(type), data);
+  }
+  promise
+    .then(function() { closeModal(); toast(curEditId?'수정되었습니다':'추가되었습니다'); })
+    .catch(function(e) { console.error(e); alert('저장 오류: '+e.message); });
+}
+
+// ── Firebase 초기화 ───────────────────────────────────
+function initFB() {
+  if (!window.FB) { console.error('FB not ready'); return; }
+  console.log('Firebase 연결됨');
+  window.FB.listen('consult', function(items) { renderApps('consult', items); });
+  window.FB.listen('report', function(items) { renderApps('report', items); });
+  window.FB.listen('success', function(items) { renderContent('success', items); });
+  window.FB.listen('review', function(items) { renderContent('review', items); });
+  window.FB.listen('column', function(items) { renderContent('column', items); });
+}
+
+window.addEventListener('fb-ready', initFB);
+</script>
+
+<!-- Firebase (body 끝에) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, doc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyBaiWWlPqhp4UqwVAZMustQih0ASdQ2Beg",
+  authDomain: "uckeckmate-9c10c.firebaseapp.com",
+  projectId: "uckeckmate-9c10c",
+  storageBucket: "uckeckmate-9c10c.firebasestorage.app",
+  messagingSenderId: "760016514105",
+  appId: "1:760016514105:web:f176adf6c39de06fdbb1e8"
+});
+const db = getFirestore(app);
+
+window.FB = {
+  db,
+  col: (name) => collection(db, name),
+  add: (col, data) => addDoc(col, data),
+  set: (col, id, data) => setDoc(doc(db, col, id), data, {merge:true}),
+  upd: (col, id, data) => updateDoc(doc(db, col, id), data),
+  del: (col, id) => deleteDoc(doc(db, col, id)),
+  listen: (colName, cb) => onSnapshot(collection(db, colName), snap => {
+    const items = [];
+    snap.forEach(d => items.push({_id: d.id, ...d.data()}));
+    cb(items);
+  })
+};
+
+window.dispatchEvent(new Event('fb-ready'));
+</script>
+
+</body>
+</html>

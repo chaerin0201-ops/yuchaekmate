@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유책메이트 | 전략 진단 리포트 신청</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="global.css">
+<style>
+  :root {
+    --beige: #F4EFEA;
+    --beige-dark: #EAE3DB;
+    --beige-mid: #DDD4C8;
+    --charcoal: #2C2C2C;
+    --charcoal-light: #4A4A4A;
+    --charcoal-muted: #7A7A7A;
+    --burgundy: #721B29;
+    --burgundy-light: #9B2537;
+    --burgundy-pale: #F0E4E6;
+    --gold: #B8976A;
+    --white: #FDFAF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--beige); color: var(--charcoal); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 100px; height: 88px; background: rgba(244,239,234,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(114,27,41,0.12); }
+  .nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .nav-logo-emblem { width: 34px; height: 34px; background: var(--burgundy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-logo-emblem svg { width: 16px; height: 16px; fill: none; stroke: rgba(244,239,234,0.9); stroke-width: 1.4; }
+    .nav-logo-icon { width: 52px; height: 52px; flex-shrink: 0; object-fit: contain; }
+  .nav-logo-text { display: flex; flex-direction: column; gap: 5px; }
+  .nav-logo-main { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 600; color: var(--charcoal); letter-spacing: -0.01em; line-height: 1; }
+  .nav-logo-sub { font-size: 9px; font-weight: 300; color: var(--burgundy); letter-spacing: 0.22em; text-transform: uppercase; line-height: 1; padding-left: 6px; }
+  .nav-links { display: flex; gap: 0; list-style: none; height: 72px; }
+  .nav-item { position: relative; display: flex; align-items: center; }
+  .nav-item > a { font-size: 13px; font-weight: 400; color: var(--charcoal-light); text-decoration: none; letter-spacing: 0.04em; padding: 0 20px; height: 72px; display: flex; align-items: center; gap: 5px; transition: color 0.2s; white-space: nowrap; }
+  .nav-item > a:hover, .nav-item.active > a { color: var(--burgundy); }
+  .nav-arrow { font-size: 8px; opacity: 0.5; transition: transform 0.2s; display: inline-block; }
+  .nav-item:hover > a .nav-arrow { transform: rotate(180deg); }
+  .nav-dropdown { position: absolute; top: 72px; left: 0; background: var(--white); border-top: 2px solid var(--burgundy); border-bottom: 1px solid rgba(114,27,41,0.1); box-shadow: 0 8px 32px rgba(44,44,44,0.1); min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: all 0.22s ease; z-index: 200; }
+  .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-section { border-bottom: 1px solid rgba(114,27,41,0.07); }
+  .nav-dropdown-section:last-child { border-bottom: none; }
+  .nav-dropdown-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--burgundy); padding: 12px 20px 6px; display: block; }
+  .nav-dropdown a { display: block; font-size: 12.5px; font-weight: 400; color: var(--charcoal-light); text-decoration: none; padding: 8px 20px 8px 28px; transition: all 0.18s; white-space: nowrap; }
+  .nav-dropdown a:hover, .nav-dropdown a.active { color: var(--burgundy); background: var(--burgundy-pale); padding-left: 32px; }
+  .nav-sub-group { position: relative; }
+  .nav-sub-label { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; font-weight: 400; color: var(--charcoal-light); padding: 8px 20px 8px 28px; cursor: default; white-space: nowrap; }
+  .nav-sub-dropdown { position: absolute; left: 100%; top: -2px; background: var(--white); border-top: 2px solid var(--burgundy); box-shadow: 8px 8px 32px rgba(44,44,44,0.1); min-width: 190px; opacity: 0; visibility: hidden; transform: translateX(-6px); transition: all 0.2s ease; z-index: 300; }
+  .nav-sub-group:hover .nav-sub-dropdown { opacity: 1; visibility: visible; transform: translateX(0); }
+  .nav-sub-dropdown a { padding: 9px 20px; font-size: 12.5px; color: var(--charcoal-light); text-decoration: none; display: block; transition: all 0.18s; white-space: nowrap; }
+  .nav-sub-dropdown a:hover { color: var(--burgundy); background: var(--burgundy-pale); padding-left: 24px; }
+  .nav-cta-btn { background: var(--burgundy); color: var(--white) !important; padding: 10px 22px; border-radius: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-decoration: none; white-space: nowrap; transition: background 0.2s; margin-left: 16px; }
+  .nav-cta-btn:hover { background: var(--charcoal); }
+  .mob-btn{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:301;margin-left:auto;}
+  .mob-btn span{display:block;width:22px;height:2px;background:var(--charcoal);border-radius:1px;transition:all 0.25s;}
+  .mob-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+  .mob-btn.open span:nth-child(2){opacity:0;transform:translateX(-8px);}
+  .mob-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+  .mob-menu{display:none;position:fixed;inset:0;background:var(--charcoal);z-index:300;padding:72px 0 32px;overflow-y:auto;flex-direction:column;}
+  .mob-menu.open{display:flex;}
+  .mob-menu-section{border-bottom:1px solid rgba(255,255,255,0.07);}
+  .mob-menu-link{display:block;font-size:15px;font-weight:400;color:rgba(255,255,255,0.8);padding:15px 24px;text-decoration:none;letter-spacing:0.02em;}
+  .mob-menu-link:hover{color:var(--gold);}
+  .mob-menu-sub{padding:0 0 10px 36px;}
+  .mob-menu-sub a{display:block;font-size:13px;color:rgba(255,255,255,0.45);padding:7px 0;text-decoration:none;}
+  .mob-menu-sub a:hover{color:rgba(255,255,255,0.8);}
+  .mob-menu-cta{display:block;background:var(--burgundy);color:#fff;text-align:center;padding:15px 24px;font-size:14px;font-weight:500;text-decoration:none;margin:20px 24px 0;letter-spacing:0.06em;}
+  .mob-menu-home{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:rgba(255,255,255,0.5);text-decoration:none;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.07);letter-spacing:0.04em;}
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 160px 80px 100px;
+    background: var(--charcoal);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 500px; height: 500px;
+    border: 1px solid rgba(244,239,234,0.05);
+    border-radius: 50%;
+  }
+
+  .page-header::after {
+    content: 'CONSULT';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(100px, 18vw, 240px);
+    font-weight: 300;
+    color: rgba(244,239,234,0.03);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
+  }
+
+  .page-header-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-header-eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+  .page-header-eyebrow-text { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
+  .page-header h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-header h1 em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.12em;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .page-header-desc {
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(244,239,234,0.6);
+    line-height: 2;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .consult-main { padding: 100px 120px; }
+
+  .consult-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--burgundy-pale);
+    border-left: 3px solid var(--burgundy);
+    padding: 18px 24px;
+    margin-bottom: 52px;
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--charcoal-light);
+    line-height: 1.8;
+  }
+
+  .consult-notice i { color: var(--burgundy); margin-top: 2px; flex-shrink: 0; }
+
+  /* ── CHANNEL CARDS ── */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .channel-card {
+    background: var(--white);
+    padding: 44px 40px;
+    text-decoration: none;
+    color: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid transparent;
+    transition: all 0.25s;
+  }
+
+  .channel-card:hover { border-bottom-color: var(--burgundy); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(44,44,44,0.08); }
+
+  .channel-card.highlighted {
+    background: var(--burgundy);
+    color: var(--white);
+  }
+
+  .channel-card.highlighted:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(114,27,41,0.2); border-bottom-color: var(--charcoal); }
+
+  .channel-card-icon {
+    width: 52px; height: 52px;
+    background: var(--burgundy-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--burgundy);
+    margin-bottom: 24px;
+  }
+
+  .channel-card.highlighted .channel-card-icon {
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+
+  .channel-card h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .channel-card.highlighted h3 { color: var(--white); }
+
+  .channel-card p {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--charcoal-muted);
+    line-height: 1.9;
+    margin-bottom: 28px;
+    flex-grow: 1;
+  }
+
+  .channel-card.highlighted p { color: rgba(255,255,255,0.75); }
+
+  .channel-card-link {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--burgundy);
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s;
+  }
+
+  .channel-card:hover .channel-card-link { gap: 14px; }
+  .channel-card.highlighted .channel-card-link { color: rgba(255,255,255,0.9); }
+
+  /* ── PHONE BOX ── */
+  .phone-box {
+    background: var(--charcoal);
+    padding: 52px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 100px;
+  }
+
+  .phone-box-left { display: flex; align-items: center; gap: 24px; }
+
+  .phone-box-icon {
+    width: 56px; height: 56px;
+    background: rgba(244,239,234,0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .phone-box-label {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .phone-box-sub {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: rgba(244,239,234,0.5);
+  }
+
+  .phone-box-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── SECTION HEADING ── */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+
+  .section-heading-dot {
+    width: 8px; height: 8px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-heading h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 400;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── PROCESS STEPS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 80px;
+    position: relative;
+  }
+
+  .step-card {
+    background: var(--white);
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+  }
+
+  .step-card:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: rgba(114,27,41,0.25);
+    z-index: 2;
+  }
+
+  .step-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 20px;
+    background: var(--burgundy-pale);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--burgundy);
+  }
+
+  .step-badge {
+    display: inline-block;
+    background: var(--burgundy);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .step-card h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .step-card p {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--charcoal-muted);
+    line-height: 1.9;
+  }
+
+  /* ── CLOSING ── */
+  .closing-box {
+    background: var(--charcoal);
+    padding: 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing-box::before {
+    content: '';
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 360px; height: 360px;
+    border: 1px solid rgba(244,239,234,0.06);
+    border-radius: 50%;
+  }
+
+  .closing-box::after {
+    content: '';
+    position: absolute;
+    left: -60px; bottom: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(114,27,41,0.3) 0%, transparent 70%);
+  }
+
+  .closing-box-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .closing-box h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(20px, 2vw, 30px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .closing-box p {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(244,239,234,0.6);
+    line-height: 1.9;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--white);
+    padding: 16px 36px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.25s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .btn-gold:hover { background: var(--white); color: var(--charcoal); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); padding: 60px 120px 40px; border-top: 1px solid rgba(244,239,234,0.06); }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 52px; }
+  .footer-brand-name { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 500; color: var(--white); margin-bottom: 6px; }
+  .footer-brand-sub { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .footer-brand-desc { font-size: 12.5px; font-weight: 300; color: rgba(244,239,234,0.4); line-height: 1.9; }
+  .footer-col h5 { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,239,234,0.4); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul a { font-size: 13px; font-weight: 300; color: rgba(244,239,234,0.6); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(244,239,234,0.06); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom-left { font-size: 11.5px; font-weight: 300; color: rgba(244,239,234,0.3); line-height: 1.8; }
+  .footer-disclaimer { font-size: 10.5px; font-weight: 300; color: rgba(244,239,234,0.2); max-width: 480px; text-align: right; line-height: 1.7; }
+
+.apply-hero{background:var(--charcoal);padding:140px 80px 80px;position:relative;overflow:hidden;}
+.apply-hero::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(114,27,41,0.3) 0%,transparent 70%);}
+.apply-hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.apply-label{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.apply-hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(24px,3vw,38px);font-weight:400;color:var(--white);line-height:1.5;letter-spacing:-0.02em;margin-bottom:14px;}
+.apply-hero h1 em{font-style:italic;font-family:'Cormorant Garamond',serif;color:var(--gold);}
+.apply-hero-desc{font-size:14px;font-weight:300;color:rgba(244,239,234,0.6);line-height:2;}
+
+.apply-body{background:var(--beige);padding:72px 80px 100px;}
+.apply-inner{max-width:760px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:52px;align-items:start;}
+@media(max-width:900px){.apply-inner{grid-template-columns:1fr;}.apply-hero,.apply-body{padding-left:24px;padding-right:24px;}}
+
+.apply-form-card{background:var(--white);padding:44px 48px;}
+.apply-form-title{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:500;color:var(--charcoal);margin-bottom:28px;}
+.frow{margin-bottom:20px;}
+.flbl-a{font-size:10px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--charcoal-light);display:block;margin-bottom:8px;}
+.freq-a{color:var(--burgundy);}
+.fin-a,.fsel-a,.fta-a{width:100%;border:1px solid var(--beige-mid);background:var(--white);color:var(--charcoal);padding:12px 16px;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border-color 0.2s;}
+.fin-a:focus,.fsel-a:focus,.fta-a:focus{border-color:var(--burgundy);}
+.fta-a{min-height:120px;resize:vertical;line-height:1.8;}
+.fsel-a{cursor:pointer;}
+.fcheck{display:flex;align-items:flex-start;gap:10px;font-size:12px;font-weight:300;color:var(--charcoal-muted);line-height:1.7;margin-bottom:20px;}
+.fcheck input{margin-top:3px;accent-color:var(--burgundy);flex-shrink:0;}
+.btn-submit{width:100%;background:var(--burgundy);color:var(--white);border:none;padding:16px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.06em;transition:background 0.2s;margin-top:4px;}
+.btn-submit:hover{background:#5a1520;}
+
+.apply-info{display:flex;flex-direction:column;gap:2px;}
+.info-box{background:var(--white);padding:28px 32px;}
+.info-box-title{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--burgundy);margin-bottom:16px;}
+.info-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--beige-mid);font-size:13px;font-weight:300;color:var(--charcoal);line-height:1.7;}
+.info-item:last-child{border-bottom:none;}
+.info-icon{color:var(--burgundy);flex-shrink:0;font-size:14px;margin-top:2px;}
+.info-box-dark{background:var(--charcoal);padding:28px 32px;}
+.info-box-dark .info-box-title{color:var(--gold);}
+.info-box-dark .info-item{color:rgba(244,239,234,0.75);border-bottom-color:rgba(244,239,234,0.07);}
+.info-box-dark .info-icon{color:var(--gold);}
+
+.success-overlay{display:none;position:fixed;inset:0;background:rgba(44,44,44,0.6);z-index:200;align-items:center;justify-content:center;}
+.success-overlay.show{display:flex;}
+.success-box{background:var(--white);padding:48px;max-width:440px;width:100%;text-align:center;}
+.success-icon{font-size:40px;color:var(--burgundy);margin-bottom:16px;}
+.success-box h3{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:500;color:var(--charcoal);margin-bottom:10px;}
+.success-box p{font-size:13px;font-weight:300;color:var(--charcoal-muted);line-height:1.9;margin-bottom:24px;}
+.success-close{background:var(--burgundy);color:var(--white);border:none;padding:12px 32px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+
+/* ══════════════════════════════
+   모바일 반응형
+══════════════════════════════ */
+
+/* 태블릿 (max-width: 1024px) */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px !important; }
+  .hero-left { padding: 100px 32px 60px !important; }
+  .why-us { padding: 80px 32px !important; }
+  .why-unified-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .services { padding: 80px 32px !important; }
+  .service-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-right { grid-template-columns: 1fr 1fr !important; padding: 32px !important; }
+  .calc-teaser { grid-template-columns: 1fr !important; padding: 60px 32px !important; gap: 40px !important; }
+  .cta-banner { padding: 80px 32px !important; }
+  .section { padding: 80px 32px !important; }
+  footer { padding: 48px 32px 32px !important; }
+  .footer-top { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .for-whom-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .process-steps, .process-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .apply-inner { grid-template-columns: 1fr !important; }
+  .channel-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .values-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* 모바일 (max-width: 768px) */
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    padding: 0 16px !important;
+    height: 56px !important;
+    justify-content: center !important;
+    position: fixed !important;
+  }
+  .mob-btn { position: absolute !important; right: 16px !important; top: 50% !important; transform: translateY(-50%) !important; margin-left: 0 !important; }
+  .nav-links { display: none !important; }
+  .nav-cta-btn { display: none !important; }
+  .nav-dropdown { display: none !important; }
+  .mob-btn { display: flex !important; }
+  .consult-main { padding: 32px 16px 60px !important; }
+  .consult-notice { padding: 16px !important; font-size: 12px !important; margin-bottom: 20px !important; }
+  .form-grid { grid-template-columns: 1fr !important; }
+  .form-row { margin-bottom: 16px !important; }
+  .form-label { font-size: 11px !important; }
+  .form-input, .form-select, .form-textarea { font-size: 14px !important; padding: 10px 12px !important; }
+  .submit-btn { width: 100% !important; padding: 14px !important; font-size: 14px !important; }
+  .notice-box { padding: 16px !important; font-size: 12px !important; }
+  .page-header { padding: 80px 20px 40px !important; }
+  .page-header h1 { font-size: 26px !important; }
+  .nav-logo { position: absolute !important; left: 16px !important; right: 52px !important; justify-content: center !important; gap: 8px !important; flex-direction: row !important; align-items: center !important; }
+  .nav-logo-text { text-align: center !important; }
+  .nav-logo-main { font-size: 22px !important; }
+  .nav-logo-sub { font-size: 7px !important; letter-spacing: 0.1em !important; padding-left: 0 !important; }
+  .nav-logo-icon { width: 42px !important; height: 42px !important; object-fit: contain !important; }
+
+  /* HERO */
+  .hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .hero-right { display: none !important; }
+  .hero-left {
+    padding: 80px 20px 48px !important;
+  }
+  .hero-title {
+    font-size: 38px !important;
+    line-height: 1.35 !important;
+  }
+  .hero-title em { font-size: 44px !important; }
+  .hero-subtitle { font-size: 13px !important; line-height: 1.9 !important; margin-bottom: 32px !important; }
+  .hero-cta-group { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
+  .btn-primary { text-align: center !important; padding: 14px 24px !important; font-size: 13px !important; }
+  .btn-secondary { justify-content: center !important; }
+  .hero-points { margin-top: 28px !important; }
+  .hero-point { padding: 14px 0 !important; }
+  .hero-point-num { font-size: 18px !important; }
+  .hero-point-title { font-size: 13px !important; }
+  .hero-point-desc { font-size: 11px !important; }
+  .hero-eyebrow { margin-bottom: 24px !important; }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    padding: 20px 16px !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+  .intro-strip-items { flex-wrap: wrap !important; gap: 6px !important; justify-content: center !important; }
+  .intro-strip-item { font-size: 11px !important; }
+
+  /* WHY US */
+  .why-us { padding: 56px 20px !important; }
+  .why-unified-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .why-card { padding: 28px 24px !important; }
+  .section-title { font-size: 26px !important; line-height: 1.4 !important; }
+  .section-sub { font-size: 13px !important; }
+
+  /* SERVICES */
+  .services { padding: 56px 20px !important; }
+  .services-header { flex-direction: column !important; gap: 12px !important; align-items: flex-start !important; margin-bottom: 32px !important; }
+  .services-header-right { font-size: 13px !important; }
+  .service-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .service-card { padding: 28px 24px !important; }
+  .service-featured { grid-template-columns: 1fr !important; }
+  .service-featured-left { padding: 32px 24px !important; }
+  .service-featured-right { grid-template-columns: 1fr !important; padding: 24px !important; gap: 20px !important; }
+
+  /* CALC TEASER */
+  .calc-teaser {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 32px !important;
+  }
+  .calc-mock { max-width: 100% !important; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    grid-template-columns: 1fr !important;
+    padding: 56px 20px !important;
+    gap: 24px !important;
+    text-align: center !important;
+  }
+  .cta-banner-text h2 { font-size: 24px !important; }
+  .cta-banner-actions { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
+  .btn-white { text-align: center !important; padding: 14px 32px !important; font-size: 13px !important; }
+  .cta-note { font-size: 11px !important; }
+
+  /* FOOTER */
+  footer { padding: 40px 20px 28px !important; }
+  .footer-top { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .footer-brand-name { font-size: 20px !important; }
+  .footer-bottom { flex-direction: column !important; gap: 8px !important; align-items: flex-start !important; }
+  .footer-bottom-left { font-size: 10px !important; line-height: 1.8 !important; }
+  .f-biz-desktop { display: none !important; }
+  .f-biz-mobile { display: inline !important; }
+
+  /* 하단 상담바 */
+  .consult-bar {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    padding: 10px 16px !important;
+    gap: 0 !important;
+  }
+  .consult-bar-phone {
+    display: none !important;
+    width: 100% !important;
+    font-size: 17px !important;
+    border-right: none !important;
+    padding-right: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .consult-bar-form {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    padding: 0 0 8px !important;
+    gap: 6px !important;
+  }
+  .consult-bar-input.name { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-input.phone { width: calc(50% - 3px) !important; height: 34px !important; font-size: 12px !important; }
+  .consult-bar-agree { font-size: 10px !important; width: 100% !important; }
+  .consult-bar-btn {
+    width: calc(100% + 32px) !important;
+    margin: 8px -16px -10px !important;
+    height: 44px !important;
+    font-size: 14px !important;
+  }
+  body { padding-bottom: 160px !important; }
+
+  /* 상세 페이지 HERO */
+  .page-hero {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    padding-top: 56px !important;
+  }
+  .page-hero .hero-left {
+    padding: 56px 20px 40px !important;
+  }
+  .hero-title { font-size: 32px !important; }
+  .hero-desc { font-size: 13px !important; }
+  .hero-btns { flex-direction: column !important; gap: 10px !important; }
+  .hero-card { display: none !important; }
+
+  /* 서비스 상세 공통 */
+  .section { padding: 56px 20px !important; }
+  .for-whom-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .process-steps, .process-grid { grid-template-columns: 1fr !important; gap: 2px !important; }
+  .faq-section { padding: 56px 20px !important; }
+  .faq-list { margin-top: 28px !important; }
+  .faq-q { font-size: 13px !important; padding: 18px 0 !important; }
+
+  /* 브랜드/전문가 */
+  .mission { padding: 56px 20px !important; }
+  .mission-left, .mission-right { padding: 0 !important; }
+  .values { padding: 56px 20px !important; }
+  .values-grid { grid-template-columns: 1fr !important; }
+  .story { padding: 56px 20px !important; }
+  .story-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .promise { padding: 56px 20px !important; }
+
+  /* 위자료 계산기 */
+  .calc-hero { padding: 80px 20px 40px !important; }
+  .calc-topbar { padding: 0 16px !important; font-size: 11px !important; }
+  .fcard { padding: 24px 16px !important; }
+  .opts { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .opt-label { padding: 10px 8px !important; font-size: 11px !important; }
+  .dur-row { gap: 8px !important; }
+  .nav-btns { flex-direction: column !important; gap: 8px !important; }
+  .btn-next, .btn-back { width: 100% !important; }
+
+  /* FAQ 페이지 */
+  .faq-page-hero { padding: 80px 20px 40px !important; }
+  .faq-page-hero h1 { font-size: 28px !important; }
+  .faq-page-tabs { padding: 0 16px !important; flex-wrap: wrap !important; gap: 6px !important; overflow-x: auto !important; }
+  .faq-page-tab { font-size: 11px !important; padding: 6px 12px !important; white-space: nowrap !important; }
+  .faq-page-body { padding: 28px 16px !important; }
+  .faq-page-question { padding: 16px 0 !important; font-size: 13px !important; }
+  .faq-page-answer { padding: 0 0 20px 32px !important; }
+
+  /* 신청 페이지 */
+  .apply-hero { padding: 80px 20px 40px !important; }
+  .apply-hero h1 { font-size: 28px !important; }
+  .apply-body { padding: 32px 16px 56px !important; }
+  .apply-inner { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .apply-form-card { padding: 24px 16px !important; }
+  .fr2 { grid-template-columns: 1fr !important; }
+  .fin-a, .fsel-a, .fta-a { font-size: 13px !important; }
+
+  /* 상담 페이지 */
+  .page-header { padding: 80px 20px 40px !important; }
+  .page-header h1 { font-size: 26px !important; }
+  .consult-main { padding: 32px 16px !important; }
+  .channel-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .steps-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .phone-box { flex-direction: column !important; gap: 8px !important; padding: 20px 16px !important; }
+  .phone-box-number { font-size: 24px !important; }
+
+  /* 성공사례/칼럼 */
+  .cards-grid { grid-template-columns: 1fr !important; }
+  .reviews-grid { grid-template-columns: 1fr !important; }
+  .featured-article { grid-template-columns: 1fr !important; }
+  .filter-bar { padding: 16px !important; flex-wrap: wrap !important; gap: 6px !important; }
+  .filter-btn { font-size: 11px !important; padding: 6px 12px !important; }
+
+  /* 모달 */
+  .ov { padding: 12px !important; }
+  .md { padding: 20px 16px !important; }
+  .md h3 { font-size: 16px !important; }
+
+  /* 성공사례 */
+  .stats-strip { grid-template-columns: repeat(2,1fr) !important; }
+
+  /* 원고/피고 맞춤형 */
+  .hero-card-list { font-size: 12px !important; }
+}
+}</style>
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("Bg8rOwAFpjC0DGmOV");</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const app = initializeApp({
+  apiKey:"AIzaSyBaiWWlPqhp4UqwVAZMustQih0ASdQ2Beg",
+  authDomain:"uckeckmate-9c10c.firebaseapp.com",
+  projectId:"uckeckmate-9c10c",
+  storageBucket:"uckeckmate-9c10c.firebasestorage.app",
+  messagingSenderId:"760016514105",
+  appId:"1:760016514105:web:f176adf6c39de06fdbb1e8"
+});
+const db = getFirestore(app);
+window.__db = db;
+window.__col = collection;
+window.__add = addDoc;
+window.__fbReady = true;
+</script>
+<body>
+<nav>
+  <a href="yuchaekmate_landing.html" class="nav-logo">
+    <img class="nav-logo-icon" src="logo-icon.png" alt="유책메이트 로고">
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">유책메이트</div>
+      <div class="nav-logo-sub">상간소송의 정석</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="yuchaekmate_brand.html">유책메이트 소개 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_brand.html">브랜드 소개</a>
+          <a href="yuchaekmate_expert.html">전문가 소개</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_landing.html#services">서비스 분야 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_report.html">상간소송 전략 진단 리포트</a>
+        </div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">맞춤형 솔루션 서비스</span>
+          <div class="nav-sub-group">
+            <div class="nav-sub-label">맞춤형 솔루션 서비스 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a>
+              <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+              <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+              <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+              <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+              <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dropdown-section">
+          <span class="nav-dropdown-label">올인원 풀케어 패키지</span>
+          <div class="nav-sub-group">
+            <div class="nav-sub-label">올인원 풀케어 패키지 <span class="nav-arrow">▶</span></div>
+            <div class="nav-sub-dropdown">
+              <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+              <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_consult.html">상간소송 전략 가이드 <span class="nav-arrow">▼</span></a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-section">
+          <a href="yuchaekmate_column.html">칼럼</a>
+          <a href="yuchaekmate_faq.html">자주 하는 질문</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_success.html">성공사례&amp;고객후기</a>
+    </li>
+    <li class="nav-item">
+      <a href="yuchaekmate_calculator.html">위자료 계산기</a>
+    </li>
+  </ul>
+  <a href="yuchaekmate_consult.html" class="nav-cta-btn active" style="background: var(--charcoal);">상담 신청</a>
+  <button class="mob-btn" id="mob-btn" onclick="toggleMobMenu()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-menu" id="mob-menu">
+  <a href="yuchaekmate_landing.html" class="mob-menu-link">유책메이트</a>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_brand.html" class="mob-menu-link">브랜드 소개</a>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_brand.html">브랜드 소개</a>
+      <a href="yuchaekmate_expert.html">전문가 소개</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <span class="mob-menu-link" style="cursor:default;">서비스 분야</span>
+    <div class="mob-menu-sub">
+      <a href="yuchaekmate_report.html">전략 진단 리포트</a>
+      <a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a>
+      <a href="yuchaekmate_court.html">재판 출석 솔루션</a>
+      <a href="yuchaekmate_settle.html">합의 대행 솔루션</a>
+      <a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a>
+      <a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a>
+      <a href="yuchaekmate_criminal.html">형사 대응 솔루션</a>
+      <a href="yuchaekmate_plaintiff.html">원고 맞춤형 솔루션</a>
+      <a href="yuchaekmate_defendant.html">피고 맞춤형 솔루션</a>
+    </div>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_column.html" class="mob-menu-link">칼럼</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_faq.html" class="mob-menu-link">자주 하는 질문</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_success.html" class="mob-menu-link">성공사례 &amp; 고객후기</a>
+  </div>
+  <div class="mob-menu-section">
+    <a href="yuchaekmate_calculator.html" class="mob-menu-link">위자료 계산기</a>
+  </div>
+  <a href="yuchaekmate_consult.html" class="mob-menu-cta">온라인 상담 신청</a>
+</div>
+
+<div class="apply-hero">
+  <div class="apply-hero-inner">
+    <h1>상간소송 전략<br><em>진단 리포트 신청</em></h1>
+    <p class="apply-hero-desc">대표 변호사가 직접 사건을 구조적으로 분석한 전략 리포트를 받아보십시오.<br>소송가능성, 위자료 범위, 대응 전략까지 명확하게 제시합니다.</p>
+  </div>
+</div>
+
+<div class="apply-body">
+  <div class="apply-inner">
+    <form class="apply-form-card" name="report" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleReportSubmit(event)">
+      <input type="hidden" name="form-name" value="report">
+      <input type="hidden" name="bot-field" style="display:none">
+      <div class="apply-form-title">리포트 신청서</div>
+      <div class="frow">
+        <label class="flbl-a">성함 <span class="freq-a">*</span></label>
+        <input class="fin-a" type="text" id="r-name" name="성함" placeholder="홍길동">
+      </div>
+      <div class="frow">
+        <label class="flbl-a">연락처 <span class="freq-a">*</span></label>
+        <input class="fin-a" type="tel" id="r-phone" name="연락처" placeholder="010-0000-0000">
+      </div>
+      <div class="frow">
+        <label class="flbl-a">이메일 (사실관계 진술서 및 리포트 수신용) <span class="freq-a">*</span></label>
+        <input class="fin-a" type="email" id="r-email" name="이메일" placeholder="리포트를 받을 이메일 주소">
+      </div>
+      <div class="frow">
+        <label class="flbl-a">의뢰인 구분 <span class="freq-a">*</span></label>
+        <select class="fsel-a" id="r-type" name="의뢰인구분">
+          <option value="">선택해주세요</option>
+          <option value="원고 (상간소송 제기 희망)">원고 (상간소송 제기 희망)</option>
+          <option value="피고 (소장 수령, 방어 필요)">피고 (소장 수령, 방어 필요)</option>
+          <option value="합의 희망">합의 희망</option>
+        </select>
+      </div>
+      <div class="frow" style="background:var(--beige);border-left:3px solid var(--burgundy);padding:16px 20px;margin-bottom:4px;">
+        <div style="font-size:12px;font-weight:500;color:var(--burgundy);margin-bottom:6px;">📋 사실관계진술서 안내</div>
+        <div style="font-size:13px;font-weight:300;color:var(--charcoal);line-height:1.9;">
+          결제 완료 후 <strong>사실관계진술서</strong>를 이메일로 보내드립니다.<br>
+          사실관계 진술서 제출일로부터 <strong>3일 이내</strong>에 진단 리포트를 작성하여 이메일로 전송해드리며,<br>
+          리포트 전송 후 <strong>대표 변호사와 15분 전화 상담</strong>이 진행됩니다.
+        </div>
+      </div>
+      <div class="fcheck">
+        <input type="checkbox" id="r-agree" name="개인정보동의">
+        <label for="r-agree">제공하신 정보는 리포트 작성 목적으로만 사용되며, 비밀유지 원칙에 따라 보호됩니다. 개인정보 수집 및 이용에 동의합니다.</label>
+      </div>
+      <!-- 결제 방법 선택 -->
+      <div class="frow">
+        <label class="flbl-a">결제 방법 <span class="freq-a">*</span></label>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:1px solid var(--border);padding:12px 20px;flex:1;min-width:140px;" id="pay-card-label">
+            <input type="radio" name="결제방법" id="r-pay-card" value="카드 결제" required style="accent-color:var(--burgundy);">
+            <span style="font-size:13px;font-weight:500;">💳 카드 결제</span>
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--white);border:1px solid var(--border);padding:12px 20px;flex:1;min-width:140px;" id="pay-transfer-label">
+            <input type="radio" name="결제방법" id="r-pay-transfer" value="계좌 이체" style="accent-color:var(--burgundy);">
+            <span style="font-size:13px;font-weight:500;">🏦 계좌 이체</span>
+          </label>
+        </div>
+        <div id="pay-info" style="display:none;margin-top:10px;background:var(--beige);padding:14px 16px;font-size:12px;font-weight:300;color:var(--charcoal);line-height:2;border-left:3px solid var(--gold);">
+          <span id="pay-detail"></span>
+        </div>
+      </div>
+
+      <!-- 진행 안내 -->
+      <div style="background:#f8f4f0;border:1px solid var(--border);padding:16px 20px;margin-bottom:16px;font-size:12px;font-weight:300;color:var(--charcoal);line-height:2;">
+        <div style="font-weight:500;color:var(--burgundy);margin-bottom:6px;">📌 진행 순서 안내</div>
+        <div>① 신청서 제출 → ② 결제 완료 확인 → ③ 사실관계진술서 이메일 발송<br>
+        → ④ 사실관계 진술서 제출 후 3일 내 리포트 이메일 전송 → ⑤ 대표 변호사 15분 전화 상담</div>
+      </div>
+
+      <!-- 동의 -->
+      <div class="fcheck">
+        <input type="checkbox" id="r-agree" name="개인정보동의">
+        <label for="r-agree">제공하신 정보는 리포트 작성 목적으로만 사용되며, 비밀유지 원칙에 따라 보호됩니다. 개인정보 수집 및 이용에 동의합니다.</label>
+      </div>
+      <div class="fcheck">
+        <input type="checkbox" id="r-pay-agree" name="비용동의">
+        <label for="r-pay-agree">리포트 서비스 비용은 <strong>33만 원</strong>이며, 결제 완료 후 사실관계진술서 발송 및 리포트 작성이 시작됨을 확인합니다.</label>
+      </div>
+      <button class="btn-submit" type="submit">리포트 신청하기 (33만원)</button>
+    </form>
+
+    <div class="apply-info">
+      <div class="info-box-dark">
+        <div class="info-box-title">리포트 안내</div>
+        <div class="info-item"><span class="info-icon">·</span><span>진단 비용 <strong style="color:var(--gold)">33만 원</strong></span></div>
+        <div class="info-item"><span class="info-icon">·</span><span>대표 변호사가 직접 검토 및 작성</span></div>
+        <div class="info-item"><span class="info-icon">·</span><span>사실관계 진술서 제출일로부터 <strong style="color:var(--gold)">3일 이내</strong> 이메일 전송</span></div>
+        <div class="info-item"><span class="info-icon">·</span><span>리포트 전달 후 대표 변호사와 <strong style="color:var(--gold)">15분 전화상담</strong> 포함</span></div>
+        <div class="info-item"><span class="info-icon">·</span><span>정식 선임 시 리포트 비용은 <strong style="color:var(--gold)">선임비에서 제외</strong></span></div>
+        <div class="info-item"><span class="info-icon">·</span><span>비밀유지 원칙 철저 준수</span></div>
+      </div>
+      <div class="info-box">
+        <div class="info-box-title">리포트 내용</div>
+        <div class="info-item"><span class="info-icon">✓</span><span>소송 가능성 및 구조 분석</span></div>
+        <div class="info-item"><span class="info-icon">✓</span><span>예상 위자료 범위 제시</span></div>
+        <div class="info-item"><span class="info-icon">✓</span><span>보유 증거의 적법성·증명력 검토</span></div>
+        <div class="info-item"><span class="info-icon">✓</span><span>최적 대응 전략 방향 제시</span></div>
+        <div class="info-item"><span class="info-icon">✓</span><span>소송 vs. 합의 실익 비교</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="success-overlay" id="success-overlay">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <h3>리포트 신청이 완료되었습니다</h3>
+    <p>입금 안내를 위해 1영업일 내 연락드리겠습니다.<br>입금 확인 후 작성이 시작되며,<br>신청일로부터 3일 이내에 이메일로 전송됩니다.</p>
+    <button class="success-close" onclick="document.getElementById('success-overlay').classList.remove('show')">확인</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">유책메이트</div>
+      <div class="footer-brand-sub">상간소송의 정석</div>
+      <p class="footer-brand-desc">대형로펌 가사전담팀 출신 전문 변호사가<br>사건의 처음부터 끝까지 직접 수행하는<br>상간소송 전문 법률 브랜드입니다.</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스 분야</h5>
+      <ul>
+        <li><a href="yuchaekmate_report.html">전략 진단 리포트</a></li>
+        <li><a href="yuchaekmate_writing.html">맞춤형 서면 솔루션</a></li>
+        <li><a href="yuchaekmate_court.html">재판 출석 솔루션</a></li>
+        <li><a href="yuchaekmate_settle.html">합의 대행 솔루션</a></li>
+        <li><a href="yuchaekmate_notice.html">내용증명 해결 솔루션</a></li>
+        <li><a href="yuchaekmate_evidence.html">증거 코칭 솔루션</a></li>
+        <li><a href="yuchaekmate_plaintiff.html">올인원 풀케어 패키지</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>소개</h5>
+      <ul>
+        <li><a href="yuchaekmate_brand.html">브랜드 소개</a></li>
+        <li><a href="yuchaekmate_expert.html">전문가 소개</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>상간 전략 가이드</h5>
+      <ul>
+        <li><a href="yuchaekmate_column.html">칼럼</a></li>
+        <li><a href="yuchaekmate_success.html">성공사례&amp;고객후기</a></li>
+        <li><a href="yuchaekmate_consult.html">상담 신청</a></li>
+        <li><a href="yuchaekmate_calculator.html">위자료 계산기</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="flex-direction:column;gap:16px;align-items:flex-start;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:11px;font-weight:300;color:rgba(244,239,234,0.25);cursor:pointer;" onclick="document.getElementById('privacy-modal').style.display='flex'">개인정보처리방침</span>
+    </div>
+    <div class="footer-bottom-left" style="line-height:2;">
+      대표자 김채린 &nbsp;|&nbsp; 주소 서울 서초구 서초중앙로 18길 23, 2층 (서초동, 효암빌딩) 법률사무소 리그<br>
+      <span class="f-biz-desktop" style="display:inline;">사업자등록번호 761-50-01093 &nbsp;|&nbsp; 대표번호 050-6780-6393<br></span><span class="f-biz-mobile" style="display:none;">사업자등록번호 761-50-01093 (변호사 김채린 법률사무소)<br>      대표번호 050-6780-6393<br></span>광고책임변호사 김채린
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<script>
+(function(){
+  var link = localStorage.getItem('ycm_kakao_url') || '#';
+  var el = document.getElementById('kakao-link');
+  if(el) el.href = link;
+})();
+</script>
+
+
+<script>
+
+const STORAGE_KEY = 'ycm_applications';
+function loadApps() {
+  try { const r=localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):{consult:[],report:[]}; }
+  catch(e){ return {consult:[],report:[]}; }
+}
+function saveApps(d){ localStorage.setItem(STORAGE_KEY,JSON.stringify(d)); }
+
+function handleReportSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('r-name').value.trim();
+  const phone = document.getElementById('r-phone').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const type = document.getElementById('r-type').value;
+  const agree = document.getElementById('r-agree').checked;
+  const payAgree = document.getElementById('r-pay-agree').checked;
+  const payMethod = document.querySelector('input[name="결제방법"]:checked');
+  if(!name||!phone||!email||!type){alert('필수 항목을 모두 입력해주세요.');return false;}
+  if(!payMethod){alert('결제 방법을 선택해주세요.');return false;}
+  if(!agree||!payAgree){alert('동의 항목을 모두 확인해주세요.');return false;}
+
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = '전송 중...';
+  btn.disabled = true;
+
+  const data = {
+    form_type: '전략 진단 리포트 신청 (33만원)',
+    name, phone, email, type,
+    payMethod: document.querySelector('input[name="결제방법"]:checked') ? document.querySelector('input[name="결제방법"]:checked').value : '미선택',
+    status: '신규 (입금 대기)',
+    createdAt: new Date().toLocaleString('ko-KR')
+  };
+
+  function onDone() {
+    document.getElementById('success-overlay').classList.add('show');
+    e.target.reset();
+    btn.textContent = '리포트 신청하기 (33만원)';
+    btn.disabled = false;
+  }
+
+  const emailPromise = (window.emailjs)
+    ? emailjs.send('service_520am9z','template_ma8e5yb',{...data,to_email:'lawleague175@naver.com'}).catch(err=>console.warn('EmailJS 실패:',err))
+    : Promise.resolve();
+
+  const fbPromise = (window.__fbReady && window.__db)
+    ? window.__add(window.__col(window.__db,'report'), data).catch(err=>console.warn('Firebase 실패:',err))
+    : Promise.resolve();
+
+  const timeout = new Promise(resolve => setTimeout(resolve, 3000));
+
+  Promise.race([
+    Promise.all([emailPromise, fbPromise]),
+    timeout
+  ]).then(onDone);
+
+  return false;
+}
+</script>
+
+<script>
+// 결제 방법 선택 안내
+document.querySelectorAll('input[name="결제방법"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    var info = document.getElementById('pay-info');
+    var detail = document.getElementById('pay-detail');
+    info.style.display = 'block';
+    if (this.value === '카드 결제') {
+      detail.innerHTML = '카드 결제 링크는 신청 접수 후 <strong>휴대전화</strong>로 전송됩니다.';
+    } else {
+      detail.innerHTML = '입금 계좌: <strong>카카오뱅크 3333-34-2846224 변호사 김채린 법률사무소</strong><br>입금자명을 신청자 성함으로 해주세요.';
+    }
+  });
+});
+function toggleMobMenu() {
+  var btn = document.getElementById('mob-btn');
+  var menu = document.getElementById('mob-menu');
+  if (!btn || !menu) return;
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
+</script>
+
+<!-- 개인정보처리방침 모달 -->
+<div id="privacy-modal" style="display:none;position:fixed;inset:0;background:rgba(44,44,44,0.6);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#fff;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;padding:40px;position:relative;">
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:#777;">✕</button>
+    <h3 style="font-family:'Noto Serif KR',serif;font-size:18px;margin-bottom:20px;">개인정보처리방침</h3>
+        <div style="font-size:13px;font-weight:300;color:#4A4A4A;line-height:2;">
+      <p><strong>개인정보처리방침</strong></p>
+      <p style="margin-top:12px;">유책메이트(이하 '회사')는 개인정보보호법 제30조에 따라 회사가 제공하고자 하는 서비스(이하 '서비스')를 이용하는 고객(이하 '이용자' 또는 '개인')의 정보(이하 '개인정보')를 보호하기 위해, 개인정보보호법 등 관련 법령을 준수하고, 서비스 이용자의 개인정보 보호와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보처리방침(이하 '본 방침')을 수립·공개합니다.</p>
+      <p style="margin-top:16px;"><strong>제1조(개인정보의 처리목적)</strong></p>
+      <p>회사는 개인정보보호법 제32조에 따라 다음과 같이 개인정보를 처리합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보: 인적사항</li>
+        <li>처리목적: 법률서비스 제공</li>
+        <li>수집방법: 생성정보 수집 툴을 통한 수집, 전화/팩스, 서면양식, 홈페이지</li>
+        <li>보유근거: 통신비밀보호법 등</li>
+        <li>보유기간: 준영구</li>
+        <li>관련법령: 표시/광고에 관한 기록 6개월 / 계약 또는 청약철회 등에 관한 기록 5년 / 대금결제 및 재화 등의 공급에 관한 기록 5년 / 소비자의 불만 또는 분쟁처리에 관한 기록 3년 / 신용정보의 수집/처리 및 이용 등에 관한 기록 3년</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제2조(처리하는 개인정보의 항목)</strong></p>
+      <p>인적사항</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>필수항목: 이름, 휴대전화번호, 이메일, 접속 로그, 상담신청 절차에서 발생된 기타 정보</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제3조(개인정보의 파기절차 및 파기방법)</strong></p>
+      <p>회사는 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>파기절차: 파기 사유가 발생한 개인정보를 선정하고, 개인정보 보호책임자의 승인을 받아 파기합니다.</li>
+        <li>파기방법: 종이에 출력된 개인정보는 분쇄기로 분쇄하거나 소각을 통하여 파기합니다.</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제4조(개인정보주체의 권리·의무 및 그 행사방법)</strong></p>
+      <p>(1) 정보주체는 관계 법령이 정하는 바에 따라 개인정보의 열람, 정정·삭제, 처리정지 및 동의 철회 등 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
+      <p>(2) 권리행사는 회사에 대하여 개인정보 보호법 시행규칙 별지 제8호 서식에 따라 서면, 전자우편, 모사전송(FAX) 등을 통하여 하실 수 있습니다.</p>
+      <p>(3) 권리행사는 정보주체의 법정대리인을 통해서도 행사할 수 있으며, 이 경우에는 개인정보 보호법 시행규칙 별지 제11호 서식에 따른 위임장을 회사에 제출해야 합니다.</p>
+      <p style="margin-top:16px;"><strong>제5조(개인정보의 파기)</strong></p>
+      <p>(1) 회사는 보유기간이 경과된 경우 보유기간 종료일로부터 5일 이내에, 처리목적 달성 등 불필요하게 되었을 때에는 처리가 필요한 것으로 인정되는 날로부터 5일 이내에 개인정보를 파기합니다.</p>
+      <p>(2) 관계법령에 의하여 보존할 필요가 있는 경우 해당 개인정보를 다른 개인정보와 분리해서 저장·관리합니다.</p>
+      <p>(3) 전자파일 형태의 개인정보는 복원이 불가능한 방법으로 영구 삭제하는 방법으로 파기합니다.</p>
+      <p style="margin-top:16px;"><strong>제6조(개인정보의 안전성 확보 조치)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>물리적 보호조치: 전산실, 자료실 등 개인정보 보관 장소에 대한 접근통제</li>
+        <li>관리적 보호조치: 내부관리계획의 수립 및 시행, 정기적인 개인정보 보호 교육</li>
+        <li>기술적 보호조치: 개인정보처리시스템에 대한 접근통제, 접근권한 관리, 보안 프로그램의 설치 및 암호화</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제7조(개인정보 관리 책임자)</strong></p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보관리책임자: 김채린</li>
+        <li>직위: 대표자</li>
+        <li>전화번호: 050-6780-6393</li>
+        <li>이메일: lawleague175@naver.com</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제8조(권익침해에 대한 구제방법)</strong></p>
+      <p>개인정보 보호 관련 문의, 불만처리, 피해구제 등은 개인정보 보호책임자에게 문의하실 수 있습니다. 기타 개인정보침해에 대한 신고나 상담이 필요하신 경우 아래 기관에 문의하시기 바랍니다.</p>
+      <ul style="padding-left:16px;margin-top:6px;">
+        <li>개인정보분쟁조정위원회 (www.kopico.go.kr / 1833-6972)</li>
+        <li>개인정보 침해신고센터 (privacy.kisa.or.kr / 118)</li>
+        <li>대검찰청 인터넷범죄수사센터 (www.spo.go.kr / 02-3480-2000)</li>
+        <li>경찰청 사이버안전국 (cyberbureau.police.go.kr / 182)</li>
+      </ul>
+      <p style="margin-top:16px;"><strong>제9조(고지의 의무)</strong></p>
+      <p>본 방침은 2026. 4. 7. 제정되었으며, 법령, 정책 또는 보안기술의 변경에 따라 내용의 추가, 삭제 및 수정이 있을 시에는 변경되는 개인정보처리방침을 홈페이지에 공지하도록 하겠습니다.</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+</body>
+</html>
