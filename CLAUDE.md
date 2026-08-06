@@ -22,7 +22,8 @@
 
 - 색: 배경 `--ink` #121212, 포인트 `--burgundy` #8E2237, 액센트 `--gold` #B8976A. 섹션마다 다크 → 라이트(`--paper` #F1F0EE) 교차.
 - 섹션별 대형 영문 워터마크(`::before`/`::after`의 `content`): 히어로 YUCHAEKMATE, WHY US, SERVICE, AI PREDICT.
-- 히어로 배경은 `hero-video.mp4`(Pexels 8347237, 무료 상업이용). 768px 이하와 데이터 세이버 환경에서는 영상을 아예 받지 않고 `hero-poster.jpg`만 표시한다 (`initHeroVideo()`가 `data-src`를 조건부로 붙임).
+- 히어로 배경은 `hero-video.mp4`(Pexels 5483080, 고층 오피스 창밖, 무료 상업이용). 768px 이하와 데이터 세이버 환경에서는 영상을 아예 받지 않고 `hero-poster.jpg`만 표시한다 (`initHeroVideo()`가 `data-src`를 조건부로 붙임).
+- **스톡영상을 고를 때 반드시 화면으로 끝까지 확인할 것.** 처음 골랐던 영상(33932067)에는 다른 법률사무소 간판(DARDIK LAW)이 찍혀 있었다.
 - 포스터 이미지는 영상 프레임을 캔버스로 캡처해 만든 것이라, 영상을 바꾸면 포스터도 다시 만들어야 한다.
 - 우측 고정 버튼(`.float-btns`)이 콘텐츠를 가리지 않도록 데스크톱은 섹션 `padding-right: 108px`, 모바일은 아이콘만 남긴 46px 레일을 상담바 위에 배치한다.
 
