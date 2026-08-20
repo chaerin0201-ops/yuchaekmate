@@ -90,9 +90,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;background:rgba(
 <body>
 
 <nav>
-  <a href="index.html" class="n-brand">유책메이트</a>
+  <a href="/" class="n-brand">유책메이트</a>
   <span class="n-badge">관리자</span>
-  <a href="index.html" target="_blank" class="n-site">↗ 사이트 보기</a>
+  <a href="/" target="_blank" class="n-site">↗ 사이트 보기</a>
 </nav>
 
 <div class="wrap">
@@ -123,9 +123,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;background:rgba(
     <div class="shr"></div>
     <div class="sg">
       <div class="sl">미리보기</div>
-      <a href="index.html" target="_blank" class="sl-link">↗ 랜딩페이지</a>
-      <a href="yuchaekmate_success.html" target="_blank" class="sl-link">↗ 성공사례</a>
-      <a href="yuchaekmate_column.html" target="_blank" class="sl-link">↗ 칼럼</a>
+      <a href="/" target="_blank" class="sl-link">↗ 랜딩페이지</a>
+      <a href="yuchaekmate_success" target="_blank" class="sl-link">↗ 성공사례</a>
+      <a href="yuchaekmate_column" target="_blank" class="sl-link">↗ 칼럼</a>
     </div>
   </div>
 
@@ -240,11 +240,20 @@ function toast(msg) {
 // ── 카카오 설정 ───────────────────────────────────────
 function saveKakao() {
   var url = document.getElementById('kakao-url').value.trim();
+  // Firestore에 저장해야 방문자 모두에게 보인다. localStorage에도 남겨두는 건
+  // Firebase가 아직 안 붙은 순간의 대비용일 뿐이다.
   localStorage.setItem('ycm_kakao_url', url);
-  toast('카카오톡 링크가 저장되었습니다');
+  if (!window.FB) {
+    toast('저장 실패: 서버 연결 대기 중입니다. 잠시 후 다시 시도해주세요');
+    return;
+  }
+  window.FB.set('settings', 'kakao', { url: url, updatedAt: new Date().toISOString() })
+    .then(function () { toast('카카오톡 링크가 저장되었습니다'); })
+    .catch(function (e) { toast('저장 오류: ' + e.message); });
 }
-var ku = localStorage.getItem('ycm_kakao_url') || '';
-document.getElementById('kakao-url').value = ku;
+
+// 입력칸은 서버 값으로 채운다 (Firebase 연결 전에는 로컬 값으로 임시 표시)
+document.getElementById('kakao-url').value = localStorage.getItem('ycm_kakao_url') || '';
 
 // ── 신청 렌더 ─────────────────────────────────────────
 function renderApps(type, items) {
@@ -487,6 +496,10 @@ function initFB() {
   window.FB.listen('success', function(items) { renderContent('success', items); });
   window.FB.listen('review', function(items) { renderContent('review', items); });
   window.FB.listen('column', function(items) { renderContent('column', items); });
+  window.FB.listen('settings', function(items) {
+    var k = items.filter(function(i) { return i._id === 'kakao'; })[0];
+    if (k) document.getElementById('kakao-url').value = k.url || '';
+  });
 }
 
 window.addEventListener('fb-ready', initFB);
