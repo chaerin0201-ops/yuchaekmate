@@ -817,15 +817,20 @@ let posts = loadPosts();
 // Firebase에서 실시간 콘텐츠 로드
 function initFromFirebase() {
   if (!window.__snap) return;
+  // 등록분이 있으면 그걸, 하나도 없으면 예시 데이터를 보여준다.
+  // 예전에는 0건일 때 아예 다시 그리지 않아서, 마지막 1건을 지워도 화면에는
+  // 지운 항목이 그대로 남아 있었다 (새로고침해야 사라짐).
   window.__snap(window.__col(window.__db, 'success'), function(snap) {
     var items = [];
     snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
-    if (items.length > 0) { posts.success = items; renderSuccess(); }
+    posts.success = items.length > 0 ? items : getDefaultPosts().success;
+    renderSuccess();
   });
   window.__snap(window.__col(window.__db, 'review'), function(snap) {
     var items = [];
     snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
-    if (items.length > 0) { posts.review = items; renderReviews(); }
+    posts.review = items.length > 0 ? items : getDefaultPosts().review;
+    renderReviews();
   });
 }
 if (window.__fbReady) { initFromFirebase(); }
