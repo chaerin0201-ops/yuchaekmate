@@ -600,6 +600,15 @@
     text-transform: uppercase;
   }
 
+  /* 어두운 서비스 섹션의 강조어는 #A62A42 로는 2.7:1 밖에 안 나온다.
+     밝은 계산기 섹션의 강조어는 종이 위라 그대로 두면 된다. */
+  .services .section-title em { color: #E0A0AC; }
+
+  /* 밝은 섹션(계산기)에서는 금색 라벨이 종이 배경에 묻힌다(2.4:1).
+     어두운 섹션의 금색은 그대로 두고 여기서만 버건디로 바꾼다. */
+  .calc-teaser .section-label-text { color: #8E2237; }
+  .calc-teaser .section-label-line { background: #8E2237; }
+
   .section-title {
     font-family: 'Noto Serif KR', serif;
     font-size: clamp(30px, 2.7vw, 44px);
@@ -873,7 +882,7 @@
   .service-card-link {
     font-size: 14px;
     font-weight: 500;
-    color: var(--burgundy-light);
+    color: #E0A0AC;
     text-decoration: none;
     letter-spacing: 0.04em;
     transition: color 0.2s;
@@ -1056,7 +1065,7 @@
   .calc-mock-label {
     font-size: 14px;
     font-weight: 300;
-    color: #807D78;
+    color: #6B6862;
   }
 
   .calc-mock-value {
@@ -1092,7 +1101,7 @@
   .calc-mock-result-note {
     font-size: 12px;
     font-weight: 300;
-    color: #9A968F;
+    color: #6F6C66;
     line-height: 1.6;
   }
 

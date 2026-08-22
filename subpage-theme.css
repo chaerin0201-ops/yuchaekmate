@@ -63,6 +63,70 @@
 .faq-q { font-size: 16px !important; line-height: 1.6 !important; }
 .faq-a, .faq-a-inner { font-size: 15px !important; line-height: 1.95 !important; }
 
+/* 가독성 하한선.
+ * 페이지마다 제각각인 12.5~13px 본문을 한 번에 끌어올린다. nav·footer·고정
+ * 레일은 자체 크기가 맞으므로 건드리지 않는다. */
+section p,
+section li,
+.section p,
+.section li {
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* 페이지마다 카드·리스트 클래스 이름이 제각각이라 (profile-list, expert-hero-point,
+ * info-box …) 이름 패턴으로 잡는다. 페이지별 규칙과 특정도가 같으면 이 파일이
+ * 나중에 로드되므로 이쪽이 이긴다. */
+[class*="-card"] p, [class*="-card"] li,
+[class*="-list"] li,
+[class*="-intro"] p,
+[class*="-point"] p,
+[class*="-item"] p, [class*="-item"] li,
+[class*="-box"] p, [class*="-box"] li,
+[class*="-body"] p, [class*="-body"] li {
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+[class*="-point"] h4,
+[class*="-card"] h4 { font-size: 17px; }
+
+/* 전문가 소개의 3단 카드는 폭이 116px 밖에 안 돼서 15px 면 두 어절마다
+ * 줄이 바뀐다. 이 카드만 한 단계 줄인다. */
+.expert-hero-point p { font-size: 14px; line-height: 1.8; }
+
+/* 좁은 카드에서 양쪽정렬 + word-break:keep-all 이 만나면 단어 사이가
+ * 벌어져 글이 흩어진다. 카드 본문은 왼쪽정렬로 고정한다. */
+[class*="-card"] p, [class*="-card"] li,
+[class*="-point"] p,
+[class*="-item"] p, [class*="-item"] li,
+[class*="-list"] li,
+[class*="-box"] p { text-align: left; }
+
+.mission-kw-desc,
+.info-box-title,
+.value-card-sub,
+.channel-card-link,
+.btn-white,
+.cta-btn,
+.story-principle-label { font-size: 14px !important; }
+
+.mission-kw-eyebrow,
+.page-header-eyebrow-text,
+.step-badge { font-size: 12px !important; letter-spacing: 0.16em; }
+
+/* 신청 폼: 라벨과 안내·동의 문구는 실제로 읽고 판단해야 하는 내용이라
+ * 12px 로 두면 안 된다. */
+.flbl-a { font-size: 13px !important; letter-spacing: 0.06em; }
+
+.frow > div,
+.frow label,
+.fcheck,
+.fcheck label,
+.fcheck span,
+.info-item,
+.apply-form-card > div { font-size: 14px; line-height: 1.75; }
+
 /* ─────────────────────────────────────────────
    2. 페이지 히어로 — 대형 영문 워터마크
    섹션에 data-wm="COURT" 를 달면 그 글자가 배경에 깔린다.

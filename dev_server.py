@@ -35,6 +35,12 @@ class CleanUrlsHandler(SimpleHTTPRequestHandler):
 
         return super().do_GET()
 
+    def end_headers(self):
+        # Without this the browser caches CSS/JS between edits and the preview
+        # silently shows the previous version.
+        self.send_header('Cache-Control', 'no-store, must-revalidate')
+        super().end_headers()
+
     def _redirect(self, location):
         self.send_response(308)
         self.send_header('Location', location)
