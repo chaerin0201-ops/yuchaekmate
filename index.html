@@ -2447,9 +2447,13 @@ window.dispatchEvent(new Event('fb-ready'));
       d.addEventListener('click', function () { show(k); start(); });
     });
 
-    // don't animate in a background tab, and respect reduced-motion
+    // don't animate in a background tab, and respect reduced-motion.
+    // Only restart on a real hidden->visible transition: some embedded
+    // browsers fire redundant visibilitychange events, and restarting on
+    // each one resets the countdown so the slideshow never advances.
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) stop(); else start();
+      if (document.hidden) stop();
+      else if (!timer) start();
     });
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) start();
