@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>유책메이트 | 상간소송 전략 칼럼</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600&family=Nanum+Pen+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="global.css">
 <style>
 
@@ -228,6 +228,43 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px;}
 .article-card{background:var(--panel);padding:0;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:var(--charcoal);transition:all 0.22s;border-bottom:3px solid transparent;}
 .article-card:hover{border-bottom-color:var(--burgundy-on-dark);transform:translateY(-3px);box-shadow:0 8px 28px rgba(44,44,44,0.07);}
+
+/* 칼럼 표지 — 블로그 표지 이미지와 같은 살구톤 손글씨 스타일 */
+.fa-img.cover, .ac-thumb.cover {
+  background: #F9A287;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 22px;
+}
+.fa-img.cover::before { content: none; }
+.cover-scale {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 68%;
+  height: 78%;
+  color: #FBC0AA;
+  pointer-events: none;
+}
+.cover-title {
+  position: relative;
+  z-index: 1;
+  font-family: 'Nanum Pen Script', 'Noto Sans KR', cursive;
+  /* 목록 카드 높이가 160px 라, 3줄 넘으면 잘린다. 24px*1.45*3줄 ≈ 104px */
+  font-size: 24px;
+  line-height: 1.45;
+  color: #1C1C1C;
+  text-align: center;
+  word-break: keep-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.fa-img.cover .cover-title { font-size: 40px; }
+.fa-img.cover .fa-img-badge { position: absolute; top: 18px; left: 18px; z-index: 2; }
+
 .ac-thumb{height:160px;background:linear-gradient(135deg,#2C2C2C 0%,#4A3B3F 60%,#721B29 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .ac-thumb-text{font-family:'Noto Serif KR',serif;font-size:48px;font-weight:700;color:rgba(244,239,234,0.08);}
 .ac-thumb-badge{position:absolute;bottom:14px;left:16px;background:var(--burgundy);color:var(--white);font-size:9px;font-weight:600;letter-spacing:0.1em;padding:3px 10px;}
@@ -1004,8 +1041,10 @@ function renderColumns() {
   document.getElementById('featured-wrap').innerHTML = `
     <a href="${feat.url && feat.url !== '#' ? feat.url : 'javascript:void(0)'}" 
        ${feat.url && feat.url !== '#' ? 'target="_blank"' : ''} class="featured-article">
-      <div class="fa-img">
+      <div class="fa-img cover">
         <div class="fa-img-badge">FEATURED</div>
+        <svg class="cover-scale" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="47" y="14" width="6" height="66" rx="2"/><rect x="12" y="22" width="76" height="6" rx="3"/><path d="M50 20 l10 8 h-20 z"/><path d="M20 28 L8 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M4 52 h32 a16 16 0 0 1 -32 0 z"/><path d="M80 28 L68 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M64 52 h32 a16 16 0 0 1 -32 0 z"/><rect x="36" y="78" width="28" height="9" rx="3"/><rect x="30" y="86" width="40" height="9" rx="3"/></svg>
+        <div class="cover-title">${feat.title}</div>
       </div>
       <div class="fa-body">
         <div>
@@ -1030,9 +1069,9 @@ function renderColumns() {
       ${rest.map(c => `
         <a href="${c.url && c.url !== '#' ? c.url : 'javascript:void(0)'}"
            ${c.url && c.url !== '#' ? 'target="_blank"' : ''} class="article-card">
-          <div class="ac-thumb">
-            <div class="ac-thumb-text">法</div>
-            <div class="ac-thumb-badge">${c.category}</div>
+          <div class="ac-thumb cover">
+            <svg class="cover-scale" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="47" y="14" width="6" height="66" rx="2"/><rect x="12" y="22" width="76" height="6" rx="3"/><path d="M50 20 l10 8 h-20 z"/><path d="M20 28 L8 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M4 52 h32 a16 16 0 0 1 -32 0 z"/><path d="M80 28 L68 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M64 52 h32 a16 16 0 0 1 -32 0 z"/><rect x="36" y="78" width="28" height="9" rx="3"/><rect x="30" y="86" width="40" height="9" rx="3"/></svg>
+            <div class="cover-title">${c.title}</div>
           </div>
           <div class="ac-body">
             <div class="ac-cat">${c.category}</div>
