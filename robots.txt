@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /yuchaekmate_admin
+Disallow: /yuchaekmate_landing
+
+Sitemap: https://www.yucheckmate.com/sitemap.xml
