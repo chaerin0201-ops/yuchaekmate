@@ -996,7 +996,10 @@ function renderColumns() {
   }
 
   const feat = filtered.find(c => c.featured) || filtered[0];
-  const rest = filtered.filter(c => c.id !== feat.id);
+  // Firestore 항목은 id 가 아니라 _id 를 가진다. id 만 비교하면 둘 다
+  // undefined 라 전부 걸러져서, 대표 글 1건만 남고 목록이 사라진다.
+  const keyOf = c => c._id || c.id;
+  const rest = filtered.filter(c => keyOf(c) !== keyOf(feat));
 
   document.getElementById('featured-wrap').innerHTML = `
     <a href="${feat.url && feat.url !== '#' ? feat.url : 'javascript:void(0)'}" 
