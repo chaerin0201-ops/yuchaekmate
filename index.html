@@ -453,6 +453,79 @@
     color: var(--gold);
   }
 
+
+  /* 히어로 인용구 — 방문자의 심정을 대신 말해주는 프리헤드 */
+  .hero-quote-line {
+    font-size: 17px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.82);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+
+  /* ── 정직 섹션: 변호사가 필요 없는 경우를 먼저 말해준다 ── */
+  .honest-section {
+    position: relative;
+    background: var(--ink-2, #181818);
+    padding: 110px 48px 100px;
+    border-top: 1px solid var(--line);
+  }
+  .honest-inner { max-width: 1240px; margin: 0 auto; }
+  .honest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 48px;
+  }
+  .honest-card {
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 30px 26px;
+  }
+  .honest-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .honest-card p {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.8;
+  }
+  .honest-close {
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 32px;
+  }
+  .honest-close-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.6;
+  }
+  @media (max-width: 1024px) {
+    .honest-grid { grid-template-columns: repeat(2, 1fr); }
+    .honest-section { padding: 90px 32px 80px; }
+  }
+  @media (max-width: 768px) {
+    .honest-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
+    .honest-section { padding: 60px 20px 56px; }
+    .honest-close-text { font-size: 17px; }
+    .hero-quote-line { font-size: 14px; text-align: center; }
+  }
+
   .hero-title {
     font-family: 'Noto Serif KR', serif;
     font-size: clamp(46px, 4.7vw, 74px);
@@ -1505,6 +1578,7 @@
 @media (min-width: 769px) {
   .why-us,
   .services,
+  .honest-section,
   .calc-teaser,
   .cta-banner,
   footer {
@@ -1804,7 +1878,7 @@ window.dispatchEvent(new Event('fb-ready'));
       <a href="yuchaekmate_success">성공사례&amp;고객후기</a>
     </li>
     <li class="nav-item">
-      <a href="yuchaekmate_calculator">위자료 계산기</a>
+      <a href="yuchaekmate_calculator">위자료, 얼마 받을까?</a>
     </li>
 
   </ul>
@@ -1848,7 +1922,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <a href="yuchaekmate_success" class="mob-menu-link">성공사례 &amp; 고객후기</a>
   </div>
   <div class="mob-menu-section">
-    <a href="yuchaekmate_calculator" class="mob-menu-link">위자료 계산기</a>
+    <a href="yuchaekmate_calculator" class="mob-menu-link">위자료, 얼마 받을까?</a>
   </div>
   <a href="yuchaekmate_consult" class="mob-menu-cta">온라인 상담 신청</a>
 </div>
@@ -1861,14 +1935,16 @@ window.dispatchEvent(new Event('fb-ready'));
       <div class="hero-eyebrow-text">대형로펌 가사전담팀 출신 전문 변호사</div>
     </div>
 
+    <div class="hero-quote-line">[ 더는 참지 않기로 결정했습니다 ]</div>
+
     <h1 class="hero-title">
-      상간소송,<br>
-      가장 중요한 것은<br>
-      <em>전략</em>입니다
+      혼자 삭여온 시간들,<br>
+      이제는 법이<br>
+      <em>대신 싸울</em> 차례입니다
     </h1>
 
     <p class="hero-subtitle">
-      유책메이트는<br class="mob-break">의뢰인의 상황, 목표, 보유 증거를 종합 분석하여<br>
+      유책메이트는 <br class="mob-break">의뢰인의 상황, 목표, 보유 증거를 종합 분석하여<br>
       각 사건에 최적화된 맞춤형 전략 솔루션을 설계합니다.
     </p>
 
@@ -2032,7 +2108,7 @@ window.dispatchEvent(new Event('fb-ready'));
         <div class="section-label-line"></div>
         <div class="section-label-text">서비스 분야</div>
       </div>
-      <h2 class="section-title">당신의 목표에 맞는<br><em>최적의 솔루션</em>을 선택하세요</h2>
+      <h2 class="section-title">지금,<br><em>어떤 상황</em>이신가요?</h2>
     </div>
     <div class="services-header-right reveal reveal-delay-2">
       소송 전 전략 진단부터 올인원 풀케어까지,<br>
@@ -2189,6 +2265,29 @@ window.dispatchEvent(new Event('fb-ready'));
   </div>
 </section>
 
+<!-- 정직 섹션 -->
+<section class="honest-section">
+  <div class="honest-inner">
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <div class="section-label-text">솔직한 안내</div>
+    </div>
+    <h2 class="section-title" style="color:#fff;">모든 사건에<br>변호사 선임이 <em>필요한 것은 아닙니다</em></h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);margin-top:16px;">아래 네 가지에 모두 해당한다면, 전략 진단과 서면 도움만으로 충분할 수 있습니다.</p>
+
+    <div class="honest-grid">
+      <div class="honest-card"><div class="honest-card-num">01</div><p>직접 증거가 이미<br>확보되어 있다</p></div>
+      <div class="honest-card"><div class="honest-card-num">02</div><p>상대방이 사실관계를<br>다투지 않는다</p></div>
+      <div class="honest-card"><div class="honest-card-num">03</div><p>청구·방어 금액이<br>크지 않다</p></div>
+      <div class="honest-card"><div class="honest-card-num">04</div><p>1~2년의 소송 기간을<br>직접 감당할 수 있다</p></div>
+    </div>
+
+    <div class="honest-close">
+      <div class="honest-close-text">그렇지 않다면 — 처음부터 <em style="font-style:normal;color:#E8B4BE;">전략</em>이 필요합니다</div>
+      <a href="yuchaekmate_report" class="btn-primary">전략 진단 리포트 알아보기</a>
+    </div>
+  </div>
+</section>
 
 
 <!-- CALCULATOR TEASER -->
@@ -2198,7 +2297,7 @@ window.dispatchEvent(new Event('fb-ready'));
       <div class="section-label-line"></div>
       <div class="section-label-text">상간 위자료 계산기</div>
     </div>
-    <h2 class="section-title">판례 기반<br><em>위자료 예측</em> 서비스</h2>
+    <h2 class="section-title">나는, 얼마나<br><em>받을 수 있을까?</em></h2>
     <p>500개 이상의 판례 데이터를 학습한 AI가 귀하의 사건 정보를 분석하여 승소 가능성, 예상 위자료 범위, 필요한 증거자료를 예측해드립니다.</p>
     <a href="yuchaekmate_calculator" class="btn-primary">무료로 예측해보기</a>
   </div>
