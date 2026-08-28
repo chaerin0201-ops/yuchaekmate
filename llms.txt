@@ -1,0 +1,27 @@
+# 유책메이트 (Yuchaekmate)
+
+> 상간소송 전문 법률 서비스. 대형로펌 가사전담팀 출신 김채린 변호사가 상간소송(배우자의 부정행위 상대방에 대한 위자료 청구 소송)의 전략 진단, 서면 작성, 재판 출석, 합의 대행, 증거 확보 코칭, 피고 방어까지 사건별 맞춤 서비스를 제공합니다. 서울 서초동 소재.
+
+유책메이트는 원고(위자료를 청구하는 배우자)와 피고(소장을 받은 상간자) 양쪽 모두를 대리하며,
+전체 위임뿐 아니라 서면만·출석만 같은 부분 서비스도 제공하는 것이 특징입니다.
+500건 이상의 판례 데이터 기반 위자료 예측 계산기를 무료로 제공합니다.
+
+## 주요 페이지
+
+- [홈](https://www.yucheckmate.com/): 서비스 개요와 상담 신청
+- [전략 진단 리포트](https://www.yucheckmate.com/yuchaekmate_report): 소송 가능성·예상 위자료를 변호사가 분석하는 유료 리포트 (선임 시 비용 차감)
+- [위자료 계산기](https://www.yucheckmate.com/yuchaekmate_calculator): 판례 기반 무료 위자료 예측
+- [자주 묻는 질문 30선](https://www.yucheckmate.com/yuchaekmate_faq): 상간소송 증거·위자료·절차·방어 Q&A
+- [성공사례](https://www.yucheckmate.com/yuchaekmate_success): 위자료 전액 인용, 청구 기각 방어 등 실제 결과
+- [전문가 소개](https://www.yucheckmate.com/yuchaekmate_expert): 김채린 대표 변호사
+- [상담 신청](https://www.yucheckmate.com/yuchaekmate_consult)
+
+## 외부 채널
+
+- [네이버 블로그 — 김채린 변호사의 상간소송 완벽 가이드](https://blog.naver.com/affairs152): 상간소송 가이드·판례 분석·성공사례 칼럼
+- [로톡 프로필 — 김채린 변호사](https://www.lawtalk.co.kr/directory/profile/7518-%EA%B9%80%EC%B1%84%EB%A6%B0)
+
+## 연락처
+
+- 전화: 050-6780-6393
+- 주소: 서울 서초구 서초중앙로 18길 23, 2층 (서초동) 법률사무소 리그
