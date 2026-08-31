@@ -38,7 +38,9 @@ document.addEventListener('click', function (e) {
   if (url && url !== '#') {
     window.open(url, '_blank');
   } else {
-    alert('카카오톡 상담 링크가 아직 설정되지 않았습니다.');
+    // 채널 주소가 아직 없으면 알림으로 끊지 말고 상담 신청으로 이어준다.
+    var fallback = el.id === 'kakao-link' ? 'yuchaekmate_apply_consult' : 'yuchaekmate_consult';
+    window.location.href = fallback;
   }
 });
 
