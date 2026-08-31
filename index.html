@@ -987,6 +987,18 @@
     margin-bottom: 22px;
   }
 
+
+  /* 카드가 "어떤 상황이신가요?"에 실제로 답하게 하는 상황 한 줄 */
+  .service-card-when {
+    font-size: 15px;
+    font-weight: 400;
+    color: #E8B4BE;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .service-card-when::before { content: "— "; color: rgba(232,180,190,0.6); }
+  .service-featured .service-card-when { color: rgba(255,255,255,0.85); margin-bottom: 14px; }
+
   .service-card-tag {
     display: inline-block;
     font-size: 12px;
@@ -2126,6 +2138,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="report" onclick="location.href='yuchaekmate_report'" style="cursor:pointer;">
       <div class="service-card-num">01</div>
       <span class="service-card-tag">전략 진단 리포트</span>
+      <div class="service-card-when">소송이 가능한 사건인지부터 확인하고 싶을 때</div>
       <h3>상간소송 전략<br>진단 리포트</h3>
       <p>소송 가능성(지금 가진 증거로 충분한지, 위자료를 받을 수 있는지 또는 소송을 방어할 수 있는지 등)부터 예상 위자료, 전략 방향까지 전문 변호사가 직접 분석하여 구조화된 전략 진단 리포트를 제공합니다.</p>
       <ul class="service-card-features">
@@ -2141,6 +2154,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_writing'" style="cursor:pointer;">
       <div class="service-card-num">02</div>
       <span class="service-card-tag">맞춤형 서면 솔루션</span>
+      <div class="service-card-when">나홀로 소송 중, 서면 작성이 막막할 때</div>
       <h3>맞춤형<br>서면 작성</h3>
       <p>나홀로 소송을 진행하면서 가장 큰 부담이 되는 것은 결국 '서면'입니다. 유책메이트는 직접 사건을 전부 맡지 않더라도, 사건의 핵심 쟁점을 정확히 정리하고 이를 설득력 있는 법적 언어로 구조화하여 법률서면을 전략적으로 작성해드립니다.</p>
       <ul class="service-card-features">
@@ -2156,6 +2170,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_court'" style="cursor:pointer;">
       <div class="service-card-num">03</div>
       <span class="service-card-tag">재판 출석 솔루션</span>
+      <div class="service-card-when">재판 날 혼자 법정에 서기 부담될 때</div>
       <h3>법정 출석<br>지원 서비스</h3>
       <p>유책메이트는 직접 사건을 전부 맡지 않더라도, 조정·변론 기일에 변호사가 직접 출석하여 의뢰인의 입장을 전략적으로 대변하고 현장 협상력을 높입니다.</p>
       <ul class="service-card-features">
@@ -2171,6 +2186,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_settle'" style="cursor:pointer;">
       <div class="service-card-num">04</div>
       <span class="service-card-tag">합의 대행 솔루션</span>
+      <div class="service-card-when">소송 기록 없이 조용히 끝내고 싶을 때</div>
       <h3>합의 대행<br>서비스</h3>
       <p>기록 없이 조용하고 신속하게, 그러나 가장 확실한 실익을 확보하는 합의 전략 제시. 위약벌, 비밀유지 조항 등까지 포함한 정교한 합의 구조를 설계합니다.</p>
       <ul class="service-card-features">
@@ -2186,6 +2202,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_evidence'" style="cursor:pointer;">
       <div class="service-card-num">05</div>
       <span class="service-card-tag">증거 코칭 솔루션</span>
+      <div class="service-card-when">심증은 확실한데 증거가 부족할 때</div>
       <h3>증거 확보<br>솔루션</h3>
       <p>확실한 증거가 부족한 상황에서 법원이 인정하는 합법적 증거 확보 전략을 설계합니다.</p>
       <ul class="service-card-features">
@@ -2201,6 +2218,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_notice'" style="cursor:pointer;">
       <div class="service-card-num">06</div>
       <span class="service-card-tag">내용증명 해결 솔루션</span>
+      <div class="service-card-when">소송까지 가기 전, 먼저 경고하고 싶을 때</div>
       <h3>내용증명<br>서비스</h3>
       <p>합의 유도부터 경고, 소송 예고까지 사건별 맞춤 내용증명을 설계합니다.</p>
       <ul class="service-card-features">
@@ -2216,6 +2234,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-card visible" data-cat="partial" onclick="location.href='yuchaekmate_criminal'" style="cursor:pointer;">
       <div class="service-card-num">07</div>
       <span class="service-card-tag">형사 대응 솔루션</span>
+      <div class="service-card-when">명예훼손 등 형사 문제까지 얽혔을 때</div>
       <h3>형사 대응<br>솔루션</h3>
       <p>상간 사건은 위자료 청구만의 문제가 아닙니다. 명예훼손, 정보통신망법위반, 협박, 스토킹 등 형사 이슈가 함께 발생할 수 있습니다. 유책메이트는 상간소송에서 파생되는 형사적 리스크 대응에도 특화되어 있습니다.</p>
       <ul class="service-card-features">
@@ -2231,6 +2250,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <div class="service-featured visible" data-cat="package">
       <div class="service-featured-left">
         <div>
+          <div class="service-card-when">처음부터 끝까지, 전 과정을 맡기고 싶을 때</div>
           <h3>상간소송<br>올인원 풀케어 패키지</h3>
         </div>
         <a href="yuchaekmate_plaintiff" class="btn-white" style="text-align:center; padding: 14px 28px; font-size:14px; letter-spacing:0.08em;">상담 신청하기</a>
