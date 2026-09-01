@@ -203,18 +203,27 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 
 /* REVIEWS */
 .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
-.review-card{background:var(--panel);padding:36px 36px;display:flex;flex-direction:column;gap:16px;cursor:pointer;text-decoration:none;color:var(--charcoal);transition:all 0.22s;border-bottom:3px solid transparent;}
-.review-card:hover{border-bottom-color:var(--burgundy-on-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,44,44,0.07);}
-.review-stars{display:flex;gap:3px;}
-.star{color:var(--gold);font-size:14px;}
-.review-quote{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:500;color:var(--charcoal);line-height:1.7;letter-spacing:-0.01em;}
-.review-body{font-size:13px;font-weight:300;color:var(--charcoal-muted);line-height:1.9;}
-.review-meta{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--line);}
-.review-author{font-size:12px;font-weight:500;color:var(--charcoal);}
-.review-type{font-size:10px;letter-spacing:0.1em;color:var(--charcoal-muted);}
-.review-link{font-size:11px;color:var(--burgundy-on-dark);font-weight:500;display:flex;align-items:center;gap:4px;transition:gap 0.2s;}
-.review-card:hover .review-link{gap:8px;}
-.review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin-bottom:14px;}
+.review-intro{padding:8px 0 40px;max-width:720px;}
+.review-intro-eyebrow{font-size:11px;letter-spacing:0.35em;color:var(--gold);font-weight:600;margin-bottom:14px;}
+.review-intro-title{font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1.5;letter-spacing:-0.01em;margin:0 0 20px;}
+.review-intro-title em{font-style:normal;color:var(--burgundy-on-dark);}
+.review-intro-quote{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:400;color:var(--charcoal-muted);line-height:1.85;border-left:2px solid var(--burgundy-on-dark);padding-left:18px;margin:0;}
+.review-intro-quote span{display:block;margin-top:8px;font-family:'Noto Sans KR',sans-serif;font-size:11px;letter-spacing:0.06em;}
+.review-shot{background:var(--panel);padding:32px;margin:0;display:flex;flex-direction:column;gap:18px;border-bottom:3px solid transparent;transition:all 0.22s;cursor:zoom-in;}
+.review-shot:hover{border-bottom-color:var(--burgundy-on-dark);transform:translateY(-2px);}
+.review-shot-cap{display:flex;align-items:baseline;gap:12px;}
+.review-shot-num{font-size:11px;letter-spacing:0.25em;color:var(--gold);font-weight:600;}
+.review-shot-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;color:var(--charcoal);}
+.review-shot img{width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--line);}
+.review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin:20px 4px 0;}
+.shot-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:999;padding:5vw;cursor:zoom-out;}
+.shot-lightbox.open{display:flex;}
+.shot-lightbox img{max-width:min(920px,100%);max-height:90vh;border-radius:8px;}
+@media (max-width:768px){
+  .review-intro{padding-bottom:28px;}
+  .review-intro-title{font-size:22px;}
+  .review-shot{padding:22px 18px;}
+}
 
 /* CTA BANNER */
 .cta-banner{background:var(--burgundy);padding:60px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;margin-top:2px;position:relative;overflow:hidden;}
@@ -645,11 +654,39 @@ window.dispatchEvent(new Event('fb-ready'));
 
   <!-- REVIEW TAB -->
   <div class="tab-section" id="tab-review">
-    <p class="review-note">모든 후기는 의뢰인이 직접 보내온 메시지를 옮긴 것입니다.</p>
-    <div class="reviews-grid" id="review-grid"></div>
+    <div class="review-intro">
+      <div class="review-intro-eyebrow">REVIEW</div>
+      <h2 class="review-intro-title">사건이 끝난 뒤,<br>의뢰인들이 보내온 <em>진심</em>입니다</h2>
+      <p class="review-intro-quote">"저보다 더 내 일같이 일해주심에 정말 감사합니다. 잊지 못할 거예요."<span>— 의뢰인이 보내온 메시지 중에서</span></p>
+    </div>
+    <div class="reviews-grid">
+      <figure class="review-shot" onclick="openShot(this)">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">01</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <img src="review-1.jpg" alt="잘 해결되었다며 감사를 전하는 의뢰인 메시지 캡처" loading="lazy">
+      </figure>
+      <figure class="review-shot" onclick="openShot(this)">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">02</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <img src="review-2.jpg" alt="막막하고 두려웠는데 좋은 결과가 나왔다는 의뢰인 메시지 캡처" loading="lazy">
+      </figure>
+      <figure class="review-shot" onclick="openShot(this)">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">03</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <img src="review-3.jpg" alt="불안할 때마다 차분히 설명해주셔서 위안이 되었다는 의뢰인 메시지 캡처" loading="lazy">
+      </figure>
+      <figure class="review-shot" onclick="openShot(this)">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">04</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <img src="review-4.jpg" alt="내 일같이 일해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
+      </figure>
+      <figure class="review-shot" onclick="openShot(this)">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">05</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <img src="review-5.jpg" alt="꼼꼼히 정리해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
+      </figure>
+    </div>
+    <p class="review-note">모든 후기는 의뢰인이 자발적으로 직접 보내온 실제 메시지입니다.</p>
   </div>
 
 </div>
+
+<div class="shot-lightbox" id="shot-lightbox" role="dialog" aria-label="후기 크게 보기"><img src="" alt="의뢰인 메시지 캡처 크게 보기"></div>
 
 <!-- CTA -->
 <div class="cta-banner">
@@ -827,44 +864,6 @@ function getDefaultPosts() {
         url: '#',
         type: 'success'
       }
-    ],
-    review: [
-      {
-        id: 101,
-        stars: 5,
-        quote: '"처음엔 혼자 감당할 수 없을 것 같았는데, 전략적으로 해결해주셨습니다"',
-        body: '상간소송이 처음이라 무서웠는데 변호사님이 처음부터 끝까지 직접 챙겨주셨어요. 증거 정리부터 기일 대응까지 막힘없이 진행했고, 원하는 결과를 받았습니다.',
-        author: '30대 여성 의뢰인',
-        type: '원고 · 일부승소',
-        url: '#'
-      },
-      {
-        id: 102,
-        stars: 5,
-        quote: '"소장을 받고 패닉 상태였는데, 차분하게 방어 전략을 세워주셨습니다"',
-        body: '갑자기 소장을 받고 어떻게 해야 할지 몰랐는데, 상담 이후 방어 포인트를 명확히 정리해주셔서 마음이 안정됐습니다. 결과도 감액 방어에 성공했습니다.',
-        author: '40대 남성 의뢰인',
-        type: '피고 · 감액 성공',
-        url: '#'
-      },
-      {
-        id: 103,
-        stars: 5,
-        quote: '"2개월 만에 합의로 끝났습니다. 조용하게 마무리하고 싶었는데 딱 원하는 방식이었어요"',
-        body: '오래 끄는 소송보다는 빠르게 정리하길 원했는데, 전략적으로 합의 구조를 설계해주셔서 2개월 만에 깔끔하게 마무리됐습니다. 비밀유지 조항도 포함됐고요.',
-        author: '30대 여성 의뢰인',
-        type: '원고 · 합의 종결',
-        url: '#'
-      },
-      {
-        id: 104,
-        stars: 5,
-        quote: '"증거가 부족하다고 포기하려 했는데, 사실조회로 뒤집었습니다"',
-        body: '다른 곳에서는 증거가 부족하다며 소송이 어렵다고 했는데, 유책메이트에서는 사실조회 절차를 통해 결정적 증거를 확보하고 승소까지 이어갔습니다.',
-        author: '40대 여성 의뢰인',
-        type: '원고 · 일부승소',
-        url: '#'
-      }
     ]
   };
 }
@@ -884,12 +883,6 @@ function initFromFirebase() {
     snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
     posts.success = items.length > 0 ? items : getDefaultPosts().success;
     renderSuccess();
-  });
-  window.__snap(window.__col(window.__db, 'review'), function(snap) {
-    var items = [];
-    snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
-    posts.review = items.length > 0 ? items : getDefaultPosts().review;
-    renderReviews();
   });
 }
 if (window.__fbReady) { initFromFirebase(); }
@@ -931,29 +924,21 @@ function renderSuccess() {
   `).join('');
 }
 
-function renderReviews() {
-  const grid = document.getElementById('review-grid');
-  grid.innerHTML = posts.review.map(r => `
-    <a href="${r.url || '#'}" target="${r.url && r.url !== '#' ? '_blank' : '_self'}" class="review-card">
-      <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
-      <div class="review-quote">${r.quote}</div>
-      <div class="review-body">${r.body}</div>
-      <div class="review-meta">
-        <div>
-          <div class="review-author">${r.author}</div>
-          <div class="review-type">${r.type}</div>
-        </div>
-        <div class="review-link">후기 전문 보기 →</div>
-      </div>
-    </a>
-  `).join('');
-}
-
 function init() {
   renderSuccess();
-  renderReviews();
   switchTab('success');
 }
+
+function openShot(fig) {
+  var lb = document.getElementById('shot-lightbox');
+  lb.querySelector('img').src = fig.querySelector('img').src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+document.getElementById('shot-lightbox').addEventListener('click', function () {
+  this.classList.remove('open');
+  document.body.style.overflow = '';
+});
 
 window.addEventListener('DOMContentLoaded', init);
 
