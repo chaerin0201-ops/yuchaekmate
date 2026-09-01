@@ -214,6 +214,7 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 .review-type{font-size:10px;letter-spacing:0.1em;color:var(--charcoal-muted);}
 .review-link{font-size:11px;color:var(--burgundy-on-dark);font-weight:500;display:flex;align-items:center;gap:4px;transition:gap 0.2s;}
 .review-card:hover .review-link{gap:8px;}
+.review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin-bottom:14px;}
 
 /* CTA BANNER */
 .cta-banner{background:var(--burgundy);padding:60px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;margin-top:2px;position:relative;overflow:hidden;}
@@ -644,6 +645,7 @@ window.dispatchEvent(new Event('fb-ready'));
 
   <!-- REVIEW TAB -->
   <div class="tab-section" id="tab-review">
+    <p class="review-note">모든 후기는 의뢰인이 직접 보내온 메시지를 옮긴 것입니다.</p>
     <div class="reviews-grid" id="review-grid"></div>
   </div>
 
