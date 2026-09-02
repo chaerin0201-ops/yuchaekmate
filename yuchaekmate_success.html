@@ -220,6 +220,9 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 .review-shot.is-quote blockquote{margin:0;font-family:'Noto Serif KR',serif;font-size:16px;font-weight:500;line-height:1.95;color:var(--charcoal);}
 .review-shot.is-quote blockquote::before{content:'\201C';display:block;font-size:36px;line-height:1;color:var(--burgundy-on-dark);margin-bottom:8px;}
 .review-shot-src{font-size:11px;letter-spacing:0.05em;color:var(--charcoal-muted);margin-top:auto;}
+.review-more{margin-top:32px;text-align:center;}
+.review-more-btn{display:inline-block;padding:15px 36px;border:1px solid var(--burgundy-on-dark);color:var(--burgundy-on-dark);font-size:13px;font-weight:500;letter-spacing:0.08em;text-decoration:none;transition:all 0.2s;}
+.review-more-btn:hover{background:var(--burgundy);border-color:var(--burgundy);color:#FFF;}
 .review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin:20px 4px 0;}
 .shot-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:999;padding:5vw;cursor:zoom-out;}
 .shot-lightbox.open{display:flex;}
@@ -690,6 +693,9 @@ window.dispatchEvent(new Event('fb-ready'));
       </figure>
     </div>
     <p class="review-note">모든 후기는 의뢰인이 자발적으로 직접 보내온 실제 메시지입니다.</p>
+    <div class="review-more">
+      <a class="review-more-btn" href="https://blog.naver.com/affairs152" target="_blank" rel="noopener">네이버 블로그에서 후기 더 보기 ↗</a>
+    </div>
   </div>
 
 </div>
