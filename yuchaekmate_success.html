@@ -215,6 +215,11 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 .review-shot-num{font-size:11px;letter-spacing:0.25em;color:var(--gold);font-weight:600;}
 .review-shot-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;color:var(--charcoal);}
 .review-shot img{width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--line);}
+.review-shot.is-quote{cursor:default;}
+.review-shot.is-quote:hover{transform:none;border-bottom-color:transparent;}
+.review-shot.is-quote blockquote{margin:0;font-family:'Noto Serif KR',serif;font-size:16px;font-weight:500;line-height:1.95;color:var(--charcoal);}
+.review-shot.is-quote blockquote::before{content:'\201C';display:block;font-size:36px;line-height:1;color:var(--burgundy-on-dark);margin-bottom:8px;}
+.review-shot-src{font-size:11px;letter-spacing:0.05em;color:var(--charcoal-muted);margin-top:auto;}
 .review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin:20px 4px 0;}
 .shot-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:999;padding:5vw;cursor:zoom-out;}
 .shot-lightbox.open{display:flex;}
@@ -660,24 +665,27 @@ window.dispatchEvent(new Event('fb-ready'));
       <p class="review-intro-quote">"저보다 더 내 일같이 일해주심에 정말 감사합니다. 잊지 못할 거예요."<span>— 의뢰인이 보내온 메시지 중에서</span></p>
     </div>
     <div class="reviews-grid">
-      <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">01</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
-        <img src="review-1.jpg" alt="잘 해결되었다며 감사를 전하는 의뢰인 메시지 캡처" loading="lazy">
+      <figure class="review-shot is-quote">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">01</span><span class="review-shot-title">이혼조정 · 상간녀소송 승소 감사후기</span></figcaption>
+        <blockquote>변호사님, 덕분에 잘 해결되었네요ㅠㅠㅠㅠ 너무 감사합니다!!!</blockquote>
+        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
+      </figure>
+      <figure class="review-shot is-quote">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">02</span><span class="review-shot-title">이혼소송 승소 감사후기</span></figcaption>
+        <blockquote>변호사님 너무 막막하고 두려웠는데 항상 징징대는 연락도 잘 받아주셔서 정말 감사합니다! 덕분에 좋은 결과 나온 거 같아용 ㅠㅠ</blockquote>
+        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
+      </figure>
+      <figure class="review-shot is-quote">
+        <figcaption class="review-shot-cap"><span class="review-shot-num">03</span><span class="review-shot-title">상간남소송 승소 감사후기</span></figcaption>
+        <blockquote>불안할 때마다 차분한 목소리로 제 맘 헤아려주시면서 잘 설명해주셔서 위안이 되었습니다. 진심으로 감사합니다.</blockquote>
+        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
       </figure>
       <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">02</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
-        <img src="review-2.jpg" alt="막막하고 두려웠는데 좋은 결과가 나왔다는 의뢰인 메시지 캡처" loading="lazy">
-      </figure>
-      <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">03</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
-        <img src="review-3.jpg" alt="불안할 때마다 차분히 설명해주셔서 위안이 되었다는 의뢰인 메시지 캡처" loading="lazy">
-      </figure>
-      <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">04</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <figcaption class="review-shot-cap"><span class="review-shot-num">04</span><span class="review-shot-title">상간소송 방어 성공 감사후기</span></figcaption>
         <img src="review-4.jpg" alt="내 일같이 일해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
       </figure>
       <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">05</span><span class="review-shot-title">상간소송 감사후기</span></figcaption>
+        <figcaption class="review-shot-cap"><span class="review-shot-num">05</span><span class="review-shot-title">이혼소송 승소 감사후기</span></figcaption>
         <img src="review-5.jpg" alt="꼼꼼히 정리해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
       </figure>
     </div>
