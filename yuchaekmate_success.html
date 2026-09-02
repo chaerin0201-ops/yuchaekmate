@@ -203,35 +203,7 @@ footer{background:var(--panel-2);padding:60px 80px 40px;border-top:1px solid rgb
 
 /* REVIEWS */
 .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
-.review-intro{padding:8px 0 40px;max-width:720px;}
-.review-intro-eyebrow{font-size:11px;letter-spacing:0.35em;color:var(--gold);font-weight:600;margin-bottom:14px;}
-.review-intro-title{font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;color:var(--charcoal);line-height:1.5;letter-spacing:-0.01em;margin:0 0 20px;}
-.review-intro-title em{font-style:normal;color:var(--burgundy-on-dark);}
-.review-intro-quote{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:400;color:var(--charcoal-muted);line-height:1.85;border-left:2px solid var(--burgundy-on-dark);padding-left:18px;margin:0;}
-.review-intro-quote span{display:block;margin-top:8px;font-family:'Noto Sans KR',sans-serif;font-size:11px;letter-spacing:0.06em;}
-.review-shot{background:var(--panel);padding:32px;margin:0;display:flex;flex-direction:column;gap:18px;border-bottom:3px solid transparent;transition:all 0.22s;cursor:zoom-in;}
-.review-shot:hover{border-bottom-color:var(--burgundy-on-dark);transform:translateY(-2px);}
-.review-shot-cap{display:flex;align-items:baseline;gap:12px;}
-.review-shot-num{font-size:11px;letter-spacing:0.25em;color:var(--gold);font-weight:600;}
-.review-shot-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;color:var(--charcoal);}
-.review-shot img{width:100%;height:auto;display:block;border-radius:6px;border:1px solid var(--line);}
-.review-shot.is-quote{cursor:default;}
-.review-shot.is-quote:hover{transform:none;border-bottom-color:transparent;}
-.review-shot.is-quote blockquote{margin:0;font-family:'Noto Serif KR',serif;font-size:16px;font-weight:500;line-height:1.95;color:var(--charcoal);}
-.review-shot.is-quote blockquote::before{content:'\201C';display:block;font-size:36px;line-height:1;color:var(--burgundy-on-dark);margin-bottom:8px;}
-.review-shot-src{font-size:11px;letter-spacing:0.05em;color:var(--charcoal-muted);margin-top:auto;}
-.review-more{margin-top:32px;text-align:center;}
-.review-more-btn{display:inline-block;padding:15px 36px;border:1px solid var(--burgundy-on-dark);color:var(--burgundy-on-dark);font-size:13px;font-weight:500;letter-spacing:0.08em;text-decoration:none;transition:all 0.2s;}
-.review-more-btn:hover{background:var(--burgundy);border-color:var(--burgundy);color:#FFF;}
-.review-note{font-size:12px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;margin:20px 4px 0;}
-.shot-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:999;padding:5vw;cursor:zoom-out;}
-.shot-lightbox.open{display:flex;}
-.shot-lightbox img{max-width:min(920px,100%);max-height:90vh;border-radius:8px;}
-@media (max-width:768px){
-  .review-intro{padding-bottom:28px;}
-  .review-intro-title{font-size:22px;}
-  .review-shot{padding:22px 18px;}
-}
+.review-empty{background:var(--panel);padding:60px 32px;text-align:center;font-size:14px;font-weight:300;color:var(--charcoal-muted);letter-spacing:0.02em;grid-column:1/-1;}
 
 /* CTA BANNER */
 .cta-banner{background:var(--burgundy);padding:60px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;margin-top:2px;position:relative;overflow:hidden;}
@@ -662,45 +634,10 @@ window.dispatchEvent(new Event('fb-ready'));
 
   <!-- REVIEW TAB -->
   <div class="tab-section" id="tab-review">
-    <div class="review-intro">
-      <div class="review-intro-eyebrow">REVIEW</div>
-      <h2 class="review-intro-title">사건이 끝난 뒤,<br>의뢰인들이 보내온 <em>진심</em>입니다</h2>
-      <p class="review-intro-quote">"저보다 더 내 일같이 일해주심에 정말 감사합니다. 잊지 못할 거예요."<span>— 의뢰인이 보내온 메시지 중에서</span></p>
-    </div>
-    <div class="reviews-grid">
-      <figure class="review-shot is-quote">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">01</span><span class="review-shot-title">이혼조정 · 상간녀소송 승소 감사후기</span></figcaption>
-        <blockquote>변호사님, 덕분에 잘 해결되었네요ㅠㅠㅠㅠ 너무 감사합니다!!!</blockquote>
-        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
-      </figure>
-      <figure class="review-shot is-quote">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">02</span><span class="review-shot-title">이혼소송 승소 감사후기</span></figcaption>
-        <blockquote>변호사님 너무 막막하고 두려웠는데 항상 징징대는 연락도 잘 받아주셔서 정말 감사합니다! 덕분에 좋은 결과 나온 거 같아용 ㅠㅠ</blockquote>
-        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
-      </figure>
-      <figure class="review-shot is-quote">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">03</span><span class="review-shot-title">상간남소송 승소 감사후기</span></figcaption>
-        <blockquote>불안할 때마다 차분한 목소리로 제 맘 헤아려주시면서 잘 설명해주셔서 위안이 되었습니다. 진심으로 감사합니다.</blockquote>
-        <div class="review-shot-src">의뢰인이 보내온 메시지 중에서</div>
-      </figure>
-      <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">04</span><span class="review-shot-title">상간소송 방어 성공 감사후기</span></figcaption>
-        <img src="review-4.jpg" alt="내 일같이 일해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
-      </figure>
-      <figure class="review-shot" onclick="openShot(this)">
-        <figcaption class="review-shot-cap"><span class="review-shot-num">05</span><span class="review-shot-title">이혼소송 승소 감사후기</span></figcaption>
-        <img src="review-5.jpg" alt="꼼꼼히 정리해주셔서 감사하다는 의뢰인 메시지 캡처" loading="lazy">
-      </figure>
-    </div>
-    <p class="review-note">모든 후기는 의뢰인이 자발적으로 직접 보내온 실제 메시지입니다.</p>
-    <div class="review-more">
-      <a class="review-more-btn" href="https://blog.naver.com/affairs152" target="_blank" rel="noopener">네이버 블로그에서 후기 더 보기 ↗</a>
-    </div>
+    <div class="cards-grid" id="review-grid"></div>
   </div>
 
 </div>
-
-<div class="shot-lightbox" id="shot-lightbox" role="dialog" aria-label="후기 크게 보기"><img src="" alt="의뢰인 메시지 캡처 크게 보기"></div>
 
 <!-- CTA -->
 <div class="cta-banner">
@@ -885,6 +822,8 @@ function getDefaultPosts() {
 // ── RENDER FUNCTIONS ─────────────────────────────────────────────
 let currentTab = 'success';
 let posts = loadPosts();
+// 후기는 Firestore 등록분만 보여준다 (예시 데이터 없음 — 옛 localStorage 잔재도 무시).
+posts.review = [];
 
 // Firebase에서 실시간 콘텐츠 로드
 function initFromFirebase() {
@@ -897,6 +836,12 @@ function initFromFirebase() {
     snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
     posts.success = items.length > 0 ? items : getDefaultPosts().success;
     renderSuccess();
+  });
+  window.__snap(window.__col(window.__db, 'review'), function(snap) {
+    var items = [];
+    snap.forEach(function(d){ items.push({...d.data(), _id: d.id}); });
+    posts.review = items;
+    renderReviews();
   });
 }
 if (window.__fbReady) { initFromFirebase(); }
@@ -920,11 +865,13 @@ function tagList(t) {
   return [];
 }
 
+const COVER_SVG = '<svg class="cover-scale" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="47" y="14" width="6" height="66" rx="2"/><rect x="12" y="22" width="76" height="6" rx="3"/><path d="M50 20 l10 8 h-20 z"/><path d="M20 28 L8 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M4 52 h32 a16 16 0 0 1 -32 0 z"/><path d="M80 28 L68 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M64 52 h32 a16 16 0 0 1 -32 0 z"/><rect x="36" y="78" width="28" height="9" rx="3"/><rect x="30" y="86" width="40" height="9" rx="3"/></svg>';
+
 function renderSuccess() {
   const grid = document.getElementById('success-grid');
   grid.innerHTML = posts.success.map(p => `
     <a href="${p.url || '#'}" target="${p.url && p.url !== '#' ? '_blank' : '_self'}" class="success-card ${p.featured ? 'featured' : ''}">
-      <div class="sc-cover"><svg class="cover-scale" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><circle cx="50" cy="10" r="5" fill="none" stroke="currentColor" stroke-width="3.5"/><rect x="47" y="14" width="6" height="66" rx="2"/><rect x="12" y="22" width="76" height="6" rx="3"/><path d="M50 20 l10 8 h-20 z"/><path d="M20 28 L8 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M4 52 h32 a16 16 0 0 1 -32 0 z"/><path d="M80 28 L68 52 h24 z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><path d="M64 52 h32 a16 16 0 0 1 -32 0 z"/><rect x="36" y="78" width="28" height="9" rx="3"/><rect x="30" y="86" width="40" height="9" rx="3"/></svg><div class="cover-title">${p.title}</div></div>
+      <div class="sc-cover">${COVER_SVG}<div class="cover-title">${p.title}</div></div>
       <div class="card-badge">${p.badge}</div>
       <div class="card-result">
         <span class="card-result-num">${p.result}</span>
@@ -938,21 +885,31 @@ function renderSuccess() {
   `).join('');
 }
 
-function init() {
-  renderSuccess();
-  switchTab('success');
+// 성공사례와 같은 카드로 그리되, 클릭하면 블로그 후기 글로 간다.
+// 후기는 예시 데이터 없이 관리자 등록분만 보여준다.
+function renderReviews() {
+  const grid = document.getElementById('review-grid');
+  const items = posts.review || [];
+  if (!items.length) {
+    grid.innerHTML = '<p class="review-empty">후기를 준비하고 있습니다.</p>';
+    return;
+  }
+  grid.innerHTML = items.map(r => `
+    <a href="${r.url || '#'}" target="${r.url && r.url !== '#' ? '_blank' : '_self'}" class="success-card">
+      <div class="sc-cover">${COVER_SVG}<div class="cover-title">${r.quote || ''}</div></div>
+      <div class="card-badge">${r.type || '감사후기'}</div>
+      <div class="card-title">${r.quote || ''}</div>
+      <div class="card-desc">${r.body || ''}</div>
+      <div class="card-arrow">후기 전문 보기 →</div>
+    </a>
+  `).join('');
 }
 
-function openShot(fig) {
-  var lb = document.getElementById('shot-lightbox');
-  lb.querySelector('img').src = fig.querySelector('img').src;
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
+function init() {
+  renderSuccess();
+  renderReviews();
+  switchTab('success');
 }
-document.getElementById('shot-lightbox').addEventListener('click', function () {
-  this.classList.remove('open');
-  document.body.style.overflow = '';
-});
 
 window.addEventListener('DOMContentLoaded', init);
 
