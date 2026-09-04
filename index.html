@@ -1588,10 +1588,90 @@
   .mob-break { display: none; }
   .f-biz-mobile { display: none; }
 
+/* ── 서비스 정찰표 (dark section) ── */
+.pricing {
+  position: relative;
+  background: var(--ink);
+  padding: 120px 48px 110px;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+.pricing::before {
+  content: "PRICING";
+  position: absolute;
+  right: -0.04em;
+  top: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(80px, 12vw, 180px);
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.035);
+  pointer-events: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.pricing-inner { max-width: 1240px; margin: 0 auto; position: relative; }
+.pricing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 52px;
+}
+.pricing-header .section-title { color: #fff; }
+.pricing-header-right {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--txt-dim);
+  line-height: 1.95;
+  text-align: right;
+  flex-shrink: 0;
+}
+.pricing-table { border-top: 1px solid rgba(255,255,255,0.14); }
+.pricing-row {
+  display: grid;
+  grid-template-columns: 56px 1.1fr 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 26px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.pricing-row:hover { background: rgba(255,255,255,0.03); }
+.pricing-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); line-height: 1; }
+.pricing-name { font-size: 16px; font-weight: 500; color: #fff; line-height: 1.5; }
+.pricing-name span { display: block; font-size: 12px; font-weight: 300; color: var(--txt-dim); margin-top: 5px; }
+.pricing-price { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 600; color: #fff; line-height: 1.55; }
+.pricing-price em { font-style: normal; color: var(--gold); }
+.pricing-note { font-size: 12.5px; font-weight: 300; color: var(--txt-dim); line-height: 1.8; text-align: right; }
+.pricing-row.featured { background: rgba(142,34,55,0.16); border-bottom-color: rgba(224,160,172,0.28); }
+.pricing-row.featured:hover { background: rgba(142,34,55,0.24); }
+.pricing-foot {
+  margin-top: 22px;
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--txt-dim);
+  line-height: 1.9;
+}
+@media (max-width: 1024px) {
+  .pricing { padding: 100px 32px 90px; }
+  .pricing-row { grid-template-columns: 44px 1.2fr 1fr 1fr; gap: 16px; }
+}
+@media (max-width: 768px) {
+  .pricing { padding: 64px 20px 56px; }
+  .pricing-header { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 28px; }
+  .pricing-header-right { text-align: left; }
+  .pricing-row { grid-template-columns: 1fr; gap: 7px; padding: 20px 6px; }
+  .pricing-num { font-size: 17px; }
+  .pricing-note { text-align: left; }
+}
+
 /* Keep content clear of the fixed floating button rail on the right */
 @media (min-width: 769px) {
   .why-us,
   .services,
+  .pricing,
   .honest-section,
   .calc-teaser,
   .cta-banner,
@@ -2284,6 +2364,78 @@ window.dispatchEvent(new Event('fb-ready'));
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- PRICING: 서비스 정찰표 -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <div>
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <div class="section-label-text">서비스 비용</div>
+        </div>
+        <h2 class="section-title">비용,<br><em>먼저 공개</em>합니다</h2>
+      </div>
+      <div class="pricing-header-right">
+        대부분 상담 후에야 알 수 있는 비용,<br>
+        유책메이트는 기준을 먼저 공개합니다.
+      </div>
+    </div>
+
+    <div class="pricing-table">
+      <a class="pricing-row" href="yuchaekmate_report">
+        <div class="pricing-num">01</div>
+        <div class="pricing-name">상간소송 전략 진단 리포트<span>소송 가능성 · 증거 · 예상 위자료 분석</span></div>
+        <div class="pricing-price"><em>15만원</em></div>
+        <div class="pricing-note">정식 선임 시 진단 비용 공제</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_writing">
+        <div class="pricing-num">02</div>
+        <div class="pricing-name">맞춤형 서면 작성<span>소장 · 답변서 · 준비서면</span></div>
+        <div class="pricing-price"><em>110만원</em>부터</div>
+        <div class="pricing-note">사건에 따라 추가비용 가능</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_court">
+        <div class="pricing-num">03</div>
+        <div class="pricing-name">법정 출석 지원<span>조정 · 변론기일 출석</span></div>
+        <div class="pricing-price">1기일 <em>77만원</em></div>
+        <div class="pricing-note">기일 전 쟁점 정리 포함</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_settle">
+        <div class="pricing-num">04</div>
+        <div class="pricing-name">합의 대행<span>협상 대행 · 합의서 작성</span></div>
+        <div class="pricing-price">착수 <em>99만원</em>부터<br>+ 성과보수 합의금액의 10%</div>
+        <div class="pricing-note">사건에 따라 추가비용 가능</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_evidence">
+        <div class="pricing-num">05</div>
+        <div class="pricing-name">증거 확보 솔루션<span>증거 전략 설계 · 코칭</span></div>
+        <div class="pricing-price"><em>33만원</em></div>
+        <div class="pricing-note">보유 증거 증명력 점검 포함</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_notice">
+        <div class="pricing-num">06</div>
+        <div class="pricing-name">내용증명<span>작성 · 발송 지원</span></div>
+        <div class="pricing-price"><em>55만원</em>부터</div>
+        <div class="pricing-note">사건에 따라 추가비용 가능</div>
+      </a>
+      <a class="pricing-row" href="yuchaekmate_criminal">
+        <div class="pricing-num">07</div>
+        <div class="pricing-name">형사 대응<span>고소장 · 의견서 작성</span></div>
+        <div class="pricing-price"><em>110만원</em>부터</div>
+        <div class="pricing-note">사건에 따라 추가비용 가능 · 전체 수임 시 별도 견적</div>
+      </a>
+      <a class="pricing-row featured" href="yuchaekmate_plaintiff">
+        <div class="pricing-num">08</div>
+        <div class="pricing-name">올인원 풀케어 패키지<span>전략 수립부터 종결까지 전 과정 수임</span></div>
+        <div class="pricing-price">착수금 <em>440만원</em><br>+ 성공보수 10%</div>
+        <div class="pricing-note">상간소송 기준 · 원고: 인정 위자료 / 피고: 방어·감액액 기준</div>
+      </a>
+    </div>
+
+    <p class="pricing-foot">표시된 금액은 기본 기준이며, 사건의 난이도와 청구 규모에 따라 달라질 수 있습니다. 정확한 비용은 상담에서 안내드립니다.</p>
   </div>
 </section>
 
