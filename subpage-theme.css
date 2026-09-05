@@ -271,3 +271,41 @@ section li,
   .for-whom-card, .service-item, .process-step { padding: 28px 24px !important; }
   .for-whom-card h4, .service-item h4, .process-step h4 { font-size: 17px !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CTA 배너 다듬기 (2026-09): 텍스트-버튼이 화면 양끝으로
+   벌어지던 여백을 없애고 한 덩어리로 모으며, 버튼을 키운다.
+   ═══════════════════════════════════════════════════════════ */
+.cta-banner {
+  grid-template-columns: minmax(0, 680px) auto !important;
+  justify-content: center !important;
+  gap: 80px !important;
+}
+.cta-text, .cta-banner-text { max-width: 680px; }
+.cta-text p, .cta-banner-text p { font-size: 15px !important; }
+.cta-banner .btn-white, .cta-btns .btn-white {
+  background: #F1F0EE !important;
+  color: #5E1624 !important;
+  padding: 23px 60px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+}
+.cta-banner .btn-white:hover, .cta-btns .btn-white:hover {
+  background: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+}
+.cta-banner .cta-btn {
+  padding: 23px 60px !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
+@media (max-width: 768px) {
+  .cta-banner { grid-template-columns: 1fr !important; gap: 26px !important; }
+  .cta-banner .btn-white, .cta-btns .btn-white, .cta-banner .cta-btn {
+    text-align: center;
+    padding: 19px 36px !important;
+    font-size: 16px !important;
+  }
+}
