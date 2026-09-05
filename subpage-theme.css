@@ -309,3 +309,11 @@ section li,
     font-size: 16px !important;
   }
 }
+
+/* page-header(브랜드·상담 페이지): 넓은 화면에서 좌측으로 쏠려
+   우측이 텅 비던 헤더를 다른 페이지 히어로처럼 중앙 정렬로 */
+.page-header { text-align: center !important; }
+.page-header-eyebrow { justify-content: center !important; }
+.page-header h1 { margin-left: auto !important; margin-right: auto !important; }
+.page-header-desc { margin-left: auto !important; margin-right: auto !important; }
+.page-header-desc { text-align: center !important; }
