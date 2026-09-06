@@ -2,6 +2,13 @@
    global.css — 전역 타이포그래피
    ══════════════════════════════ */
 
+/* 0. iOS Safari가 임의로 글자를 키우는 font boosting 차단
+   (모바일에서 특정 문단만 거대해지며 레이아웃이 깨지는 원인) */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* 1. 단어 중간 줄바꿈 방지 — 전체 적용 */
 * {
   word-break: keep-all;
