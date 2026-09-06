@@ -47,6 +47,14 @@ button, input, select, textarea, label {
 
 /* 6. 모바일 추가 조정 */
 @media (max-width: 768px) {
+  /* 모바일 본문은 기기 기본 한글 글꼴을 우선 사용.
+     한글 웹폰트는 조각(subset) 단위로 로드되는데 모바일 회선에서 일부만
+     로드되면 글자마다 글꼴이 섞여 "중간중간 깨져" 보인다. 기기 글꼴을
+     앞세우면 본문이 항상 균일하게 나온다 (제목 세리프는 그대로). */
+  body, p, li, button, input, textarea, select, label {
+    font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  }
+
   p {
     text-align: left;
     line-height: 1.85;
