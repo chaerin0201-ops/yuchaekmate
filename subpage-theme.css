@@ -335,3 +335,25 @@ section.section > .section-sub {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* 전화 플로팅 버튼 (서브페이지 공통, 홈은 우측 레일 사용) */
+.float-call {
+  position: fixed;
+  right: 20px;
+  bottom: 28px;
+  z-index: 150;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #1F3A2E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.4);
+  transition: transform 0.2s, background 0.2s;
+}
+.float-call:hover { transform: translateY(-2px); background: #2A4E3D; }
+.float-call svg { width: 25px; height: 25px; stroke: #FFF; fill: none; stroke-width: 1.6; }
+@media (max-width: 768px) {
+  .float-call { right: 14px; bottom: 172px; width: 52px; height: 52px; }
+}
