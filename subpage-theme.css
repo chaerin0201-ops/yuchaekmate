@@ -317,3 +317,21 @@ section li,
 .page-header h1 { margin-left: auto !important; margin-right: auto !important; }
 .page-header-desc { margin-left: auto !important; margin-right: auto !important; }
 .page-header-desc { text-align: center !important; }
+
+/* ── 서비스 상세 페이지 정렬 (2026-09) ──
+   넓은 화면에서 히어로·섹션 헤더가 좌측에 붙어 우측이 비어 보이던 것을
+   가운데로 모은다. .section 섹션의 직계 헤더만 건드린다. */
+@media (min-width: 769px) {
+  .page-hero {
+    grid-template-columns: minmax(0, 680px) minmax(0, 560px) !important;
+    justify-content: center !important;
+  }
+  .page-hero .hero-left { padding-left: 48px !important; padding-right: 48px !important; }
+}
+section.section > .section-label { justify-content: center !important; }
+section.section > .section-title { text-align: center !important; }
+section.section > .section-sub {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
