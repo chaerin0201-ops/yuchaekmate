@@ -480,6 +480,10 @@
   /* ── VALUES SECTION ── */
   .values { background: var(--ink); }
 
+  /* 핵심 가치·브랜드 스토리 섹션 헤더는 중앙 정렬 */
+  .values > .section-label, .story > .section-label { justify-content: center; }
+  .values > .section-title, .story > .section-title { text-align: center; }
+
   .values-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -702,13 +706,19 @@
   /* ── CTA ── */
   .brand-cta {
     background: var(--burgundy);
-    padding: 90px 80px;
+    padding: 90px 48px;
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 60px;
+    grid-template-columns: minmax(0, 640px) auto;
+    justify-content: center;
+    gap: 80px;
     align-items: center;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .brand-cta { grid-template-columns: 1fr; gap: 28px; padding: 56px 20px; }
+    .brand-cta-btn { display: block; text-align: center; }
   }
 
   .brand-cta::before {
@@ -738,12 +748,12 @@
   }
 
   .brand-cta-btn {
-    background: var(--panel);
-    color: var(--burgundy-on-dark);
-    padding: 16px 36px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    background: #F1F0EE;
+    color: #5E1624;
+    padding: 23px 60px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-decoration: none;
     display: inline-block;
     transition: all 0.25s;
@@ -753,7 +763,7 @@
     z-index: 2;
   }
 
-  .brand-cta-btn:hover { background: var(--panel-2); color: var(--white); }
+  .brand-cta-btn:hover { background: #FFFFFF; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
 
   /* ── FOOTER ── */
   footer {
@@ -1103,7 +1113,7 @@
   .section-title { font-size: 22px !important; }
   .cta-banner { grid-template-columns: 1fr !important; padding: 40px 20px !important; gap: 20px !important; text-align: center !important; }
   .brand-cta { grid-template-columns: 1fr !important; padding: 48px 20px !important; gap: 24px !important; text-align: center !important; }
-  .brand-cta-btn { padding: 14px 28px !important; font-size: 13px !important; }
+  .brand-cta-btn { padding: 19px 36px !important; font-size: 16px !important; }
 }</style>
 </head>
 <link rel="stylesheet" href="subpage-theme.css?v=8">
@@ -1395,8 +1405,8 @@
       상간소송은 감정적으로 가장 힘든 시기에 가장 중요한 결정을 내려야 하는 순간입니다.<br><br>
       유책메이트는 그 순간 당신의 가장 완벽한 조력자가 되겠습니다.
     </p>
-    <a href="/#cta" style="display:inline-flex; align-items:center; gap:12px; color:var(--white); text-decoration:none; font-size:13px; font-weight:400; letter-spacing:0.05em; border:1px solid rgba(244,239,234,0.2); padding:14px 24px; transition:all 0.25s;">
-      <span style="font-size:16px;">→</span>
+    <a href="/#cta" style="display:inline-flex; align-items:center; gap:14px; color:var(--white); text-decoration:none; font-size:16px; font-weight:600; letter-spacing:0.05em; border:1px solid rgba(244,239,234,0.35); padding:21px 46px; transition:all 0.25s;">
+      <span style="font-size:19px;">→</span>
       상담 신청하기
     </a>
   </div>
@@ -1436,8 +1446,8 @@
 <!-- CTA -->
 <div class="brand-cta">
   <div class="brand-cta-text reveal">
-    <h2>지금 바로 상담을 시작하세요.</h2>
-    <p>사건의 구조를 먼저 진단하고, 최적의 전략을 함께 설계합니다.</p>
+    <h2>고민이 길어질수록,<br>골든타임은 짧아집니다.</h2>
+    <p>사건 구조 진단부터 최적의 전략 설계까지 — 지금 상담으로 시작하세요.</p>
   </div>
   <div class="reveal reveal-delay-2">
     <a href="yuchaekmate_consult" class="brand-cta-btn">상담 신청하기</a>
