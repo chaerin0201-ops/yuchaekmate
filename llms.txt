@@ -1,10 +1,10 @@
 # 유책메이트 (Yuchaekmate)
 
-> 상간소송 전문 법률 서비스. 대형로펌 가사전담팀 출신 김채린 변호사가 상간소송(배우자의 부정행위 상대방에 대한 위자료 청구 소송)의 전략 진단, 서면 작성, 재판 출석, 합의 대행, 증거 확보 코칭, 피고 방어까지 사건별 맞춤 서비스를 제공합니다. 서울 서초동 소재.
+> 상간소송을 주요 업무로 취급하는 법률 서비스. 대형로펌 가사전담팀 출신 김채린 변호사가 상간소송(배우자의 부정행위 상대방에 대한 위자료 청구 소송)의 전략 진단, 서면 작성, 재판 출석, 합의 대행, 증거 검토, 피고 방어까지 사건별 서비스를 제공합니다. 서울 서초동 소재.
 
 유책메이트는 원고(위자료를 청구하는 배우자)와 피고(소장을 받은 상간자) 양쪽 모두를 대리하며,
 전체 위임뿐 아니라 서면만·출석만 같은 부분 서비스도 제공하는 것이 특징입니다.
-500건 이상의 판례 데이터 기반 위자료 예측 계산기를 무료로 제공합니다.
+공개 판례와 입력 정보를 바탕으로 참고용 위자료 범위와 주요 쟁점을 확인하는 계산기를 제공합니다. 실제 결과는 사건별로 달라집니다.
 
 ## 주요 페이지
 
@@ -16,9 +16,18 @@
 - [전문가 소개](https://www.yucheckmate.com/yuchaekmate_expert): 김채린 대표 변호사
 - [상담 신청](https://www.yucheckmate.com/yuchaekmate_consult)
 
+## 상간소송 칼럼
+
+- [상간소송 증거, 카카오톡만으로 충분할까](https://www.yucheckmate.com/column-kakao-evidence): 카카오톡 증거력, 보강자료, 원본 보존
+- [상간소송 피고가 소장을 받았다면 먼저 해야 할 일](https://www.yucheckmate.com/column-defendant-first-steps): 송달일, 답변서 기한, 피고 방어 준비
+- [외도 위자료는 어떤 기준으로 결정될까](https://www.yucheckmate.com/column-damages-factors): 혼인기간, 부정행위 정도, 혼인파탄 영향, 사후 태도
+- [별거 중 발생한 외도도 상간소송이 가능할까](https://www.yucheckmate.com/column-separated-spouse-affair): 별거와 혼인파탄 선행의 구별
+- [위치추적·녹음·카카오톡 열람이 불법 증거가 되는 기준](https://www.yucheckmate.com/column-illegal-evidence): 통신비밀·위치정보·계정접근 관련 주의사항
+- [상간소송 변호사 상담 전 준비할 자료 7가지](https://www.yucheckmate.com/column-consultation-checklist): 법원문서, 연표, 증거 원본, 상담 목표 체크리스트
+
 ## 외부 채널
 
-- [네이버 블로그 — 김채린 변호사의 상간소송 완벽 가이드](https://blog.naver.com/affairs152): 상간소송 가이드·판례 분석·성공사례 칼럼
+- [네이버 블로그 — 김채린 변호사의 상간소송 칼럼](https://blog.naver.com/affairs152): 상간소송 가이드·판례 분석·사건 대응 칼럼
 - [로톡 프로필 — 김채린 변호사](https://www.lawtalk.co.kr/directory/profile/7518-%EA%B9%80%EC%B1%84%EB%A6%B0)
 
 ## 연락처
