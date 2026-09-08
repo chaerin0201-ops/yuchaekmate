@@ -58,6 +58,8 @@ body {
   outline: none; font-family: inherit; appearance: none; -webkit-appearance: none;
 }
 .field input:focus, .field select:focus { border-color: #8E2237; background: #fff; }
+.field .lock { font-size: 11px; font-weight: 500; color: #6E1A2A; margin-left: 6px; }
+.field-hint { font-size: 11.5px; color: #A08D80; margin-top: 6px; line-height: 1.6; }
 .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7466' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
 .radio-row { display: flex; gap: 8px; }
 .radio-row label {
@@ -146,8 +148,9 @@ footer a { color: #9E7C54; text-decoration: none; }
       <input type="text" id="ad-name" placeholder="성함을 입력해주세요" autocomplete="name">
     </div>
     <div class="field">
-      <label for="ad-phone">연락처</label>
+      <label for="ad-phone">연락처 <span class="lock">🔒 비밀 보장</span></label>
       <input type="tel" id="ad-phone" placeholder="010-0000-0000" autocomplete="tel">
+      <p class="field-hint">입력하신 정보는 변호사만 확인하며, 상담 외 용도로 쓰지 않습니다.</p>
     </div>
     <div class="field">
       <label for="ad-status">현재 상황</label>
@@ -166,6 +169,15 @@ footer a { color: #9E7C54; text-decoration: none; }
         <label><input type="radio" name="ad-contact" value="전화" checked> 전화</label>
         <label><input type="radio" name="ad-contact" value="문자 먼저"> 문자 먼저</label>
       </div>
+    </div>
+    <div class="field">
+      <label for="ad-time">연락 가능한 시간대</label>
+      <select id="ad-time">
+        <option>아무 때나 괜찮아요</option>
+        <option>오전 (9시~12시)</option>
+        <option>오후 (12시~18시)</option>
+        <option>저녁 (18시~21시)</option>
+      </select>
     </div>
 
     <label class="agree"><input type="checkbox" id="ad-agree"> 개인정보 수집·이용에 동의합니다.</label>
@@ -238,7 +250,8 @@ function handleAdSubmit(e) {
   btn.textContent = '전송 중...';
   btn.disabled = true;
 
-  var desc = '상황: ' + (status || '미선택') + ' / 연락방식: ' + contact;
+  var time = document.getElementById('ad-time').value;
+  var desc = '상황: ' + (status || '미선택') + ' / 연락방식: ' + contact + ' / 가능 시간: ' + time;
   var data = {
     form_type: '광고 랜딩 상담',
     name: name, phone: phone, desc: desc,
