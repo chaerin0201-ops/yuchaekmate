@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>유책메이트 | 전략 진단 리포트 신청</title>
-<meta name="description" content="상간소송 전략 진단 리포트 신청 — 15만원, 3일 이내 이메일 전송, 정식 선임 시 비용 차감.">
+<meta name="description" content="상간소송 전략 진단 리포트 신청 — 오픈 기념 선착순 10명 무료(소진 후 15만원), 3일 이내 이메일 전송.">
 <link rel="canonical" href="https://www.yucheckmate.com/yuchaekmate_apply_report">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="유책메이트">
 <meta property="og:title" content="유책메이트 | 전략 진단 리포트 신청">
-<meta property="og:description" content="상간소송 전략 진단 리포트 신청 — 15만원, 3일 이내 이메일 전송, 정식 선임 시 비용 차감.">
+<meta property="og:description" content="상간소송 전략 진단 리포트 신청 — 오픈 기념 선착순 10명 무료(소진 후 15만원), 3일 이내 이메일 전송.">
 <meta property="og:url" content="https://www.yucheckmate.com/yuchaekmate_apply_report">
 <meta property="og:image" content="https://www.yucheckmate.com/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -1025,15 +1025,15 @@ window.__fbReady = true;
       </div>
       <div class="fcheck">
         <input type="checkbox" id="r-pay-agree" name="비용동의">
-        <label for="r-pay-agree">리포트 서비스 비용은 <strong>15만 원</strong>이며, 결제 완료 후 사실관계진술서 발송 및 리포트 작성이 시작됨을 확인합니다.</label>
+        <label for="r-pay-agree">리포트 서비스 비용은 <strong>15만 원</strong>이나, 오픈 기념으로 <strong>선착순 10명은 무료</strong>입니다. 무료 적용 여부는 접수 순서에 따라 개별 안내드리며, 유료 대상인 경우 결제 완료 후 리포트 작성이 시작됨을 확인합니다.</label>
       </div>
-      <button class="btn-submit" type="submit">리포트 신청하기 (15만원)</button>
+      <button class="btn-submit" type="submit">리포트 신청하기 (선착순 10명 무료)</button>
     </form>
 
     <div class="apply-info">
       <div class="info-box-dark">
         <div class="info-box-title">리포트 안내</div>
-        <div class="info-item"><span class="info-icon">·</span><span>진단 비용 <strong style="color:var(--gold)">15만 원</strong></span></div>
+        <div class="info-item"><span class="info-icon">·</span><span><strong style="color:var(--gold)">오픈 기념 선착순 10명 무료</strong> · 소진 후 15만 원</span></div>
         <div class="info-item"><span class="info-icon">·</span><span>대표 변호사가 직접 검토 및 작성</span></div>
         <div class="info-item"><span class="info-icon">·</span><span>사실관계 진술서 제출일로부터 <strong style="color:var(--gold)">3일 이내</strong> 이메일 전송</span></div>
         <div class="info-item"><span class="info-icon">·</span><span>리포트 전달 후 대표 변호사와 <strong style="color:var(--gold)">15분 전화상담</strong> 포함</span></div>
@@ -1147,7 +1147,7 @@ function handleReportSubmit(e) {
   btn.disabled = true;
 
   const data = {
-    form_type: '전략 진단 리포트 신청 (15만원)',
+    form_type: '전략 진단 리포트 신청 (오픈 기념 이벤트)',
     name, phone, email, type,
     payMethod: document.querySelector('input[name="결제방법"]:checked') ? document.querySelector('input[name="결제방법"]:checked').value : '미선택',
     status: '신규 (입금 대기)',
@@ -1157,7 +1157,7 @@ function handleReportSubmit(e) {
   function onDone() {
     document.getElementById('success-overlay').classList.add('show');
     e.target.reset();
-    btn.textContent = '리포트 신청하기 (15만원)';
+    btn.textContent = '리포트 신청하기 (선착순 10명 무료)';
     btn.disabled = false;
   }
 
