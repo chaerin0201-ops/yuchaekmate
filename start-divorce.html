@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>유책메이트 | 이혼 전략 상담</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  background: #F4E3DC;
+  color: #2A2522;
+  word-break: keep-all;
+  padding-bottom: 92px; /* 하단 고정 버튼 자리 */
+}
+.wrap { max-width: 520px; margin: 0 auto; padding: 0 22px; }
+
+.topbar { text-align: center; padding: 22px 0 6px; }
+.topbar .brand { font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; letter-spacing: 0.28em; }
+.topbar .brand-sub { font-size: 10px; letter-spacing: 0.22em; color: #9E7C54; margin-top: 5px; }
+
+.hero { text-align: center; padding: 26px 0 8px; }
+.hero-quote { font-size: 14px; font-weight: 500; color: #7A5442; letter-spacing: 0.02em; margin-bottom: 14px; }
+.hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+.hero h1 .gold { color: #9E7C54; }
+.hero-sub { margin-top: 14px; font-size: 15px; font-weight: 400; color: #5E4B41; line-height: 1.8; }
+.hero-img { display: block; width: 210px; margin: 10px auto 0; }
+
+.trust { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 18px 0 26px; }
+.trust span {
+  font-size: 12px; font-weight: 500; color: #6E1A2A;
+  background: rgba(255,255,255,0.65); border: 1px solid rgba(110,26,42,0.18);
+  padding: 7px 13px; border-radius: 999px;
+}
+
+.promo-strip {
+  background: #8E2237; color: #FBEFE9;
+  border-radius: 14px; padding: 15px 16px;
+  text-align: center; font-size: 14.5px; line-height: 1.6;
+  margin-bottom: 14px;
+}
+.promo-strip b { color: #FFD9A8; }
+
+.form-card {
+  background: #FFFFFF; border-radius: 18px; padding: 30px 24px 26px;
+  box-shadow: 0 16px 40px rgba(60,30,25,0.14);
+}
+.form-card h2 { font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 700; text-align: center; }
+.form-card .form-note { text-align: center; font-size: 12.5px; color: #8A7466; margin: 8px 0 20px; line-height: 1.7; }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #4A3A32; }
+.field input[type=text], .field input[type=tel], .field select {
+  width: 100%; padding: 15px 14px; font-size: 16px; color: #2A2522;
+  border: 1.5px solid #E3D5CC; border-radius: 10px; background: #FBF8F5;
+  outline: none; font-family: inherit; appearance: none; -webkit-appearance: none;
+}
+.field input:focus, .field select:focus { border-color: #8E2237; background: #fff; }
+.field .lock { font-size: 11px; font-weight: 500; color: #6E1A2A; margin-left: 6px; }
+.field-hint { font-size: 11.5px; color: #A08D80; margin-top: 6px; line-height: 1.6; }
+.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7466' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.radio-row { display: flex; gap: 8px; }
+.radio-row label {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1.5px solid #E3D5CC; border-radius: 10px; padding: 13px 0;
+  font-size: 14px; font-weight: 500; background: #FBF8F5; cursor: pointer; margin-bottom: 0;
+}
+.radio-row input { accent-color: #8E2237; }
+.agree { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #6E5B50; margin: 14px 0 16px; }
+.agree input { width: 17px; height: 17px; accent-color: #8E2237; }
+.submit-btn {
+  width: 100%; border: none; cursor: pointer;
+  background: #8E2237; color: #fff; border-radius: 12px;
+  padding: 19px 0; font-size: 18px; font-weight: 700; font-family: inherit;
+  letter-spacing: 0.04em; transition: background 0.2s;
+}
+.submit-btn:disabled { background: #B98A93; }
+.privacy-tiny { text-align: center; font-size: 11px; color: #A08D80; margin-top: 12px; line-height: 1.7; }
+
+.results { padding: 34px 0 6px; }
+.results h3, .steps h3 { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+.result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.result-card { background: rgba(255,255,255,0.7); border-radius: 14px; padding: 16px 8px; text-align: center; }
+.result-num { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; color: #6E1A2A; }
+.result-label { font-size: 11.5px; color: #7A6558; margin-top: 5px; line-height: 1.5; }
+.result-foot { text-align: center; font-size: 11px; color: #A08D80; margin-top: 10px; }
+
+.steps { padding: 30px 0 8px; }
+.step { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,0.55); border-radius: 14px; padding: 15px 16px; margin-bottom: 8px; }
+.step-num { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #9E7C54; flex-shrink: 0; }
+.step b { font-size: 14.5px; }
+.step p { font-size: 12.5px; color: #7A6558; margin-top: 3px; line-height: 1.7; }
+
+footer { text-align: center; padding: 34px 22px 26px; font-size: 11px; color: #A08D80; line-height: 1.9; }
+footer a { color: #9E7C54; text-decoration: none; }
+
+.bottom-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: flex; gap: 8px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(244,227,220,0.94); backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(110,26,42,0.12);
+}
+.bottom-bar a {
+  flex: 1; text-align: center; text-decoration: none; border-radius: 12px;
+  padding: 16px 0; font-size: 16px; font-weight: 700;
+}
+.bar-call { background: #fff; color: #6E1A2A; border: 1.5px solid #8E2237; }
+.bar-apply { background: #8E2237; color: #fff; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 110px; transform: translateX(-50%) translateY(16px);
+  background: #2A2522; color: #fff; font-size: 14px; padding: 13px 26px; border-radius: 999px;
+  opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 60; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">유책메이트</div>
+  <div class="brand-sub">상간소송의 정석</div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-quote">[ 울고만 있기엔, 내 인생이 아깝잖아요 ]</div>
+    <h1>이혼은 끝이 아니라,<br><span class="gold">화려한 컴백입니다.</span></h1>
+    <p class="hero-sub">재산분할·위자료·양육권까지,<br>대형로펌 가사전담팀 출신 변호사가 직접 설계합니다.</p>
+    <img class="hero-img" src="landing-fashion.png" alt="화려하게 걸어가는 여성 일러스트">
+  </div>
+
+  <div class="trust">
+    <span>전화상담 무료</span>
+    <span>대표 변호사 직접 수행</span>
+    <span>100% 비밀 보장</span>
+  </div>
+
+
+
+  <form class="form-card" id="apply" onsubmit="return handleAdSubmit(event)">
+    <h2>무료 전화상담 신청</h2>
+    <p class="form-note">남겨주시면 변호사가 직접 확인 후 연락드립니다.<br>전화상담은 무료이며, 모든 내용은 비밀이 보장됩니다.</p>
+
+    <div class="field">
+      <label for="ad-name">성함</label>
+      <input type="text" id="ad-name" placeholder="성함을 입력해주세요" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="ad-phone">연락처 <span class="lock">🔒 비밀 보장</span></label>
+      <input type="tel" id="ad-phone" placeholder="010-0000-0000" autocomplete="tel">
+      <p class="field-hint">입력하신 정보는 변호사만 확인하며, 상담 외 용도로 쓰지 않습니다.</p>
+    </div>
+    <div class="field">
+      <label for="ad-status">현재 상황</label>
+      <select id="ad-status">
+        <option value="">선택해주세요</option>
+        <option>이혼을 고민하고 있어요</option>
+        <option>배우자와 협의 중이에요</option>
+        <option>이혼 소송을 준비하고 있어요</option>
+        <option>소장을 받았어요</option>
+        <option>재산분할·양육권이 걱정돼요</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>편한 연락 방식</label>
+      <div class="radio-row">
+        <label><input type="radio" name="ad-contact" value="전화" checked> 전화</label>
+        <label><input type="radio" name="ad-contact" value="문자 먼저"> 문자 먼저</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="ad-time">연락 가능한 시간대</label>
+      <select id="ad-time">
+        <option>아무 때나 괜찮아요</option>
+        <option>오전 (9시~12시)</option>
+        <option>오후 (12시~18시)</option>
+        <option>저녁 (18시~21시)</option>
+      </select>
+    </div>
+
+    <label class="agree"><input type="checkbox" id="ad-agree"> 개인정보 수집·이용에 동의합니다.</label>
+    <button class="submit-btn" type="submit">무료 상담 신청하기</button>
+    <p class="privacy-tiny">수집 항목: 성함·연락처 · 이용 목적: 상담 연락 · 보유 기간: 상담 종료 후 파기</p>
+  </form>
+
+  <div class="results">
+    <h3>유책메이트가 만든 결과들</h3>
+    <div class="result-grid">
+      <div class="result-card"><div class="result-num">20억</div><div class="result-label">재산분할<br>확보</div></div>
+      <div class="result-card"><div class="result-num">50%</div><div class="result-label">전업주부 가사<br>기여도 인정</div></div>
+      <div class="result-card"><div class="result-num">6주</div><div class="result-label">신속 조정<br>성립</div></div>
+    </div>
+    <p class="result-foot">실제 사건 결과이며, 결과는 사건에 따라 다를 수 있습니다.</p>
+  </div>
+
+  <div class="steps">
+    <h3>신청 후 이렇게 진행됩니다</h3>
+    <div class="step"><div class="step-num">01</div><div><b>상담 신청</b><p>30초면 충분합니다. 남겨주신 정보는 변호사만 확인합니다.</p></div></div>
+    <div class="step"><div class="step-num">02</div><div><b>변호사 직접 연락</b><p>사건 개요를 듣고 소송 가능성과 방향을 안내드립니다.</p></div></div>
+    <div class="step"><div class="step-num">03</div><div><b>맞춤 전략 설계</b><p>증거·목표에 맞춰 소송, 합의, 방어 중 가장 유리한 길을 설계합니다.</p></div></div>
+  </div>
+
+</div>
+
+<footer>
+  광고책임변호사 김채린 | 변호사 김채린 법률사무소<br>
+  사업자등록번호 761-50-01093 | 대표번호 050-5674-6192<br>
+  <a href="https://www.yucheckmate.com/">www.yucheckmate.com</a>
+</footer>
+
+<div class="bottom-bar">
+  <a class="bar-call" href="tel:050-5674-6192">전화 상담</a>
+  <a class="bar-apply" href="#apply">무료 상담 신청</a>
+</div>
+
+<div class="toast" id="ad-toast">신청이 완료되었습니다. 곧 연락드리겠습니다.</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("Bg8rOwAFpjC0DGmOV");</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const app = initializeApp({
+  apiKey: "AIzaSyBaiWWlPqhp4UqwVAZMustQih0ASdQ2Beg",
+  authDomain: "uckeckmate-9c10c.firebaseapp.com",
+  projectId: "uckeckmate-9c10c",
+  storageBucket: "uckeckmate-9c10c.firebasestorage.app",
+  messagingSenderId: "760016514105",
+  appId: "1:760016514105:web:f176adf6c39de06fdbb1e8"
+});
+window.__db = getFirestore(app);
+window.__add = addDoc;
+window.__col = collection;
+window.__fbReady = true;
+</script>
+<script>
+function handleAdSubmit(e) {
+  e.preventDefault();
+  var name = document.getElementById('ad-name').value.trim();
+  var phone = document.getElementById('ad-phone').value.trim();
+  var status = document.getElementById('ad-status').value;
+  var contact = document.querySelector('input[name=ad-contact]:checked').value;
+  var agree = document.getElementById('ad-agree').checked;
+  if (!name || !phone) { alert('성함과 연락처를 입력해주세요.'); return false; }
+  if (!agree) { alert('개인정보 수집에 동의해주세요.'); return false; }
+
+  var btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = '전송 중...';
+  btn.disabled = true;
+
+  var time = document.getElementById('ad-time').value;
+  var desc = '상황: ' + (status || '미선택') + ' / 연락방식: ' + contact + ' / 가능 시간: ' + time;
+  var data = {
+    form_type: '광고 랜딩 상담 (이혼)',
+    name: name, phone: phone, desc: desc,
+    status: '신규',
+    createdAt: new Date().toLocaleString('ko-KR')
+  };
+
+  function onDone() {
+    e.target.reset();
+    var toast = document.getElementById('ad-toast');
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3000);
+    btn.textContent = '무료 상담 신청하기';
+    btn.disabled = false;
+  }
+
+  var emailP = (window.emailjs)
+    ? emailjs.send('service_520am9z', 'template_ma8e5yb', Object.assign({}, data, { to_email: 'lawleague175@naver.com', email: '', type: '광고 랜딩 상담', desc: desc })).catch(function (err) { console.warn('EmailJS:', err); })
+    : Promise.resolve();
+
+  var fbP = (window.__fbReady && window.__db)
+    ? window.__add(window.__col(window.__db, 'consult'), data).catch(function (err) { console.warn('Firebase:', err); })
+    : Promise.resolve();
+
+  var timeout = new Promise(function (resolve) { setTimeout(resolve, 3000); });
+  Promise.race([Promise.all([emailP, fbP]), timeout]).then(onDone);
+  return false;
+}
+</script>
+</body>
+</html>
