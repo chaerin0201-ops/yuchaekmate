@@ -112,10 +112,16 @@ footer a { color: #9E7C54; text-decoration: none; }
 }
 .bottom-bar a {
   flex: 1; text-align: center; text-decoration: none; border-radius: 12px;
-  padding: 16px 0; font-size: 16px; font-weight: 700;
+  padding: 16px 0; font-size: 15px; font-weight: 700; white-space: nowrap;
 }
 .bar-call { background: #fff; color: #6E1A2A; border: 1.5px solid #8E2237; }
+.bar-kakao { background: #FEE500; color: #3C1E1E; }
 .bar-apply { background: #8E2237; color: #fff; }
+.form-kakao {
+  display: block; text-align: center; text-decoration: none;
+  margin-top: 12px; padding: 15px 0; border-radius: 10px;
+  background: #FEE500; color: #3C1E1E; font-size: 14.5px; font-weight: 700;
+}
 
 .toast {
   position: fixed; left: 50%; bottom: 110px; transform: translateX(-50%) translateY(16px);
@@ -192,6 +198,7 @@ footer a { color: #9E7C54; text-decoration: none; }
 
     <label class="agree"><input type="checkbox" id="ad-agree"> 개인정보 수집·이용에 동의합니다.</label>
     <button class="submit-btn" type="submit">상담 신청하기</button>
+    <a class="form-kakao" href="https://open.kakao.com/o/sl0hQiEh" target="_blank" rel="noopener">💬 전화번호 남기기가 부담스러우시면, 카카오톡으로 문의하기</a>
     <p class="privacy-tiny">수집 항목: 성함·연락처 · 이용 목적: 상담 연락 · 보유 기간: 상담 종료 후 파기</p>
   </form>
 
@@ -222,6 +229,7 @@ footer a { color: #9E7C54; text-decoration: none; }
 
 <div class="bottom-bar">
   <a class="bar-call" href="tel:050-5674-6192">전화 상담</a>
+  <a class="bar-kakao" href="https://open.kakao.com/o/sl0hQiEh" target="_blank" rel="noopener">카톡 상담</a>
   <a class="bar-apply" href="#apply">상담 신청</a>
 </div>
 
@@ -255,6 +263,7 @@ function handleAdSubmit(e) {
   var agree = document.getElementById('ad-agree').checked;
   if (!name || !phone) { alert('성함과 연락처를 입력해주세요.'); return false; }
   if (!agree) { alert('개인정보 수집에 동의해주세요.'); return false; }
+  if (window.logLandingEvent) window.logLandingEvent('form_submit');
 
   var btn = e.target.querySelector('button[type=submit]');
   btn.textContent = '전송 중...';
@@ -290,6 +299,54 @@ function handleAdSubmit(e) {
   Promise.race([Promise.all([emailP, fbP]), timeout]).then(onDone);
   return false;
 }
+</script>
+<script>
+// 랜딩 행동 추적: 방문·스크롤·폼 시작·제출·버튼 클릭을 landing_events 컬렉션에 기록
+(function () {
+  var sent = {};
+  function logEvent(name) {
+    if (sent[name]) return;
+    sent[name] = true;
+    var tries = 0;
+    (function write() {
+      if (!window.__db || !window.__add || !window.__col) {
+        if (tries++ < 5) setTimeout(write, 1200);
+        return;
+      }
+      try {
+        window.__add(window.__col(window.__db, 'landing_events'), {
+          event: name,
+          page: 'start-divorce',
+          createdAt: new Date().toISOString(),
+          local: new Date().toLocaleString('ko-KR'),
+          w: window.innerWidth
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+  }
+  window.logLandingEvent = logEvent;
+
+  logEvent('page_view');
+
+  window.addEventListener('scroll', function onS() {
+    if (window.scrollY + window.innerHeight >= document.body.scrollHeight * 0.5) {
+      logEvent('scroll_50');
+      window.removeEventListener('scroll', onS);
+    }
+  }, { passive: true });
+
+  var form = document.getElementById('apply');
+  if (form) form.addEventListener('focusin', function () { logEvent('form_start'); });
+
+  function bind(selector, name) {
+    document.querySelectorAll(selector).forEach(function (el) {
+      el.addEventListener('click', function () { logEvent(name); });
+    });
+  }
+  bind('a[href^="tel:"]', 'click_call');
+  bind('.bar-kakao, .form-kakao', 'click_kakao');
+  bind('.bar-apply', 'click_apply_bar');
+})();
 </script>
 </body>
 </html>
