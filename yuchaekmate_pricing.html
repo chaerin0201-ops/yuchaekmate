@@ -517,7 +517,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
   .rate-row.featured:hover { background: rgba(142,34,55,0.30); }
   .rate-foot { font-size: 13px; font-weight: 300; color: var(--charcoal-muted); line-height: 1.9; margin: 0 auto 100px; max-width: 920px; }
 
-  .honest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 100px; }
+  /* 이 페이지의 섹션 제목·안내문은 표와 함께 가운데 정렬 */
+  .section-heading { justify-content: center; }
+  .consult-notice { max-width: 920px; margin-left: auto; margin-right: auto; }
+  .rate-foot { text-align: center; }
+
+  .honest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 0 auto 100px; max-width: 920px; }
   .honest-card { background: var(--panel); padding: 40px 36px; }
   .honest-card h3 { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 500; color: var(--charcoal); margin-bottom: 14px; line-height: 1.5; }
   .honest-card h3 i { color: var(--burgundy-on-dark); margin-right: 8px; }
