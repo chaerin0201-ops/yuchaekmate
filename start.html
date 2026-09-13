@@ -52,6 +52,28 @@ body {
 }
 .promo-strip b { color: #FFD9A8; }
 
+.price-card {
+  background: #FFFFFF; border-radius: 18px; padding: 24px 22px 18px;
+  box-shadow: 0 16px 40px rgba(60,30,25,0.10); margin-bottom: 14px;
+}
+.price-card h2 { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; text-align: center; }
+.price-card .price-sub { text-align: center; font-size: 12px; color: #8A7466; margin: 6px 0 14px; }
+.price-table { border-top: 1.5px solid #EDE0D6; }
+.price-row-item {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 13px 4px; border-bottom: 1px solid #F2E8DF;
+}
+.price-row-item .p-name { font-size: 14px; font-weight: 500; color: #4A3A32; }
+.price-row-item .p-name span { display: block; font-size: 11px; font-weight: 400; color: #A08D80; margin-top: 3px; }
+.price-row-item .p-val { font-size: 15px; font-weight: 700; color: #6E1A2A; text-align: right; white-space: nowrap; }
+.price-row-item .p-val small { font-size: 11px; font-weight: 400; color: #8A7466; }
+.price-row-item.hl { background: #FBF3EE; margin: 0 -8px; padding: 13px 12px; border-radius: 10px; border-bottom: none; }
+.price-all {
+  display: block; text-align: center; margin-top: 12px; font-size: 13px; font-weight: 700;
+  color: #9E7C54; text-decoration: none;
+}
+.price-tiny { text-align: center; font-size: 10.5px; color: #B5A296; margin-top: 8px; line-height: 1.6; }
+
 .form-card {
   background: #FFFFFF; border-radius: 18px; padding: 30px 24px 26px;
   box-shadow: 0 16px 40px rgba(60,30,25,0.14);
@@ -172,6 +194,31 @@ footer a { color: #9E7C54; text-decoration: none; }
     <span>1:1 전화상담</span>
     <span>대표 변호사 직접 수행</span>
     <span>100% 비밀 보장</span>
+  </div>
+
+  <div class="price-card">
+    <h2>상간소송 비용, 숨기지 않습니다</h2>
+    <p class="price-sub">유책메이트는 모든 서비스 비용을 정찰제로 공개합니다</p>
+    <div class="price-table">
+      <div class="price-row-item">
+        <div class="p-name">전략 진단 리포트<span>소송 가능성 · 증거 · 예상 위자료 분석</span></div>
+        <div class="p-val">15만원</div>
+      </div>
+      <div class="price-row-item">
+        <div class="p-name">내용증명<span>작성 · 발송 지원</span></div>
+        <div class="p-val">110만원</div>
+      </div>
+      <div class="price-row-item">
+        <div class="p-name">합의 대행<span>협상 대행 · 합의서 작성</span></div>
+        <div class="p-val">착수 110만원<small>부터</small></div>
+      </div>
+      <div class="price-row-item hl">
+        <div class="p-name">올인원 풀케어 패키지<span>전략 수립부터 종결까지 전 과정 수임</span></div>
+        <div class="p-val">착수금 440만원<small> + 성공보수 10%</small></div>
+      </div>
+    </div>
+    <a class="price-all" href="https://blog.naver.com/affairs152/224401015444" target="_blank" rel="noopener">전체 비용표 자세히 보기 →</a>
+    <p class="price-tiny">표시된 금액은 기본 기준이며, 사건의 난이도와 청구 규모에 따라 달라질 수 있습니다.</p>
   </div>
 
   <form class="form-card" id="apply" onsubmit="return handleAdSubmit(event)">
