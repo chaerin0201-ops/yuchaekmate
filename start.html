@@ -74,6 +74,20 @@ body {
 }
 .price-tiny { text-align: center; font-size: 10.5px; color: #B5A296; margin-top: 8px; line-height: 1.6; }
 
+.lawyer-card {
+  display: flex; align-items: center; gap: 16px;
+  background: #FFFFFF; border-radius: 18px; padding: 20px 22px;
+  box-shadow: 0 16px 40px rgba(60,30,25,0.10); margin-bottom: 14px;
+}
+.lawyer-photo {
+  width: 84px; height: 84px; border-radius: 50%; object-fit: cover; object-position: top;
+  flex-shrink: 0; border: 2.5px solid #EAD9CE;
+}
+.lawyer-info .l-name { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; }
+.lawyer-info .l-name span { font-size: 14px; font-weight: 500; color: #8A7466; margin-left: 4px; }
+.lawyer-info .l-desc { font-size: 12.5px; color: #7A6558; line-height: 1.7; margin-top: 6px; }
+.lawyer-info .l-desc b { color: #6E1A2A; font-weight: 700; }
+
 .form-card {
   background: #FFFFFF; border-radius: 18px; padding: 30px 24px 26px;
   box-shadow: 0 16px 40px rgba(60,30,25,0.14);
@@ -219,6 +233,14 @@ footer a { color: #9E7C54; text-decoration: none; }
     </div>
     <a class="price-all" href="https://blog.naver.com/affairs152/224401015444" target="_blank" rel="noopener">전체 비용표 자세히 보기 →</a>
     <p class="price-tiny">표시된 금액은 기본 기준이며,<br>사건의 난이도와 청구 규모에 따라 달라질 수 있습니다.</p>
+  </div>
+
+  <div class="lawyer-card">
+    <img class="lawyer-photo" src="expert-photo-sm.jpg" alt="김채린 변호사">
+    <div class="lawyer-info">
+      <div class="l-name">김채린 <span>변호사</span></div>
+      <div class="l-desc">대형로펌 가사전담팀 출신 · 이혼/상간소송 전문<br>상담부터 종결까지 <b>대표 변호사가 직접</b> 수행합니다.</div>
+    </div>
   </div>
 
   <form class="form-card" id="apply" onsubmit="return handleAdSubmit(event)">
