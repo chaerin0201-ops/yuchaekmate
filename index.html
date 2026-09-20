@@ -588,6 +588,37 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
     animation: fadeUp 0.8s 0.8s forwards;
   }
 
+  .hero-paths {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 720px;
+    margin: 0 0 24px;
+  }
+  .hero-path {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 18px;
+    background: rgba(18,18,18,0.84);
+    border: 1px solid rgba(255,255,255,0.28);
+    color: #fff;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .hero-path span { color: #E8B4BE; font-size: 12px; }
+  .hero-path strong { font-size: 16px; font-weight: 500; word-break: keep-all; }
+  .hero-path:hover { background: #302026; border-color: #E8B4BE; }
+  .hero-path:focus-visible { outline: 2px solid #E8B4BE; outline-offset: 4px; }
+  .hero-cta-note { color: rgba(255,255,255,0.72); font-size: 13px; margin-top: 14px; }
+  @media (max-width: 768px) {
+    .hero-paths { grid-template-columns: 1fr; gap: 8px; }
+    .hero-path { flex-direction: row; align-items: center; gap: 14px; padding: 14px 16px; }
+    .hero-path span { min-width: 44px; }
+    .hero-path strong { font-size: 15px; }
+    .hero-cta-note { text-align: center; }
+  }
+
   .btn-primary {
     background: var(--burgundy);
     color: #fff;
@@ -1984,7 +2015,7 @@ window.dispatchEvent(new Event('fb-ready'));
 
   </ul>
 
-  <a href="yuchaekmate_consult" class="nav-cta-btn">상담 신청</a>
+  <a href="yuchaekmate_apply_consult" class="nav-cta-btn">상담 신청</a>
   <button class="mob-btn" id="mob-btn" onclick="toggleMobMenu()" aria-label="메뉴 열기">
     <span></span><span></span><span></span>
   </button>
@@ -2028,7 +2059,7 @@ window.dispatchEvent(new Event('fb-ready'));
   <div class="mob-menu-section">
     <a href="yuchaekmate_calculator" class="mob-menu-link">위자료, 얼마 받을까?</a>
   </div>
-  <a href="yuchaekmate_consult" class="mob-menu-cta">온라인 상담 신청</a>
+  <a href="yuchaekmate_apply_consult" class="mob-menu-cta">온라인 상담 신청</a>
 </div>
 
 <!-- HERO -->
@@ -2039,27 +2070,37 @@ window.dispatchEvent(new Event('fb-ready'));
       <div class="hero-eyebrow-text">대형로펌 가사전담팀 출신 김채린 변호사</div>
     </div>
 
-    <div class="hero-quote-line">[ 혼자 삭여온 시간들 ]</div>
+    <div class="hero-quote-line">상간소송, 준비부터 방어·합의까지</div>
 
     <h1 class="hero-title">
-      더는 참지 마세요.<br>
-      이제는 제가<br>
-      <em>대신 싸우겠습니다</em>
+      상간소송,<br>
+      <em>내 상황에 맞는 대응부터</em>
     </h1>
 
     <p class="hero-subtitle">
-      유책메이트는 <br class="mob-break">의뢰인의 상황, 목표, 보유 증거를 종합 분석하여<br>
-      각 사건에 최적화된 맞춤형 전략 솔루션을 설계합니다.
+      전문 변호사가 사건의 증거와 쟁점을 직접 검토하고<br>
+      청구·방어·합의에 필요한 대응을 설계합니다.
     </p>
 
-    <div class="hero-cta-group">
-      <a href="yuchaekmate_consult" class="btn-primary" style="background:rgba(24,22,22,0.82);color:#F2EDEA;border:1px solid rgba(255,255,255,0.28);">상담 신청</a>
-      <a href="yuchaekmate_apply_report" class="btn-primary">내 사건 전략 진단 받기</a>
-      <a href="#services" class="btn-secondary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'});return false;">
-        서비스 알아보기
-        <span>↓</span>
+    <div class="hero-paths" role="navigation" aria-label="내 상황에 맞는 상간소송 안내">
+      <a href="yuchaekmate_plaintiff" class="hero-path">
+        <span>소송 준비</span><strong>소송을 준비하고 있습니다 →</strong>
+      </a>
+      <a href="yuchaekmate_defendant" class="hero-path">
+        <span>피고 대응</span><strong>소장을 받았습니다 →</strong>
+      </a>
+      <a href="yuchaekmate_settle" class="hero-path">
+        <span>합의 검토</span><strong>합의로 해결하고 싶습니다 →</strong>
       </a>
     </div>
+
+    <div class="hero-cta-group">
+      <a href="yuchaekmate_apply_consult" class="btn-primary">상담 신청하기</a>
+      <a href="yuchaekmate_report" class="btn-secondary">
+        선임 전, 전략 진단 리포트 알아보기 <span>→</span>
+      </a>
+    </div>
+    <p class="hero-cta-note">선임비용 공개 · 김채린 변호사 직접 검토</p>
 
     <!-- 핵심 포인트 -->
     <div class="hero-points">
@@ -2447,7 +2488,7 @@ window.dispatchEvent(new Event('fb-ready'));
       </a>
     </div>
 
-    <p class="pricing-foot">표시된 금액은 기본 기준이며, 사건의 난이도와 청구 규모에 따라 달라질 수 있습니다. 전화상담은 무료입니다.</p>
+    <p class="pricing-foot">표시된 금액은 기본 기준이며, 사건의 난이도와 청구 규모에 따라 달라질 수 있습니다.</p>
   </div>
 </section>
 
@@ -2546,7 +2587,7 @@ window.dispatchEvent(new Event('fb-ready'));
     <p>상황에 끌려다니기 전에, 필요한 자료와 대응 순서를 먼저 정리하십시오.<br>유책메이트가 사건에 맞는 법적 대응을 함께 설계하겠습니다.</p>
   </div>
   <div class="cta-banner-actions">
-    <a href="yuchaekmate_consult" class="btn-white">상담 신청하기</a>
+    <a href="yuchaekmate_apply_consult" class="btn-white">상담 신청하기</a>
     <div class="cta-note">24시간 상담</div>
   </div>
 </section>
@@ -2811,7 +2852,7 @@ function toggleMobMenu() {
   <input type="hidden" name="form-name" value="quick-consult">
   <div class="consult-bar-phone">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.28-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-    050-5674-6192 <span style="font-size:11px;font-weight:400;opacity:0.75;">· 전화상담 무료</span>
+    050-5674-6192
   </div>
   <div class="consult-bar-form">
     <input class="consult-bar-input name" type="text" id="cb-name" name="성함" placeholder="성함(한글)">
@@ -2953,9 +2994,9 @@ function handleBarSubmit(e) {
 .float-btn:nth-child(6) { background: #4a3728; }
 .float-btn:nth-child(6):hover { background: #5a4535; }
 @media (max-width: 768px) {
-  /* Compact icon-only rail tucked above the consult bar so it stops
-     covering body text in the middle of the screen. */
+  /* 모바일은 하단 상담바를 사용하고 상황 선택 버튼을 가리지 않는다. */
   .float-btns {
+    display: none;
     top: auto;
     bottom: 158px;
     transform: none;
